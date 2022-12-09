@@ -1,3 +1,5 @@
+#include "csapp.h"
+
 void clienterror(int fd, char *cause, char *errnum, char *shortmsg, char *longmsg)
 {
     char buf[MAXLINE], body[MAXBUF];
