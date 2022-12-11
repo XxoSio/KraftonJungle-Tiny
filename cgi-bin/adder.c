@@ -1,5 +1,6 @@
 /*
  * adder.c - a minimal CGI program that adds two numbers together
+ *         - 두 개의 숫자를 더하는 최소 CGI 프로그램
  */
 /* $begin adder */
 #include "csapp.h"
@@ -11,12 +12,12 @@ int main(void) {
 
     /* Extract the two arguments */
     if ((buf = getenv("QUERY_STRING")) != NULL) {
-	p = strchr(buf, '&');
-	*p = '\0';
-	strcpy(arg1, buf);
-	strcpy(arg2, p+1);
-	n1 = atoi(arg1);
-	n2 = atoi(arg2);
+        p = strchr(buf, '&');
+        *p = '\0';
+        strcpy(arg1, buf);
+        strcpy(arg2, p+1);
+        n1 = atoi(arg1);
+        n2 = atoi(arg2);
     }
 
     /* Make the response body */
@@ -27,6 +28,7 @@ int main(void) {
     sprintf(content, "%sThanks for visiting!\r\n", content);
   
     /* Generate the HTTP response */
+    // method가 GET일 경우에만 reponse를 보냄
     printf("Connection: close\r\n");
     printf("Content-length: %d\r\n", (int)strlen(content));
     printf("Content-type: text/html\r\n\r\n");
