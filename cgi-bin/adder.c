@@ -3,7 +3,7 @@
  *         - 두 개의 숫자를 더하는 최소 CGI 프로그램
  */
 /* $begin adder */
-#include "csapp.h"
+#include "../csapp.h"
 
 int main(void) {
     char *buf, *p;
