@@ -1,0 +1,59 @@
+\hypertarget{parse__uri_8c_source}{}\doxysection{parse\+\_\+uri.\+c}
+\label{parse__uri_8c_source}\index{code/parse\_uri.c@{code/parse\_uri.c}}
+\mbox{\hyperlink{parse__uri_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00001}00001 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00002}00002 \textcolor{comment}{ * parse\_uri -\/ parse URI into filename and CGI args}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00003}00003 \textcolor{comment}{ *             return 0 if dynamic content, 1 if static}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00004}00004 \textcolor{comment}{ *           -\/ URI를 파일 이름 및 CGI 인수로 구문 분석}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00005}00005 \textcolor{comment}{ *             동적 내용인 경우 0을 반환하고 정적인 경우 1을 반환}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00006}00006 \textcolor{comment}{ * }}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00007}00007 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{csapp_8h}{csapp.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00010}00010 \textcolor{comment}{// Tiny는 정적 컨텐츠를 위한 홈 디렉토리가 자신의 현재 디렉토리이고,}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00011}00011 \textcolor{comment}{// 실행파일의 홈 디렉토리는 /cgi-\/bin 이라고 가정}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00012}\mbox{\hyperlink{parse__uri_8c_aff908518ae341555df4dc671f145f992}{00012}} \textcolor{keywordtype}{int} \mbox{\hyperlink{parse__uri_8c_aff908518ae341555df4dc671f145f992}{parse\_uri}}(\textcolor{keywordtype}{char} *uri, \textcolor{keywordtype}{char} *filename, \textcolor{keywordtype}{char} *cgiargs) }
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00013}00013 \{}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00014}00014     \textcolor{keywordtype}{char} *ptr;}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00016}00016     \textcolor{comment}{// strstr(대상 문자열, 검색할 문자열) -\/> 검색된 문자열(대상 문자열)뒤에 모든 문자열이 나옴}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00017}00017     \textcolor{comment}{// uri에서 'cgi-\/bin'이라는 문자열이 없으면 정적 컨텐츠}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00018}00018     \textcolor{keywordflow}{if} (!strstr(uri, \textcolor{stringliteral}{"{}cgi-\/bin"{}})) \{}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00019}00019         \textcolor{comment}{// cgiargs 인자 string을 지움}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00020}00020         strcpy(cgiargs, \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00021}00021         \textcolor{comment}{// 상대 리눅스 경로 이름으로 변환 -\/ '.'}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00022}00022         strcpy(filename, \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00023}00023         \textcolor{comment}{// 상대 리눅스 경로 이름으로 변환 -\/ '.' + '/index.html'}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00024}00024         strcat(filename, uri);}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00025}00025     \textcolor{comment}{// URI가 '/'문자로 끝나는 경우}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00026}00026     \textcolor{keywordflow}{if} (uri[strlen(uri)-\/1] == \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00027}00027         \textcolor{comment}{// 기본 파일 이름인 home.html을 추가}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00028}00028         strcat(filename, \textcolor{stringliteral}{"{}home.html"{}});}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00030}00030         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00031}00031     \}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00032}00032     \textcolor{comment}{// 동적 컨텐츠}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00033}00033     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00034}00034         \textcolor{comment}{// 모든 CGI인자를 추출}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00035}00035         ptr = index(uri, \textcolor{charliteral}{'?'});}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00037}00037         \textcolor{comment}{// index: 첫번째에서 두번째 인자를 찾음 -\/ 찾으면 위치 포인터를, 못찾으면 NULL을 반환}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00038}00038         \textcolor{keywordflow}{if} (ptr) \{}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00039}00039             strcpy(cgiargs, ptr+1);}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00040}00040             *ptr = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00041}00041         \}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00042}00042         \textcolor{comment}{// ?가 없는 경우}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00043}00043         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00044}00044             \textcolor{comment}{// 빈칸으로 둠}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00045}00045             strcpy(cgiargs, \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00047}00047         \textcolor{comment}{// 나머지 URI 부분을 상대 리눅스 파일이름으로 변환}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00048}00048         strcpy(filename, \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00049}00049         strcat(filename, uri);}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00051}00051         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00052}00052     \}}
+\DoxyCodeLine{\Hypertarget{parse__uri_8c_source_l00053}00053 \}}
+
+\end{DoxyCode}

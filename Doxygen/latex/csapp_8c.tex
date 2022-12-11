@@ -1,0 +1,3081 @@
+\hypertarget{csapp_8c}{}\doxysection{code/csapp.c File Reference}
+\label{csapp_8c}\index{code/csapp.c@{code/csapp.c}}
+{\ttfamily \#include \char`\"{}csapp.\+h\char`\"{}}\newline
+Include dependency graph for csapp.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\+\_\+error}} (char $\ast$msg)
+\item 
+void \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\+\_\+error}} (int code, char $\ast$msg)
+\item 
+void \mbox{\hyperlink{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}{gai\+\_\+error}} (int code, char $\ast$msg)
+\item 
+void \mbox{\hyperlink{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}{app\+\_\+error}} (char $\ast$msg)
+\item 
+void \mbox{\hyperlink{csapp_8c_a4378bd8eb844245a9bebe850221a0818}{dns\+\_\+error}} (char $\ast$msg)
+\item 
+pid\+\_\+t \mbox{\hyperlink{csapp_8c_a00057fe93008a3ee1793005e659fa82f}{Fork}} (void)
+\item 
+void \mbox{\hyperlink{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899}{Execve}} (const char $\ast$filename, char $\ast$const argv\mbox{[}$\,$\mbox{]}, char $\ast$const envp\mbox{[}$\,$\mbox{]})
+\item 
+pid\+\_\+t \mbox{\hyperlink{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0}{Wait}} (int $\ast$status)
+\item 
+pid\+\_\+t \mbox{\hyperlink{csapp_8c_a1ce4844fc4b688bf455e0388b8b11b09}{Waitpid}} (pid\+\_\+t pid, int $\ast$iptr, int options)
+\item 
+void \mbox{\hyperlink{csapp_8c_a93f0f3dbc04b6e97c97caa3a0b03764a}{Kill}} (pid\+\_\+t pid, int signum)
+\item 
+void \mbox{\hyperlink{csapp_8c_a70babc5227ddd16ca31dccc6cec0bb22}{Pause}} ()
+\item 
+unsigned int \mbox{\hyperlink{csapp_8c_a361f45640c372f3405605187d71c415d}{Sleep}} (unsigned int secs)
+\item 
+unsigned int \mbox{\hyperlink{csapp_8c_abaca2294e0e2a8d770138a221ebbab96}{Alarm}} (unsigned int seconds)
+\item 
+void \mbox{\hyperlink{csapp_8c_a12d36aea8dd814a5b4db2416be575cd8}{Setpgid}} (pid\+\_\+t pid, pid\+\_\+t pgid)
+\item 
+pid\+\_\+t \mbox{\hyperlink{csapp_8c_a17a82432b029286b2d44efa3e389898f}{Getpgrp}} (void)
+\item 
+\mbox{\hyperlink{csapp_8h_acefb2ae1d743b3e28bdcd190cd1060f5}{handler\+\_\+t}} $\ast$ \mbox{\hyperlink{csapp_8c_a0a297a3a4d8d08503dd1d71da450733f}{Signal}} (int signum, \mbox{\hyperlink{csapp_8h_acefb2ae1d743b3e28bdcd190cd1060f5}{handler\+\_\+t}} $\ast$handler)
+\item 
+void \mbox{\hyperlink{csapp_8c_a3b1a337757afe9dcac6e0711c8b48d0d}{Sigprocmask}} (int how, const sigset\+\_\+t $\ast$set, sigset\+\_\+t $\ast$oldset)
+\item 
+void \mbox{\hyperlink{csapp_8c_a6fe299482800a6039392d1cf612e7422}{Sigemptyset}} (sigset\+\_\+t $\ast$set)
+\item 
+void \mbox{\hyperlink{csapp_8c_aef5a5d2d2f8bee4f4b96e39278bf45fc}{Sigfillset}} (sigset\+\_\+t $\ast$set)
+\item 
+void \mbox{\hyperlink{csapp_8c_aa1c88b372ef4a6d57118d2787dd4dfe1}{Sigaddset}} (sigset\+\_\+t $\ast$set, int signum)
+\item 
+void \mbox{\hyperlink{csapp_8c_a1c10d5fb697d7f4726f9d2ac18239485}{Sigdelset}} (sigset\+\_\+t $\ast$set, int signum)
+\item 
+int \mbox{\hyperlink{csapp_8c_af13d23717cad62011d2fb376d6ebee1c}{Sigismember}} (const sigset\+\_\+t $\ast$set, int signum)
+\item 
+int \mbox{\hyperlink{csapp_8c_a18c0a6e1622eb39bca88d96a8b2933c8}{Sigsuspend}} (const sigset\+\_\+t $\ast$set)
+\item 
+static void \mbox{\hyperlink{csapp_8c_a7280ec8bbd5b4ef0a9b65faaaf28faf3}{sio\+\_\+reverse}} (char s\mbox{[}$\,$\mbox{]})
+\item 
+static void \mbox{\hyperlink{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d}{sio\+\_\+ltoa}} (long v, char s\mbox{[}$\,$\mbox{]}, int b)
+\item 
+static size\+\_\+t \mbox{\hyperlink{csapp_8c_a34d77d7ef5e0af44bf1f6b0ccc3bc0de}{sio\+\_\+strlen}} (char s\mbox{[}$\,$\mbox{]})
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{sio\+\_\+puts}} (char s\mbox{[}$\,$\mbox{]})
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_ab966f509eca3c980efbd1c99686884d1}{sio\+\_\+putl}} (long v)
+\item 
+void \mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{sio\+\_\+error}} (char s\mbox{[}$\,$\mbox{]})
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_a5bc192f6925f61352e147bc049b9fce0}{Sio\+\_\+putl}} (long v)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_a6feaaee84f440ba84aee16da38e50c6a}{Sio\+\_\+puts}} (char s\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{csapp_8c_aa535c4f02a5e0e47e304504b5ff1b8d2}{Sio\+\_\+error}} (char s\mbox{[}$\,$\mbox{]})
+\item 
+int \mbox{\hyperlink{csapp_8c_a78bf11eb07f8d1ba271034ef5f8904d4}{Open}} (const char $\ast$pathname, int flags, mode\+\_\+t mode)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_aa126411f5821a2671133529b6e139560}{Read}} (int fd, void $\ast$buf, size\+\_\+t count)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_a9428ea024e46af2e8a00c874c637ad01}{Write}} (int fd, const void $\ast$buf, size\+\_\+t count)
+\item 
+off\+\_\+t \mbox{\hyperlink{csapp_8c_a95ac08c7753d84d6c58a8c9f452a7d15}{Lseek}} (int fildes, off\+\_\+t offset, int whence)
+\item 
+void \mbox{\hyperlink{csapp_8c_ade6d4842f21ea284e126636e424e6614}{Close}} (int fd)
+\item 
+int \mbox{\hyperlink{csapp_8c_ae353913c0c1a54b7f067c9baff4bfbad}{Select}} (int n, fd\+\_\+set $\ast$readfds, fd\+\_\+set $\ast$writefds, fd\+\_\+set $\ast$exceptfds, struct timeval $\ast$timeout)
+\item 
+int \mbox{\hyperlink{csapp_8c_ab0380f32f746c6557e0223260c6d70d2}{Dup2}} (int fd1, int fd2)
+\item 
+void \mbox{\hyperlink{csapp_8c_af805ffaf4f4efcfe194b3ffcc481991b}{Stat}} (const char $\ast$filename, struct stat $\ast$buf)
+\item 
+void \mbox{\hyperlink{csapp_8c_a386158a454e36f16758f5805e640effe}{Fstat}} (int fd, struct stat $\ast$buf)
+\item 
+DIR $\ast$ \mbox{\hyperlink{csapp_8c_aa034a018bcdd45163e6cd3bd866b4d88}{Opendir}} (const char $\ast$name)
+\item 
+struct dirent $\ast$ \mbox{\hyperlink{csapp_8c_a73e3a81a0e94f7a7d122ad019786f6a4}{Readdir}} (DIR $\ast$dirp)
+\item 
+int \mbox{\hyperlink{csapp_8c_af11e78949dd91377948e24e73eaeb15d}{Closedir}} (DIR $\ast$dirp)
+\item 
+void $\ast$ \mbox{\hyperlink{csapp_8c_a0cacede8957c9a8347c025eacbe4a65d}{Mmap}} (void $\ast$addr, size\+\_\+t len, int prot, int flags, int fd, off\+\_\+t offset)
+\item 
+void \mbox{\hyperlink{csapp_8c_a2ea5ad9d40a4599aeeb9edf95d42c2d1}{Munmap}} (void $\ast$start, size\+\_\+t length)
+\item 
+void $\ast$ \mbox{\hyperlink{csapp_8c_a9a7684ec7a101845e6c146df4c3ddd67}{Malloc}} (size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{csapp_8c_a3f29198eb411631180ed2785999f5f65}{Realloc}} (void $\ast$ptr, size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{csapp_8c_a165d26955e8d87c05fc67337b105140a}{Calloc}} (size\+\_\+t nmemb, size\+\_\+t size)
+\item 
+void \mbox{\hyperlink{csapp_8c_a2b9bb176fa6405b0237f05cb6d5dc3e6}{Free}} (void $\ast$ptr)
+\item 
+void \mbox{\hyperlink{csapp_8c_aeeee80da7fbbaa82da8e8b350759cfc0}{Fclose}} (FILE $\ast$fp)
+\item 
+FILE $\ast$ \mbox{\hyperlink{csapp_8c_a4e478ff44e1864ede54e70d3450a6311}{Fdopen}} (int fd, const char $\ast$type)
+\item 
+char $\ast$ \mbox{\hyperlink{csapp_8c_add6ba221dc16cc92f8e582dbb0734fbd}{Fgets}} (char $\ast$ptr, int n, FILE $\ast$stream)
+\item 
+FILE $\ast$ \mbox{\hyperlink{csapp_8c_a8f86c214181b217d0af38e1481c4207d}{Fopen}} (const char $\ast$filename, const char $\ast$mode)
+\item 
+void \mbox{\hyperlink{csapp_8c_ab73963d63d93d5e54425208b2be5b8f4}{Fputs}} (const char $\ast$ptr, FILE $\ast$stream)
+\item 
+size\+\_\+t \mbox{\hyperlink{csapp_8c_a1d4a671becd543eb823efe48bd4298d2}{Fread}} (void $\ast$ptr, size\+\_\+t size, size\+\_\+t nmemb, FILE $\ast$stream)
+\item 
+void \mbox{\hyperlink{csapp_8c_a47f38fbb42408f96f6946ba7bfdd7741}{Fwrite}} (const void $\ast$ptr, size\+\_\+t size, size\+\_\+t nmemb, FILE $\ast$stream)
+\item 
+int \mbox{\hyperlink{csapp_8c_ab40b825366ecd47b1693784284633633}{Socket}} (int domain, int type, int protocol)
+\item 
+void \mbox{\hyperlink{csapp_8c_aa60a3616258115e3fc537440b64bf9b5}{Setsockopt}} (int s, int level, int optname, const void $\ast$optval, int optlen)
+\item 
+void \mbox{\hyperlink{csapp_8c_a1e7b9a4287a5ac6fba5e9cb68156c645}{Bind}} (int sockfd, struct sockaddr $\ast$my\+\_\+addr, int addrlen)
+\item 
+void \mbox{\hyperlink{csapp_8c_a37bccc725d820a0d8ba8c3ecaf843fcc}{Listen}} (int s, int backlog)
+\item 
+int \mbox{\hyperlink{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1}{Accept}} (int s, struct sockaddr $\ast$addr, socklen\+\_\+t $\ast$addrlen)
+\item 
+void \mbox{\hyperlink{csapp_8c_a4aaa270f4f53cf5a6a70ca0fa49bbc96}{Connect}} (int sockfd, struct sockaddr $\ast$serv\+\_\+addr, int addrlen)
+\item 
+void \mbox{\hyperlink{csapp_8c_adf6da240d6d554a07dcd36d797923665}{Getaddrinfo}} (const char $\ast$node, const char $\ast$service, const struct addrinfo $\ast$hints, struct addrinfo $\ast$$\ast$res)
+\item 
+void \mbox{\hyperlink{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c}{Getnameinfo}} (const struct sockaddr $\ast$sa, socklen\+\_\+t salen, char $\ast$host, size\+\_\+t hostlen, char $\ast$serv, size\+\_\+t servlen, int flags)
+\item 
+void \mbox{\hyperlink{csapp_8c_acdecddf812f13fc175824e7075496a34}{Freeaddrinfo}} (struct addrinfo $\ast$res)
+\item 
+void \mbox{\hyperlink{csapp_8c_a6157592cb2f349885f589b03ba14cfab}{Inet\+\_\+ntop}} (int af, const void $\ast$src, char $\ast$dst, socklen\+\_\+t size)
+\item 
+void \mbox{\hyperlink{csapp_8c_a071058d9c8f8bc71c88a931bd658585d}{Inet\+\_\+pton}} (int af, const char $\ast$src, void $\ast$dst)
+\item 
+struct hostent $\ast$ \mbox{\hyperlink{csapp_8c_abab47464f0183976da5b4fb0e691942c}{Gethostbyname}} (const char $\ast$name)
+\item 
+struct hostent $\ast$ \mbox{\hyperlink{csapp_8c_a742dff6d42737924118e12df9425b42e}{Gethostbyaddr}} (const char $\ast$addr, int len, int type)
+\item 
+void \mbox{\hyperlink{csapp_8c_aa6d8a6ddf79bff38d27a2f95ad82c5c7}{Pthread\+\_\+create}} (pthread\+\_\+t $\ast$tidp, pthread\+\_\+attr\+\_\+t $\ast$attrp, void $\ast$($\ast$routine)(void $\ast$), void $\ast$argp)
+\item 
+void \mbox{\hyperlink{csapp_8c_a98942f3e2170be6281cf746fffc3c7fd}{Pthread\+\_\+cancel}} (pthread\+\_\+t tid)
+\item 
+void \mbox{\hyperlink{csapp_8c_a70cd5f9708d6fc60d1d1f2ffebaa10be}{Pthread\+\_\+join}} (pthread\+\_\+t tid, void $\ast$$\ast$thread\+\_\+return)
+\item 
+void \mbox{\hyperlink{csapp_8c_abe98ca7f09e647a538d75a2ef784db30}{Pthread\+\_\+detach}} (pthread\+\_\+t tid)
+\item 
+void \mbox{\hyperlink{csapp_8c_ac1d25c755489cca5be72c74c80acb299}{Pthread\+\_\+exit}} (void $\ast$retval)
+\item 
+pthread\+\_\+t \mbox{\hyperlink{csapp_8c_aa335e1a70a69c668d9d3556d6c6a22df}{Pthread\+\_\+self}} (void)
+\item 
+void \mbox{\hyperlink{csapp_8c_a1f8f79a19161e180b1ba85e91ac3b53f}{Pthread\+\_\+once}} (pthread\+\_\+once\+\_\+t $\ast$once\+\_\+control, void($\ast$init\+\_\+function)())
+\item 
+void \mbox{\hyperlink{csapp_8c_ae010289b7ef93f854a4dba379399537c}{Sem\+\_\+init}} (sem\+\_\+t $\ast$sem, int pshared, unsigned int value)
+\item 
+void \mbox{\hyperlink{csapp_8c_a542aba31fd254d7c5f15b8dffa0f2425}{P}} (sem\+\_\+t $\ast$sem)
+\item 
+void \mbox{\hyperlink{csapp_8c_a8540b39306541d6d133d787ea01d833a}{V}} (sem\+\_\+t $\ast$sem)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_a1cf7126905c6340624de56fd10671867}{rio\+\_\+readn}} (int fd, void $\ast$usrbuf, size\+\_\+t n)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_abfa235e4a4aecc432a600dac286a48ba}{rio\+\_\+writen}} (int fd, void $\ast$usrbuf, size\+\_\+t n)
+\item 
+static ssize\+\_\+t \mbox{\hyperlink{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}{rio\+\_\+read}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp, char $\ast$usrbuf, size\+\_\+t n)
+\item 
+void \mbox{\hyperlink{csapp_8c_ab883ce6c47fb4a14f0c27b2620bf8ecc}{rio\+\_\+readinitb}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp, int fd)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8}{rio\+\_\+readnb}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp, void $\ast$usrbuf, size\+\_\+t n)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_a9859728f6c15428877d9a75279374909}{rio\+\_\+readlineb}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp, void $\ast$usrbuf, size\+\_\+t maxlen)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_abbeba8caa94a14923800b14902803ceb}{Rio\+\_\+readn}} (int fd, void $\ast$ptr, size\+\_\+t nbytes)
+\item 
+void \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\+\_\+writen}} (int fd, void $\ast$usrbuf, size\+\_\+t n)
+\item 
+void \mbox{\hyperlink{csapp_8c_aed8da04ad4ae95341fe8951de010c52d}{Rio\+\_\+readinitb}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp, int fd)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_ac53e1402df452f5f3ce6f332bb0a8465}{Rio\+\_\+readnb}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp, void $\ast$usrbuf, size\+\_\+t n)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{Rio\+\_\+readlineb}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp, void $\ast$usrbuf, size\+\_\+t maxlen)
+\item 
+int \mbox{\hyperlink{csapp_8c_af3d89fae9c95718b173c5ba48a0d0cfc}{open\+\_\+clientfd}} (char $\ast$hostname, char $\ast$port)
+\item 
+int \mbox{\hyperlink{csapp_8c_ad6d48be42e6ddbaa0eddf3fdfc0a57d1}{open\+\_\+listenfd}} (char $\ast$port)
+\item 
+int \mbox{\hyperlink{csapp_8c_aef8a605f56519280d3fac186dafd1ad4}{Open\+\_\+clientfd}} (char $\ast$hostname, char $\ast$port)
+\item 
+int \mbox{\hyperlink{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5}{Open\+\_\+listenfd}} (char $\ast$port)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1}\label{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1}} 
+\index{csapp.c@{csapp.c}!Accept@{Accept}}
+\index{Accept@{Accept}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Accept()}{Accept()}}
+{\footnotesize\ttfamily int Accept (\begin{DoxyParamCaption}\item[{int}]{s,  }\item[{struct sockaddr $\ast$}]{addr,  }\item[{socklen\+\_\+t $\ast$}]{addrlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00581}{581}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00582 \{}
+\DoxyCodeLine{00583     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00584 }
+\DoxyCodeLine{00585     \textcolor{keywordflow}{if} ((rc = accept(s, addr, addrlen)) < 0)}
+\DoxyCodeLine{00586     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Accept error"{}});}
+\DoxyCodeLine{00587     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00588 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_abaca2294e0e2a8d770138a221ebbab96}\label{csapp_8c_abaca2294e0e2a8d770138a221ebbab96}} 
+\index{csapp.c@{csapp.c}!Alarm@{Alarm}}
+\index{Alarm@{Alarm}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Alarm()}{Alarm()}}
+{\footnotesize\ttfamily unsigned int Alarm (\begin{DoxyParamCaption}\item[{unsigned int}]{seconds }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00131}{131}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00131                                          \{}
+\DoxyCodeLine{00132     \textcolor{keywordflow}{return} alarm(seconds);}
+\DoxyCodeLine{00133 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}\label{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}} 
+\index{csapp.c@{csapp.c}!app\_error@{app\_error}}
+\index{app\_error@{app\_error}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{app\_error()}{app\_error()}}
+{\footnotesize\ttfamily void app\+\_\+error (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00051}{51}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052 \{}
+\DoxyCodeLine{00053     fprintf(stderr, \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}}, msg);}
+\DoxyCodeLine{00054     exit(0);}
+\DoxyCodeLine{00055 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a1e7b9a4287a5ac6fba5e9cb68156c645}\label{csapp_8c_a1e7b9a4287a5ac6fba5e9cb68156c645}} 
+\index{csapp.c@{csapp.c}!Bind@{Bind}}
+\index{Bind@{Bind}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Bind (\begin{DoxyParamCaption}\item[{int}]{sockfd,  }\item[{struct sockaddr $\ast$}]{my\+\_\+addr,  }\item[{int}]{addrlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00565}{565}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00566 \{}
+\DoxyCodeLine{00567     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00568 }
+\DoxyCodeLine{00569     \textcolor{keywordflow}{if} ((rc = bind(sockfd, my\_addr, addrlen)) < 0)}
+\DoxyCodeLine{00570     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Bind error"{}});}
+\DoxyCodeLine{00571 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{csapp_8c_a1e7b9a4287a5ac6fba5e9cb68156c645_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a165d26955e8d87c05fc67337b105140a}\label{csapp_8c_a165d26955e8d87c05fc67337b105140a}} 
+\index{csapp.c@{csapp.c}!Calloc@{Calloc}}
+\index{Calloc@{Calloc}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Calloc()}{Calloc()}}
+{\footnotesize\ttfamily void $\ast$ Calloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{nmemb,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00469}{469}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00470 \{}
+\DoxyCodeLine{00471     \textcolor{keywordtype}{void} *p;}
+\DoxyCodeLine{00472 }
+\DoxyCodeLine{00473     \textcolor{keywordflow}{if} ((p = calloc(nmemb, size)) == NULL)}
+\DoxyCodeLine{00474     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Calloc error"{}});}
+\DoxyCodeLine{00475     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{00476 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{csapp_8c_a165d26955e8d87c05fc67337b105140a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ade6d4842f21ea284e126636e424e6614}\label{csapp_8c_ade6d4842f21ea284e126636e424e6614}} 
+\index{csapp.c@{csapp.c}!Close@{Close}}
+\index{Close@{Close}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily void Close (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00357}{357}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00358 \{}
+\DoxyCodeLine{00359     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00360 }
+\DoxyCodeLine{00361     \textcolor{keywordflow}{if} ((rc = close(fd)) < 0)}
+\DoxyCodeLine{00362     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Close error"{}});}
+\DoxyCodeLine{00363 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{csapp_8c_ade6d4842f21ea284e126636e424e6614_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_ade6d4842f21ea284e126636e424e6614_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_af11e78949dd91377948e24e73eaeb15d}\label{csapp_8c_af11e78949dd91377948e24e73eaeb15d}} 
+\index{csapp.c@{csapp.c}!Closedir@{Closedir}}
+\index{Closedir@{Closedir}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Closedir()}{Closedir()}}
+{\footnotesize\ttfamily int Closedir (\begin{DoxyParamCaption}\item[{DIR $\ast$}]{dirp }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00420}{420}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00421 \{}
+\DoxyCodeLine{00422     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00423 }
+\DoxyCodeLine{00424     \textcolor{keywordflow}{if} ((rc = closedir(dirp)) < 0)}
+\DoxyCodeLine{00425         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}closedir error"{}});}
+\DoxyCodeLine{00426     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00427 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{csapp_8c_af11e78949dd91377948e24e73eaeb15d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a4aaa270f4f53cf5a6a70ca0fa49bbc96}\label{csapp_8c_a4aaa270f4f53cf5a6a70ca0fa49bbc96}} 
+\index{csapp.c@{csapp.c}!Connect@{Connect}}
+\index{Connect@{Connect}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Connect()}{Connect()}}
+{\footnotesize\ttfamily void Connect (\begin{DoxyParamCaption}\item[{int}]{sockfd,  }\item[{struct sockaddr $\ast$}]{serv\+\_\+addr,  }\item[{int}]{addrlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00590}{590}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00591 \{}
+\DoxyCodeLine{00592     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00593 }
+\DoxyCodeLine{00594     \textcolor{keywordflow}{if} ((rc = connect(sockfd, serv\_addr, addrlen)) < 0)}
+\DoxyCodeLine{00595     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Connect error"{}});}
+\DoxyCodeLine{00596 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{csapp_8c_a4aaa270f4f53cf5a6a70ca0fa49bbc96_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a4378bd8eb844245a9bebe850221a0818}\label{csapp_8c_a4378bd8eb844245a9bebe850221a0818}} 
+\index{csapp.c@{csapp.c}!dns\_error@{dns\_error}}
+\index{dns\_error@{dns\_error}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{dns\_error()}{dns\_error()}}
+{\footnotesize\ttfamily void dns\+\_\+error (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00058}{58}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00059 \{}
+\DoxyCodeLine{00060     fprintf(stderr, \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}}, msg);}
+\DoxyCodeLine{00061     exit(0);}
+\DoxyCodeLine{00062 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{csapp_8c_a4378bd8eb844245a9bebe850221a0818_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ab0380f32f746c6557e0223260c6d70d2}\label{csapp_8c_ab0380f32f746c6557e0223260c6d70d2}} 
+\index{csapp.c@{csapp.c}!Dup2@{Dup2}}
+\index{Dup2@{Dup2}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Dup2()}{Dup2()}}
+{\footnotesize\ttfamily int Dup2 (\begin{DoxyParamCaption}\item[{int}]{fd1,  }\item[{int}]{fd2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00375}{375}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00376 \{}
+\DoxyCodeLine{00377     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00378 }
+\DoxyCodeLine{00379     \textcolor{keywordflow}{if} ((rc = dup2(fd1, fd2)) < 0)}
+\DoxyCodeLine{00380     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Dup2 error"{}});}
+\DoxyCodeLine{00381     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00382 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{csapp_8c_ab0380f32f746c6557e0223260c6d70d2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_ab0380f32f746c6557e0223260c6d70d2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899}\label{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899}} 
+\index{csapp.c@{csapp.c}!Execve@{Execve}}
+\index{Execve@{Execve}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Execve()}{Execve()}}
+{\footnotesize\ttfamily void Execve (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{char $\ast$const}]{argv\mbox{[}$\,$\mbox{]},  }\item[{char $\ast$const}]{envp\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00080}{80}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00081 \{}
+\DoxyCodeLine{00082     \textcolor{keywordflow}{if} (execve(filename, argv, envp) < 0)}
+\DoxyCodeLine{00083     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Execve error"{}});}
+\DoxyCodeLine{00084 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aeeee80da7fbbaa82da8e8b350759cfc0}\label{csapp_8c_aeeee80da7fbbaa82da8e8b350759cfc0}} 
+\index{csapp.c@{csapp.c}!Fclose@{Fclose}}
+\index{Fclose@{Fclose}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fclose()}{Fclose()}}
+{\footnotesize\ttfamily void Fclose (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{fp }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00486}{486}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00487 \{}
+\DoxyCodeLine{00488     \textcolor{keywordflow}{if} (fclose(fp) != 0)}
+\DoxyCodeLine{00489     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fclose error"{}});}
+\DoxyCodeLine{00490 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{csapp_8c_aeeee80da7fbbaa82da8e8b350759cfc0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a4e478ff44e1864ede54e70d3450a6311}\label{csapp_8c_a4e478ff44e1864ede54e70d3450a6311}} 
+\index{csapp.c@{csapp.c}!Fdopen@{Fdopen}}
+\index{Fdopen@{Fdopen}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fdopen()}{Fdopen()}}
+{\footnotesize\ttfamily FILE $\ast$ Fdopen (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{const char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00492}{492}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00493 \{}
+\DoxyCodeLine{00494     FILE *fp;}
+\DoxyCodeLine{00495 }
+\DoxyCodeLine{00496     \textcolor{keywordflow}{if} ((fp = fdopen(fd, type)) == NULL)}
+\DoxyCodeLine{00497     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fdopen error"{}});}
+\DoxyCodeLine{00498 }
+\DoxyCodeLine{00499     \textcolor{keywordflow}{return} fp;}
+\DoxyCodeLine{00500 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{csapp_8c_a4e478ff44e1864ede54e70d3450a6311_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_add6ba221dc16cc92f8e582dbb0734fbd}\label{csapp_8c_add6ba221dc16cc92f8e582dbb0734fbd}} 
+\index{csapp.c@{csapp.c}!Fgets@{Fgets}}
+\index{Fgets@{Fgets}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fgets()}{Fgets()}}
+{\footnotesize\ttfamily char $\ast$ Fgets (\begin{DoxyParamCaption}\item[{char $\ast$}]{ptr,  }\item[{int}]{n,  }\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00502}{502}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00503 \{}
+\DoxyCodeLine{00504     \textcolor{keywordtype}{char} *rptr;}
+\DoxyCodeLine{00505 }
+\DoxyCodeLine{00506     \textcolor{keywordflow}{if} (((rptr = fgets(ptr, n, stream)) == NULL) \&\& ferror(stream))}
+\DoxyCodeLine{00507     \mbox{\hyperlink{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}{app\_error}}(\textcolor{stringliteral}{"{}Fgets error"{}});}
+\DoxyCodeLine{00508 }
+\DoxyCodeLine{00509     \textcolor{keywordflow}{return} rptr;}
+\DoxyCodeLine{00510 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{csapp_8c_add6ba221dc16cc92f8e582dbb0734fbd_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a8f86c214181b217d0af38e1481c4207d}\label{csapp_8c_a8f86c214181b217d0af38e1481c4207d}} 
+\index{csapp.c@{csapp.c}!Fopen@{Fopen}}
+\index{Fopen@{Fopen}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fopen()}{Fopen()}}
+{\footnotesize\ttfamily FILE $\ast$ Fopen (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{const char $\ast$}]{mode }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00512}{512}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00513 \{}
+\DoxyCodeLine{00514     FILE *fp;}
+\DoxyCodeLine{00515 }
+\DoxyCodeLine{00516     \textcolor{keywordflow}{if} ((fp = fopen(filename, mode)) == NULL)}
+\DoxyCodeLine{00517     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fopen error"{}});}
+\DoxyCodeLine{00518 }
+\DoxyCodeLine{00519     \textcolor{keywordflow}{return} fp;}
+\DoxyCodeLine{00520 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{csapp_8c_a8f86c214181b217d0af38e1481c4207d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a00057fe93008a3ee1793005e659fa82f}\label{csapp_8c_a00057fe93008a3ee1793005e659fa82f}} 
+\index{csapp.c@{csapp.c}!Fork@{Fork}}
+\index{Fork@{Fork}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fork()}{Fork()}}
+{\footnotesize\ttfamily pid\+\_\+t Fork (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00070}{70}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00071 \{}
+\DoxyCodeLine{00072     pid\_t pid;}
+\DoxyCodeLine{00073 }
+\DoxyCodeLine{00074     \textcolor{keywordflow}{if} ((pid = fork()) < 0)}
+\DoxyCodeLine{00075     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fork error"{}});}
+\DoxyCodeLine{00076     \textcolor{keywordflow}{return} pid;}
+\DoxyCodeLine{00077 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{csapp_8c_a00057fe93008a3ee1793005e659fa82f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a00057fe93008a3ee1793005e659fa82f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ab73963d63d93d5e54425208b2be5b8f4}\label{csapp_8c_ab73963d63d93d5e54425208b2be5b8f4}} 
+\index{csapp.c@{csapp.c}!Fputs@{Fputs}}
+\index{Fputs@{Fputs}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fputs()}{Fputs()}}
+{\footnotesize\ttfamily void Fputs (\begin{DoxyParamCaption}\item[{const char $\ast$}]{ptr,  }\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00522}{522}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00523 \{}
+\DoxyCodeLine{00524     \textcolor{keywordflow}{if} (fputs(ptr, stream) == EOF)}
+\DoxyCodeLine{00525     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fputs error"{}});}
+\DoxyCodeLine{00526 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{csapp_8c_ab73963d63d93d5e54425208b2be5b8f4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a1d4a671becd543eb823efe48bd4298d2}\label{csapp_8c_a1d4a671becd543eb823efe48bd4298d2}} 
+\index{csapp.c@{csapp.c}!Fread@{Fread}}
+\index{Fread@{Fread}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fread()}{Fread()}}
+{\footnotesize\ttfamily size\+\_\+t Fread (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{size,  }\item[{size\+\_\+t}]{nmemb,  }\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00528}{528}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00529 \{}
+\DoxyCodeLine{00530     \textcolor{keywordtype}{size\_t} n;}
+\DoxyCodeLine{00531 }
+\DoxyCodeLine{00532     \textcolor{keywordflow}{if} (((n = fread(ptr, size, nmemb, stream)) < nmemb) \&\& ferror(stream)) }
+\DoxyCodeLine{00533     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fread error"{}});}
+\DoxyCodeLine{00534     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{00535 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{csapp_8c_a1d4a671becd543eb823efe48bd4298d2_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a2b9bb176fa6405b0237f05cb6d5dc3e6}\label{csapp_8c_a2b9bb176fa6405b0237f05cb6d5dc3e6}} 
+\index{csapp.c@{csapp.c}!Free@{Free}}
+\index{Free@{Free}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Free()}{Free()}}
+{\footnotesize\ttfamily void Free (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00478}{478}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00479 \{}
+\DoxyCodeLine{00480     free(ptr);}
+\DoxyCodeLine{00481 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_acdecddf812f13fc175824e7075496a34}\label{csapp_8c_acdecddf812f13fc175824e7075496a34}} 
+\index{csapp.c@{csapp.c}!Freeaddrinfo@{Freeaddrinfo}}
+\index{Freeaddrinfo@{Freeaddrinfo}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Freeaddrinfo()}{Freeaddrinfo()}}
+{\footnotesize\ttfamily void Freeaddrinfo (\begin{DoxyParamCaption}\item[{struct addrinfo $\ast$}]{res }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00622}{622}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00623 \{}
+\DoxyCodeLine{00624     freeaddrinfo(res);}
+\DoxyCodeLine{00625 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_a386158a454e36f16758f5805e640effe}\label{csapp_8c_a386158a454e36f16758f5805e640effe}} 
+\index{csapp.c@{csapp.c}!Fstat@{Fstat}}
+\index{Fstat@{Fstat}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fstat()}{Fstat()}}
+{\footnotesize\ttfamily void Fstat (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{struct stat $\ast$}]{buf }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00390}{390}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00391 \{}
+\DoxyCodeLine{00392     \textcolor{keywordflow}{if} (fstat(fd, buf) < 0)}
+\DoxyCodeLine{00393     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fstat error"{}});}
+\DoxyCodeLine{00394 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{csapp_8c_a386158a454e36f16758f5805e640effe_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a47f38fbb42408f96f6946ba7bfdd7741}\label{csapp_8c_a47f38fbb42408f96f6946ba7bfdd7741}} 
+\index{csapp.c@{csapp.c}!Fwrite@{Fwrite}}
+\index{Fwrite@{Fwrite}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Fwrite()}{Fwrite()}}
+{\footnotesize\ttfamily void Fwrite (\begin{DoxyParamCaption}\item[{const void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{size,  }\item[{size\+\_\+t}]{nmemb,  }\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00537}{537}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00538 \{}
+\DoxyCodeLine{00539     \textcolor{keywordflow}{if} (fwrite(ptr, size, nmemb, stream) < nmemb)}
+\DoxyCodeLine{00540     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fwrite error"{}});}
+\DoxyCodeLine{00541 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{csapp_8c_a47f38fbb42408f96f6946ba7bfdd7741_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}\label{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}} 
+\index{csapp.c@{csapp.c}!gai\_error@{gai\_error}}
+\index{gai\_error@{gai\_error}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{gai\_error()}{gai\_error()}}
+{\footnotesize\ttfamily void gai\+\_\+error (\begin{DoxyParamCaption}\item[{int}]{code,  }\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00045}{45}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00046 \{}
+\DoxyCodeLine{00047     fprintf(stderr, \textcolor{stringliteral}{"{}\%s: \%s\(\backslash\)n"{}}, msg, gai\_strerror(code));}
+\DoxyCodeLine{00048     exit(0);}
+\DoxyCodeLine{00049 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_adf6da240d6d554a07dcd36d797923665}\label{csapp_8c_adf6da240d6d554a07dcd36d797923665}} 
+\index{csapp.c@{csapp.c}!Getaddrinfo@{Getaddrinfo}}
+\index{Getaddrinfo@{Getaddrinfo}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Getaddrinfo()}{Getaddrinfo()}}
+{\footnotesize\ttfamily void Getaddrinfo (\begin{DoxyParamCaption}\item[{const char $\ast$}]{node,  }\item[{const char $\ast$}]{service,  }\item[{const struct addrinfo $\ast$}]{hints,  }\item[{struct addrinfo $\ast$$\ast$}]{res }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00602}{602}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00604 \{}
+\DoxyCodeLine{00605     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00606 }
+\DoxyCodeLine{00607     \textcolor{keywordflow}{if} ((rc = getaddrinfo(node, service, hints, res)) != 0) }
+\DoxyCodeLine{00608         \mbox{\hyperlink{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}{gai\_error}}(rc, \textcolor{stringliteral}{"{}Getaddrinfo error"{}});}
+\DoxyCodeLine{00609 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{csapp_8c_adf6da240d6d554a07dcd36d797923665_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a742dff6d42737924118e12df9425b42e}\label{csapp_8c_a742dff6d42737924118e12df9425b42e}} 
+\index{csapp.c@{csapp.c}!Gethostbyaddr@{Gethostbyaddr}}
+\index{Gethostbyaddr@{Gethostbyaddr}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Gethostbyaddr()}{Gethostbyaddr()}}
+{\footnotesize\ttfamily struct hostent $\ast$ Gethostbyaddr (\begin{DoxyParamCaption}\item[{const char $\ast$}]{addr,  }\item[{int}]{len,  }\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00662}{662}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00663 \{}
+\DoxyCodeLine{00664     \textcolor{keyword}{struct }hostent *p;}
+\DoxyCodeLine{00665 }
+\DoxyCodeLine{00666     \textcolor{keywordflow}{if} ((p = gethostbyaddr(addr, len, type)) == NULL)}
+\DoxyCodeLine{00667     \mbox{\hyperlink{csapp_8c_a4378bd8eb844245a9bebe850221a0818}{dns\_error}}(\textcolor{stringliteral}{"{}Gethostbyaddr error"{}});}
+\DoxyCodeLine{00668     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{00669 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{csapp_8c_a742dff6d42737924118e12df9425b42e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_abab47464f0183976da5b4fb0e691942c}\label{csapp_8c_abab47464f0183976da5b4fb0e691942c}} 
+\index{csapp.c@{csapp.c}!Gethostbyname@{Gethostbyname}}
+\index{Gethostbyname@{Gethostbyname}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Gethostbyname()}{Gethostbyname()}}
+{\footnotesize\ttfamily struct hostent $\ast$ Gethostbyname (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00652}{652}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00653 \{}
+\DoxyCodeLine{00654     \textcolor{keyword}{struct }hostent *p;}
+\DoxyCodeLine{00655 }
+\DoxyCodeLine{00656     \textcolor{keywordflow}{if} ((p = gethostbyname(name)) == NULL)}
+\DoxyCodeLine{00657     \mbox{\hyperlink{csapp_8c_a4378bd8eb844245a9bebe850221a0818}{dns\_error}}(\textcolor{stringliteral}{"{}Gethostbyname error"{}});}
+\DoxyCodeLine{00658     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{00659 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{csapp_8c_abab47464f0183976da5b4fb0e691942c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c}\label{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c}} 
+\index{csapp.c@{csapp.c}!Getnameinfo@{Getnameinfo}}
+\index{Getnameinfo@{Getnameinfo}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Getnameinfo()}{Getnameinfo()}}
+{\footnotesize\ttfamily void Getnameinfo (\begin{DoxyParamCaption}\item[{const struct sockaddr $\ast$}]{sa,  }\item[{socklen\+\_\+t}]{salen,  }\item[{char $\ast$}]{host,  }\item[{size\+\_\+t}]{hostlen,  }\item[{char $\ast$}]{serv,  }\item[{size\+\_\+t}]{servlen,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00612}{612}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00614 \{}
+\DoxyCodeLine{00615     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00616 }
+\DoxyCodeLine{00617     \textcolor{keywordflow}{if} ((rc = getnameinfo(sa, salen, host, hostlen, serv, }
+\DoxyCodeLine{00618                           servlen, flags)) != 0) }
+\DoxyCodeLine{00619         \mbox{\hyperlink{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}{gai\_error}}(rc, \textcolor{stringliteral}{"{}Getnameinfo error"{}});}
+\DoxyCodeLine{00620 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a17a82432b029286b2d44efa3e389898f}\label{csapp_8c_a17a82432b029286b2d44efa3e389898f}} 
+\index{csapp.c@{csapp.c}!Getpgrp@{Getpgrp}}
+\index{Getpgrp@{Getpgrp}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Getpgrp()}{Getpgrp()}}
+{\footnotesize\ttfamily pid\+\_\+t Getpgrp (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00143}{143}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00143                     \{}
+\DoxyCodeLine{00144     \textcolor{keywordflow}{return} getpgrp();}
+\DoxyCodeLine{00145 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_a6157592cb2f349885f589b03ba14cfab}\label{csapp_8c_a6157592cb2f349885f589b03ba14cfab}} 
+\index{csapp.c@{csapp.c}!Inet\_ntop@{Inet\_ntop}}
+\index{Inet\_ntop@{Inet\_ntop}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Inet\_ntop()}{Inet\_ntop()}}
+{\footnotesize\ttfamily void Inet\+\_\+ntop (\begin{DoxyParamCaption}\item[{int}]{af,  }\item[{const void $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{socklen\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00627}{627}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00628 \{}
+\DoxyCodeLine{00629     \textcolor{keywordflow}{if} (!inet\_ntop(af, src, dst, size))}
+\DoxyCodeLine{00630         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Inet\_ntop error"{}});}
+\DoxyCodeLine{00631 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{csapp_8c_a6157592cb2f349885f589b03ba14cfab_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a071058d9c8f8bc71c88a931bd658585d}\label{csapp_8c_a071058d9c8f8bc71c88a931bd658585d}} 
+\index{csapp.c@{csapp.c}!Inet\_pton@{Inet\_pton}}
+\index{Inet\_pton@{Inet\_pton}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Inet\_pton()}{Inet\_pton()}}
+{\footnotesize\ttfamily void Inet\+\_\+pton (\begin{DoxyParamCaption}\item[{int}]{af,  }\item[{const char $\ast$}]{src,  }\item[{void $\ast$}]{dst }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00633}{633}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00634 \{}
+\DoxyCodeLine{00635     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00636 }
+\DoxyCodeLine{00637     rc = inet\_pton(af, src, dst);}
+\DoxyCodeLine{00638     \textcolor{keywordflow}{if} (rc == 0)}
+\DoxyCodeLine{00639     \mbox{\hyperlink{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}{app\_error}}(\textcolor{stringliteral}{"{}inet\_pton error: invalid dotted-\/decimal address"{}});}
+\DoxyCodeLine{00640     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rc < 0)}
+\DoxyCodeLine{00641         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Inet\_pton error"{}});}
+\DoxyCodeLine{00642 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{csapp_8c_a071058d9c8f8bc71c88a931bd658585d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a93f0f3dbc04b6e97c97caa3a0b03764a}\label{csapp_8c_a93f0f3dbc04b6e97c97caa3a0b03764a}} 
+\index{csapp.c@{csapp.c}!Kill@{Kill}}
+\index{Kill@{Kill}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Kill()}{Kill()}}
+{\footnotesize\ttfamily void Kill (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid,  }\item[{int}]{signum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00107}{107}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00108 \{}
+\DoxyCodeLine{00109     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00110 }
+\DoxyCodeLine{00111     \textcolor{keywordflow}{if} ((rc = kill(pid, signum)) < 0)}
+\DoxyCodeLine{00112     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Kill error"{}});}
+\DoxyCodeLine{00113 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{csapp_8c_a93f0f3dbc04b6e97c97caa3a0b03764a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a37bccc725d820a0d8ba8c3ecaf843fcc}\label{csapp_8c_a37bccc725d820a0d8ba8c3ecaf843fcc}} 
+\index{csapp.c@{csapp.c}!Listen@{Listen}}
+\index{Listen@{Listen}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Listen()}{Listen()}}
+{\footnotesize\ttfamily void Listen (\begin{DoxyParamCaption}\item[{int}]{s,  }\item[{int}]{backlog }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00573}{573}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00574 \{}
+\DoxyCodeLine{00575     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00576 }
+\DoxyCodeLine{00577     \textcolor{keywordflow}{if} ((rc = listen(s,  backlog)) < 0)}
+\DoxyCodeLine{00578     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Listen error"{}});}
+\DoxyCodeLine{00579 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{csapp_8c_a37bccc725d820a0d8ba8c3ecaf843fcc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a95ac08c7753d84d6c58a8c9f452a7d15}\label{csapp_8c_a95ac08c7753d84d6c58a8c9f452a7d15}} 
+\index{csapp.c@{csapp.c}!Lseek@{Lseek}}
+\index{Lseek@{Lseek}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Lseek()}{Lseek()}}
+{\footnotesize\ttfamily off\+\_\+t Lseek (\begin{DoxyParamCaption}\item[{int}]{fildes,  }\item[{off\+\_\+t}]{offset,  }\item[{int}]{whence }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00348}{348}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00349 \{}
+\DoxyCodeLine{00350     off\_t rc;}
+\DoxyCodeLine{00351 }
+\DoxyCodeLine{00352     \textcolor{keywordflow}{if} ((rc = lseek(fildes, offset, whence)) < 0)}
+\DoxyCodeLine{00353     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Lseek error"{}});}
+\DoxyCodeLine{00354     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00355 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{csapp_8c_a95ac08c7753d84d6c58a8c9f452a7d15_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a9a7684ec7a101845e6c146df4c3ddd67}\label{csapp_8c_a9a7684ec7a101845e6c146df4c3ddd67}} 
+\index{csapp.c@{csapp.c}!Malloc@{Malloc}}
+\index{Malloc@{Malloc}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Malloc()}{Malloc()}}
+{\footnotesize\ttfamily void $\ast$ Malloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00451}{451}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00452 \{}
+\DoxyCodeLine{00453     \textcolor{keywordtype}{void} *p;}
+\DoxyCodeLine{00454 }
+\DoxyCodeLine{00455     \textcolor{keywordflow}{if} ((p  = malloc(size)) == NULL)}
+\DoxyCodeLine{00456     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Malloc error"{}});}
+\DoxyCodeLine{00457     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{00458 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{csapp_8c_a9a7684ec7a101845e6c146df4c3ddd67_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a0cacede8957c9a8347c025eacbe4a65d}\label{csapp_8c_a0cacede8957c9a8347c025eacbe4a65d}} 
+\index{csapp.c@{csapp.c}!Mmap@{Mmap}}
+\index{Mmap@{Mmap}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Mmap()}{Mmap()}}
+{\footnotesize\ttfamily void $\ast$ Mmap (\begin{DoxyParamCaption}\item[{void $\ast$}]{addr,  }\item[{size\+\_\+t}]{len,  }\item[{int}]{prot,  }\item[{int}]{flags,  }\item[{int}]{fd,  }\item[{off\+\_\+t}]{offset }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00432}{432}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00433 \{}
+\DoxyCodeLine{00434     \textcolor{keywordtype}{void} *ptr;}
+\DoxyCodeLine{00435 }
+\DoxyCodeLine{00436     \textcolor{keywordflow}{if} ((ptr = mmap(addr, len, prot, flags, fd, offset)) == ((\textcolor{keywordtype}{void} *) -\/1))}
+\DoxyCodeLine{00437     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}mmap error"{}});}
+\DoxyCodeLine{00438     \textcolor{keywordflow}{return}(ptr);}
+\DoxyCodeLine{00439 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{csapp_8c_a0cacede8957c9a8347c025eacbe4a65d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a0cacede8957c9a8347c025eacbe4a65d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a2ea5ad9d40a4599aeeb9edf95d42c2d1}\label{csapp_8c_a2ea5ad9d40a4599aeeb9edf95d42c2d1}} 
+\index{csapp.c@{csapp.c}!Munmap@{Munmap}}
+\index{Munmap@{Munmap}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Munmap()}{Munmap()}}
+{\footnotesize\ttfamily void Munmap (\begin{DoxyParamCaption}\item[{void $\ast$}]{start,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00441}{441}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00442 \{}
+\DoxyCodeLine{00443     \textcolor{keywordflow}{if} (munmap(start, length) < 0)}
+\DoxyCodeLine{00444     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}munmap error"{}});}
+\DoxyCodeLine{00445 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{csapp_8c_a2ea5ad9d40a4599aeeb9edf95d42c2d1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a2ea5ad9d40a4599aeeb9edf95d42c2d1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a78bf11eb07f8d1ba271034ef5f8904d4}\label{csapp_8c_a78bf11eb07f8d1ba271034ef5f8904d4}} 
+\index{csapp.c@{csapp.c}!Open@{Open}}
+\index{Open@{Open}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Open()}{Open()}}
+{\footnotesize\ttfamily int Open (\begin{DoxyParamCaption}\item[{const char $\ast$}]{pathname,  }\item[{int}]{flags,  }\item[{mode\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00321}{321}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00322 \{}
+\DoxyCodeLine{00323     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00324 }
+\DoxyCodeLine{00325     \textcolor{keywordflow}{if} ((rc = open(pathname, flags, mode))  < 0)}
+\DoxyCodeLine{00326     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Open error"{}});}
+\DoxyCodeLine{00327     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00328 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{csapp_8c_a78bf11eb07f8d1ba271034ef5f8904d4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a78bf11eb07f8d1ba271034ef5f8904d4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_af3d89fae9c95718b173c5ba48a0d0cfc}\label{csapp_8c_af3d89fae9c95718b173c5ba48a0d0cfc}} 
+\index{csapp.c@{csapp.c}!open\_clientfd@{open\_clientfd}}
+\index{open\_clientfd@{open\_clientfd}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{open\_clientfd()}{open\_clientfd()}}
+{\footnotesize\ttfamily int open\+\_\+clientfd (\begin{DoxyParamCaption}\item[{char $\ast$}]{hostname,  }\item[{char $\ast$}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00950}{950}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00950                                               \{}
+\DoxyCodeLine{00951     \textcolor{keywordtype}{int} clientfd, rc;}
+\DoxyCodeLine{00952     \textcolor{keyword}{struct }addrinfo hints, *listp, *p;}
+\DoxyCodeLine{00953 }
+\DoxyCodeLine{00954     \textcolor{comment}{/* Get a list of potential server addresses */}}
+\DoxyCodeLine{00955     memset(\&hints, 0, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} addrinfo));}
+\DoxyCodeLine{00956     hints.ai\_socktype = SOCK\_STREAM;  \textcolor{comment}{/* Open a connection */}}
+\DoxyCodeLine{00957     hints.ai\_flags = AI\_NUMERICSERV;  \textcolor{comment}{/* ... using a numeric port arg. */}}
+\DoxyCodeLine{00958     hints.ai\_flags |= AI\_ADDRCONFIG;  \textcolor{comment}{/* Recommended for connections */}}
+\DoxyCodeLine{00959     \textcolor{keywordflow}{if} ((rc = getaddrinfo(hostname, port, \&hints, \&listp)) != 0) \{}
+\DoxyCodeLine{00960         fprintf(stderr, \textcolor{stringliteral}{"{}getaddrinfo failed (\%s:\%s): \%s\(\backslash\)n"{}}, hostname, port, gai\_strerror(rc));}
+\DoxyCodeLine{00961         \textcolor{keywordflow}{return} -\/2;}
+\DoxyCodeLine{00962     \}}
+\DoxyCodeLine{00963   }
+\DoxyCodeLine{00964     \textcolor{comment}{/* Walk the list for one that we can successfully connect to */}}
+\DoxyCodeLine{00965     \textcolor{keywordflow}{for} (p = listp; p; p = p-\/>ai\_next) \{}
+\DoxyCodeLine{00966         \textcolor{comment}{/* Create a socket descriptor */}}
+\DoxyCodeLine{00967         \textcolor{keywordflow}{if} ((clientfd = socket(p-\/>ai\_family, p-\/>ai\_socktype, p-\/>ai\_protocol)) < 0) }
+\DoxyCodeLine{00968             \textcolor{keywordflow}{continue}; \textcolor{comment}{/* Socket failed, try the next */}}
+\DoxyCodeLine{00969 }
+\DoxyCodeLine{00970         \textcolor{comment}{/* Connect to the server */}}
+\DoxyCodeLine{00971         \textcolor{keywordflow}{if} (connect(clientfd, p-\/>ai\_addr, p-\/>ai\_addrlen) != -\/1) }
+\DoxyCodeLine{00972             \textcolor{keywordflow}{break}; \textcolor{comment}{/* Success */}}
+\DoxyCodeLine{00973         \textcolor{keywordflow}{if} (close(clientfd) < 0) \{ \textcolor{comment}{/* Connect failed, try another */}  \textcolor{comment}{//line:netp:openclientfd:closefd}}
+\DoxyCodeLine{00974             fprintf(stderr, \textcolor{stringliteral}{"{}open\_clientfd: close failed: \%s\(\backslash\)n"{}}, strerror(errno));}
+\DoxyCodeLine{00975             \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{00976         \} }
+\DoxyCodeLine{00977     \} }
+\DoxyCodeLine{00978 }
+\DoxyCodeLine{00979     \textcolor{comment}{/* Clean up */}}
+\DoxyCodeLine{00980     freeaddrinfo(listp);}
+\DoxyCodeLine{00981     \textcolor{keywordflow}{if} (!p) \textcolor{comment}{/* All connects failed */}}
+\DoxyCodeLine{00982         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{00983     \textcolor{keywordflow}{else}    \textcolor{comment}{/* The last connect succeeded */}}
+\DoxyCodeLine{00984         \textcolor{keywordflow}{return} clientfd;}
+\DoxyCodeLine{00985 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{csapp_8c_af3d89fae9c95718b173c5ba48a0d0cfc_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aef8a605f56519280d3fac186dafd1ad4}\label{csapp_8c_aef8a605f56519280d3fac186dafd1ad4}} 
+\index{csapp.c@{csapp.c}!Open\_clientfd@{Open\_clientfd}}
+\index{Open\_clientfd@{Open\_clientfd}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Open\_clientfd()}{Open\_clientfd()}}
+{\footnotesize\ttfamily int Open\+\_\+clientfd (\begin{DoxyParamCaption}\item[{char $\ast$}]{hostname,  }\item[{char $\ast$}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l01049}{1049}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01050 \{}
+\DoxyCodeLine{01051     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{01052 }
+\DoxyCodeLine{01053     \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_af3d89fae9c95718b173c5ba48a0d0cfc}{open\_clientfd}}(hostname, port)) < 0) }
+\DoxyCodeLine{01054     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Open\_clientfd error"{}});}
+\DoxyCodeLine{01055     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{01056 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{csapp_8c_aef8a605f56519280d3fac186dafd1ad4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ad6d48be42e6ddbaa0eddf3fdfc0a57d1}\label{csapp_8c_ad6d48be42e6ddbaa0eddf3fdfc0a57d1}} 
+\index{csapp.c@{csapp.c}!open\_listenfd@{open\_listenfd}}
+\index{open\_listenfd@{open\_listenfd}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{open\_listenfd()}{open\_listenfd()}}
+{\footnotesize\ttfamily int open\+\_\+listenfd (\begin{DoxyParamCaption}\item[{char $\ast$}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00997}{997}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00998 \{}
+\DoxyCodeLine{00999     \textcolor{keyword}{struct }addrinfo hints, *listp, *p;}
+\DoxyCodeLine{01000     \textcolor{keywordtype}{int} listenfd, rc, optval=1;}
+\DoxyCodeLine{01001 }
+\DoxyCodeLine{01002     \textcolor{comment}{/* Get a list of potential server addresses */}}
+\DoxyCodeLine{01003     memset(\&hints, 0, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} addrinfo));}
+\DoxyCodeLine{01004     hints.ai\_socktype = SOCK\_STREAM;             \textcolor{comment}{/* Accept connections */}}
+\DoxyCodeLine{01005     hints.ai\_flags = AI\_PASSIVE | AI\_ADDRCONFIG; \textcolor{comment}{/* ... on any IP address */}}
+\DoxyCodeLine{01006     hints.ai\_flags |= AI\_NUMERICSERV;            \textcolor{comment}{/* ... using port number */}}
+\DoxyCodeLine{01007     \textcolor{keywordflow}{if} ((rc = getaddrinfo(NULL, port, \&hints, \&listp)) != 0) \{}
+\DoxyCodeLine{01008         fprintf(stderr, \textcolor{stringliteral}{"{}getaddrinfo failed (port \%s): \%s\(\backslash\)n"{}}, port, gai\_strerror(rc));}
+\DoxyCodeLine{01009         \textcolor{keywordflow}{return} -\/2;}
+\DoxyCodeLine{01010     \}}
+\DoxyCodeLine{01011 }
+\DoxyCodeLine{01012     \textcolor{comment}{/* Walk the list for one that we can bind to */}}
+\DoxyCodeLine{01013     \textcolor{keywordflow}{for} (p = listp; p; p = p-\/>ai\_next) \{}
+\DoxyCodeLine{01014         \textcolor{comment}{/* Create a socket descriptor */}}
+\DoxyCodeLine{01015         \textcolor{keywordflow}{if} ((listenfd = socket(p-\/>ai\_family, p-\/>ai\_socktype, p-\/>ai\_protocol)) < 0) }
+\DoxyCodeLine{01016             \textcolor{keywordflow}{continue};  \textcolor{comment}{/* Socket failed, try the next */}}
+\DoxyCodeLine{01017 }
+\DoxyCodeLine{01018         \textcolor{comment}{/* Eliminates "{}Address already in use"{} error from bind */}}
+\DoxyCodeLine{01019         setsockopt(listenfd, SOL\_SOCKET, SO\_REUSEADDR,    \textcolor{comment}{//line:netp:csapp:setsockopt}}
+\DoxyCodeLine{01020                    (\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)\&optval , \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{01021 }
+\DoxyCodeLine{01022         \textcolor{comment}{/* Bind the descriptor to the address */}}
+\DoxyCodeLine{01023         \textcolor{keywordflow}{if} (bind(listenfd, p-\/>ai\_addr, p-\/>ai\_addrlen) == 0)}
+\DoxyCodeLine{01024             \textcolor{keywordflow}{break}; \textcolor{comment}{/* Success */}}
+\DoxyCodeLine{01025         \textcolor{keywordflow}{if} (close(listenfd) < 0) \{ \textcolor{comment}{/* Bind failed, try the next */}}
+\DoxyCodeLine{01026             fprintf(stderr, \textcolor{stringliteral}{"{}open\_listenfd close failed: \%s\(\backslash\)n"{}}, strerror(errno));}
+\DoxyCodeLine{01027             \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{01028         \}}
+\DoxyCodeLine{01029     \}}
+\DoxyCodeLine{01030 }
+\DoxyCodeLine{01031 }
+\DoxyCodeLine{01032     \textcolor{comment}{/* Clean up */}}
+\DoxyCodeLine{01033     freeaddrinfo(listp);}
+\DoxyCodeLine{01034     \textcolor{keywordflow}{if} (!p) \textcolor{comment}{/* No address worked */}}
+\DoxyCodeLine{01035         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{01036 }
+\DoxyCodeLine{01037     \textcolor{comment}{/* Make it a listening socket ready to accept connection requests */}}
+\DoxyCodeLine{01038     \textcolor{keywordflow}{if} (listen(listenfd, \mbox{\hyperlink{csapp_8h_a41a458f49434afe16fb9eec6735a09ad}{LISTENQ}}) < 0) \{}
+\DoxyCodeLine{01039         close(listenfd);}
+\DoxyCodeLine{01040     \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{01041     \}}
+\DoxyCodeLine{01042     \textcolor{keywordflow}{return} listenfd;}
+\DoxyCodeLine{01043 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{csapp_8c_ad6d48be42e6ddbaa0eddf3fdfc0a57d1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5}\label{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5}} 
+\index{csapp.c@{csapp.c}!Open\_listenfd@{Open\_listenfd}}
+\index{Open\_listenfd@{Open\_listenfd}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Open\_listenfd()}{Open\_listenfd()}}
+{\footnotesize\ttfamily int Open\+\_\+listenfd (\begin{DoxyParamCaption}\item[{char $\ast$}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l01058}{1058}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01059 \{}
+\DoxyCodeLine{01060     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{01061 }
+\DoxyCodeLine{01062     \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_ad6d48be42e6ddbaa0eddf3fdfc0a57d1}{open\_listenfd}}(port)) < 0)}
+\DoxyCodeLine{01063     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Open\_listenfd error"{}});}
+\DoxyCodeLine{01064     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{01065 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aa034a018bcdd45163e6cd3bd866b4d88}\label{csapp_8c_aa034a018bcdd45163e6cd3bd866b4d88}} 
+\index{csapp.c@{csapp.c}!Opendir@{Opendir}}
+\index{Opendir@{Opendir}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Opendir()}{Opendir()}}
+{\footnotesize\ttfamily DIR $\ast$ Opendir (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00400}{400}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00401 \{}
+\DoxyCodeLine{00402     DIR *dirp = opendir(name); }
+\DoxyCodeLine{00403 }
+\DoxyCodeLine{00404     \textcolor{keywordflow}{if} (!dirp)}
+\DoxyCodeLine{00405         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}opendir error"{}});}
+\DoxyCodeLine{00406     \textcolor{keywordflow}{return} dirp;}
+\DoxyCodeLine{00407 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{csapp_8c_aa034a018bcdd45163e6cd3bd866b4d88_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a542aba31fd254d7c5f15b8dffa0f2425}\label{csapp_8c_a542aba31fd254d7c5f15b8dffa0f2425}} 
+\index{csapp.c@{csapp.c}!P@{P}}
+\index{P@{P}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{P()}{P()}}
+{\footnotesize\ttfamily void P (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00729}{729}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00730 \{}
+\DoxyCodeLine{00731     \textcolor{keywordflow}{if} (sem\_wait(sem) < 0)}
+\DoxyCodeLine{00732     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}P error"{}});}
+\DoxyCodeLine{00733 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{csapp_8c_a542aba31fd254d7c5f15b8dffa0f2425_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a70babc5227ddd16ca31dccc6cec0bb22}\label{csapp_8c_a70babc5227ddd16ca31dccc6cec0bb22}} 
+\index{csapp.c@{csapp.c}!Pause@{Pause}}
+\index{Pause@{Pause}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Pause()}{Pause()}}
+{\footnotesize\ttfamily void Pause (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00116}{116}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00117 \{}
+\DoxyCodeLine{00118     (void)pause();}
+\DoxyCodeLine{00119     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00120 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}\label{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}} 
+\index{csapp.c@{csapp.c}!posix\_error@{posix\_error}}
+\index{posix\_error@{posix\_error}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{posix\_error()}{posix\_error()}}
+{\footnotesize\ttfamily void posix\+\_\+error (\begin{DoxyParamCaption}\item[{int}]{code,  }\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00039}{39}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040 \{}
+\DoxyCodeLine{00041     fprintf(stderr, \textcolor{stringliteral}{"{}\%s: \%s\(\backslash\)n"{}}, msg, strerror(code));}
+\DoxyCodeLine{00042     exit(0);}
+\DoxyCodeLine{00043 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{csapp_8c_aa880cd1e4685fa55506abba23b0c716f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a98942f3e2170be6281cf746fffc3c7fd}\label{csapp_8c_a98942f3e2170be6281cf746fffc3c7fd}} 
+\index{csapp.c@{csapp.c}!Pthread\_cancel@{Pthread\_cancel}}
+\index{Pthread\_cancel@{Pthread\_cancel}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Pthread\_cancel()}{Pthread\_cancel()}}
+{\footnotesize\ttfamily void Pthread\+\_\+cancel (\begin{DoxyParamCaption}\item[{pthread\+\_\+t}]{tid }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00684}{684}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00684                                    \{}
+\DoxyCodeLine{00685     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00686 }
+\DoxyCodeLine{00687     \textcolor{keywordflow}{if} ((rc = pthread\_cancel(tid)) != 0)}
+\DoxyCodeLine{00688     \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(rc, \textcolor{stringliteral}{"{}Pthread\_cancel error"{}});}
+\DoxyCodeLine{00689 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{csapp_8c_a98942f3e2170be6281cf746fffc3c7fd_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aa6d8a6ddf79bff38d27a2f95ad82c5c7}\label{csapp_8c_aa6d8a6ddf79bff38d27a2f95ad82c5c7}} 
+\index{csapp.c@{csapp.c}!Pthread\_create@{Pthread\_create}}
+\index{Pthread\_create@{Pthread\_create}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Pthread\_create()}{Pthread\_create()}}
+{\footnotesize\ttfamily void Pthread\+\_\+create (\begin{DoxyParamCaption}\item[{pthread\+\_\+t $\ast$}]{tidp,  }\item[{pthread\+\_\+attr\+\_\+t $\ast$}]{attrp,  }\item[{void $\ast$($\ast$)(void $\ast$)}]{routine,  }\item[{void $\ast$}]{argp }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00675}{675}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00677 \{}
+\DoxyCodeLine{00678     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00679 }
+\DoxyCodeLine{00680     \textcolor{keywordflow}{if} ((rc = pthread\_create(tidp, attrp, routine, argp)) != 0)}
+\DoxyCodeLine{00681     \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(rc, \textcolor{stringliteral}{"{}Pthread\_create error"{}});}
+\DoxyCodeLine{00682 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{csapp_8c_aa6d8a6ddf79bff38d27a2f95ad82c5c7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_abe98ca7f09e647a538d75a2ef784db30}\label{csapp_8c_abe98ca7f09e647a538d75a2ef784db30}} 
+\index{csapp.c@{csapp.c}!Pthread\_detach@{Pthread\_detach}}
+\index{Pthread\_detach@{Pthread\_detach}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Pthread\_detach()}{Pthread\_detach()}}
+{\footnotesize\ttfamily void Pthread\+\_\+detach (\begin{DoxyParamCaption}\item[{pthread\+\_\+t}]{tid }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00699}{699}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00699                                    \{}
+\DoxyCodeLine{00700     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00701 }
+\DoxyCodeLine{00702     \textcolor{keywordflow}{if} ((rc = pthread\_detach(tid)) != 0)}
+\DoxyCodeLine{00703     \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(rc, \textcolor{stringliteral}{"{}Pthread\_detach error"{}});}
+\DoxyCodeLine{00704 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{csapp_8c_abe98ca7f09e647a538d75a2ef784db30_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ac1d25c755489cca5be72c74c80acb299}\label{csapp_8c_ac1d25c755489cca5be72c74c80acb299}} 
+\index{csapp.c@{csapp.c}!Pthread\_exit@{Pthread\_exit}}
+\index{Pthread\_exit@{Pthread\_exit}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Pthread\_exit()}{Pthread\_exit()}}
+{\footnotesize\ttfamily void Pthread\+\_\+exit (\begin{DoxyParamCaption}\item[{void $\ast$}]{retval }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00707}{707}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00707                                 \{}
+\DoxyCodeLine{00708     pthread\_exit(retval);}
+\DoxyCodeLine{00709 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_a70cd5f9708d6fc60d1d1f2ffebaa10be}\label{csapp_8c_a70cd5f9708d6fc60d1d1f2ffebaa10be}} 
+\index{csapp.c@{csapp.c}!Pthread\_join@{Pthread\_join}}
+\index{Pthread\_join@{Pthread\_join}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Pthread\_join()}{Pthread\_join()}}
+{\footnotesize\ttfamily void Pthread\+\_\+join (\begin{DoxyParamCaption}\item[{pthread\+\_\+t}]{tid,  }\item[{void $\ast$$\ast$}]{thread\+\_\+return }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00691}{691}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00691                                                        \{}
+\DoxyCodeLine{00692     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00693 }
+\DoxyCodeLine{00694     \textcolor{keywordflow}{if} ((rc = pthread\_join(tid, thread\_return)) != 0)}
+\DoxyCodeLine{00695     \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(rc, \textcolor{stringliteral}{"{}Pthread\_join error"{}});}
+\DoxyCodeLine{00696 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{csapp_8c_a70cd5f9708d6fc60d1d1f2ffebaa10be_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a1f8f79a19161e180b1ba85e91ac3b53f}\label{csapp_8c_a1f8f79a19161e180b1ba85e91ac3b53f}} 
+\index{csapp.c@{csapp.c}!Pthread\_once@{Pthread\_once}}
+\index{Pthread\_once@{Pthread\_once}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Pthread\_once()}{Pthread\_once()}}
+{\footnotesize\ttfamily void Pthread\+\_\+once (\begin{DoxyParamCaption}\item[{pthread\+\_\+once\+\_\+t $\ast$}]{once\+\_\+control,  }\item[{void($\ast$)()}]{init\+\_\+function }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00715}{715}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00715                                                                          \{}
+\DoxyCodeLine{00716     pthread\_once(once\_control, init\_function);}
+\DoxyCodeLine{00717 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_aa335e1a70a69c668d9d3556d6c6a22df}\label{csapp_8c_aa335e1a70a69c668d9d3556d6c6a22df}} 
+\index{csapp.c@{csapp.c}!Pthread\_self@{Pthread\_self}}
+\index{Pthread\_self@{Pthread\_self}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Pthread\_self()}{Pthread\_self()}}
+{\footnotesize\ttfamily pthread\+\_\+t Pthread\+\_\+self (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00711}{711}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00711                              \{}
+\DoxyCodeLine{00712     \textcolor{keywordflow}{return} pthread\_self();}
+\DoxyCodeLine{00713 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_aa126411f5821a2671133529b6e139560}\label{csapp_8c_aa126411f5821a2671133529b6e139560}} 
+\index{csapp.c@{csapp.c}!Read@{Read}}
+\index{Read@{Read}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Read()}{Read()}}
+{\footnotesize\ttfamily ssize\+\_\+t Read (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{void $\ast$}]{buf,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00330}{330}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00331 \{}
+\DoxyCodeLine{00332     ssize\_t rc;}
+\DoxyCodeLine{00333 }
+\DoxyCodeLine{00334     \textcolor{keywordflow}{if} ((rc = read(fd, buf, count)) < 0) }
+\DoxyCodeLine{00335     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Read error"{}});}
+\DoxyCodeLine{00336     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00337 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{csapp_8c_aa126411f5821a2671133529b6e139560_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a73e3a81a0e94f7a7d122ad019786f6a4}\label{csapp_8c_a73e3a81a0e94f7a7d122ad019786f6a4}} 
+\index{csapp.c@{csapp.c}!Readdir@{Readdir}}
+\index{Readdir@{Readdir}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Readdir()}{Readdir()}}
+{\footnotesize\ttfamily struct dirent $\ast$ Readdir (\begin{DoxyParamCaption}\item[{DIR $\ast$}]{dirp }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00409}{409}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00410 \{}
+\DoxyCodeLine{00411     \textcolor{keyword}{struct }dirent *dep;}
+\DoxyCodeLine{00412     }
+\DoxyCodeLine{00413     errno = 0;}
+\DoxyCodeLine{00414     dep = readdir(dirp);}
+\DoxyCodeLine{00415     \textcolor{keywordflow}{if} ((dep == NULL) \&\& (errno != 0))}
+\DoxyCodeLine{00416         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}readdir error"{}});}
+\DoxyCodeLine{00417     \textcolor{keywordflow}{return} dep;}
+\DoxyCodeLine{00418 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{csapp_8c_a73e3a81a0e94f7a7d122ad019786f6a4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a3f29198eb411631180ed2785999f5f65}\label{csapp_8c_a3f29198eb411631180ed2785999f5f65}} 
+\index{csapp.c@{csapp.c}!Realloc@{Realloc}}
+\index{Realloc@{Realloc}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Realloc()}{Realloc()}}
+{\footnotesize\ttfamily void $\ast$ Realloc (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00460}{460}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00461 \{}
+\DoxyCodeLine{00462     \textcolor{keywordtype}{void} *p;}
+\DoxyCodeLine{00463 }
+\DoxyCodeLine{00464     \textcolor{keywordflow}{if} ((p  = realloc(ptr, size)) == NULL)}
+\DoxyCodeLine{00465     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Realloc error"{}});}
+\DoxyCodeLine{00466     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{00467 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{csapp_8c_a3f29198eb411631180ed2785999f5f65_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}\label{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}} 
+\index{csapp.c@{csapp.c}!rio\_read@{rio\_read}}
+\index{rio\_read@{rio\_read}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{rio\_read()}{rio\_read()}}
+{\footnotesize\ttfamily static ssize\+\_\+t rio\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp,  }\item[{char $\ast$}]{usrbuf,  }\item[{size\+\_\+t}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00805}{805}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00806 \{}
+\DoxyCodeLine{00807     \textcolor{keywordtype}{int} cnt;}
+\DoxyCodeLine{00808 }
+\DoxyCodeLine{00809     \textcolor{keywordflow}{while} (rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} <= 0) \{  \textcolor{comment}{/* Refill if buf is empty */}}
+\DoxyCodeLine{00810     rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} = read(rp-\/>\mbox{\hyperlink{structrio__t_ace5418d5f962c7ae18facbba7044414f}{rio\_fd}}, rp-\/>\mbox{\hyperlink{structrio__t_a4e43f22ee20ed52db81cc426742456f1}{rio\_buf}}, }
+\DoxyCodeLine{00811                \textcolor{keyword}{sizeof}(rp-\/>\mbox{\hyperlink{structrio__t_a4e43f22ee20ed52db81cc426742456f1}{rio\_buf}}));}
+\DoxyCodeLine{00812     \textcolor{keywordflow}{if} (rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} < 0) \{}
+\DoxyCodeLine{00813         \textcolor{keywordflow}{if} (errno != EINTR) \textcolor{comment}{/* Interrupted by sig handler return */}}
+\DoxyCodeLine{00814         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{00815     \}}
+\DoxyCodeLine{00816     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} == 0)  \textcolor{comment}{/* EOF */}}
+\DoxyCodeLine{00817         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00818     \textcolor{keywordflow}{else} }
+\DoxyCodeLine{00819         rp-\/>\mbox{\hyperlink{structrio__t_a3424cb59935fd4697cdc8783292eb124}{rio\_bufptr}} = rp-\/>\mbox{\hyperlink{structrio__t_a4e43f22ee20ed52db81cc426742456f1}{rio\_buf}}; \textcolor{comment}{/* Reset buffer ptr */}}
+\DoxyCodeLine{00820     \}}
+\DoxyCodeLine{00821 }
+\DoxyCodeLine{00822     \textcolor{comment}{/* Copy min(n, rp-\/>rio\_cnt) bytes from internal buf to user buf */}}
+\DoxyCodeLine{00823     cnt = n;          }
+\DoxyCodeLine{00824     \textcolor{keywordflow}{if} (rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} < n)   }
+\DoxyCodeLine{00825     cnt = rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}};}
+\DoxyCodeLine{00826     memcpy(usrbuf, rp-\/>\mbox{\hyperlink{structrio__t_a3424cb59935fd4697cdc8783292eb124}{rio\_bufptr}}, cnt);}
+\DoxyCodeLine{00827     rp-\/>\mbox{\hyperlink{structrio__t_a3424cb59935fd4697cdc8783292eb124}{rio\_bufptr}} += cnt;}
+\DoxyCodeLine{00828     rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} -\/= cnt;}
+\DoxyCodeLine{00829     \textcolor{keywordflow}{return} cnt;}
+\DoxyCodeLine{00830 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ab883ce6c47fb4a14f0c27b2620bf8ecc}\label{csapp_8c_ab883ce6c47fb4a14f0c27b2620bf8ecc}} 
+\index{csapp.c@{csapp.c}!rio\_readinitb@{rio\_readinitb}}
+\index{rio\_readinitb@{rio\_readinitb}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{rio\_readinitb()}{rio\_readinitb()}}
+{\footnotesize\ttfamily void rio\+\_\+readinitb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp,  }\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00837}{837}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00838 \{}
+\DoxyCodeLine{00839     rp-\/>\mbox{\hyperlink{structrio__t_ace5418d5f962c7ae18facbba7044414f}{rio\_fd}} = fd;  }
+\DoxyCodeLine{00840     rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} = 0;  }
+\DoxyCodeLine{00841     rp-\/>\mbox{\hyperlink{structrio__t_a3424cb59935fd4697cdc8783292eb124}{rio\_bufptr}} = rp-\/>\mbox{\hyperlink{structrio__t_a4e43f22ee20ed52db81cc426742456f1}{rio\_buf}};}
+\DoxyCodeLine{00842 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_ab883ce6c47fb4a14f0c27b2620bf8ecc_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aed8da04ad4ae95341fe8951de010c52d}\label{csapp_8c_aed8da04ad4ae95341fe8951de010c52d}} 
+\index{csapp.c@{csapp.c}!Rio\_readinitb@{Rio\_readinitb}}
+\index{Rio\_readinitb@{Rio\_readinitb}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Rio\_readinitb()}{Rio\_readinitb()}}
+{\footnotesize\ttfamily void Rio\+\_\+readinitb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp,  }\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00914}{914}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00915 \{}
+\DoxyCodeLine{00916     \mbox{\hyperlink{csapp_8c_ab883ce6c47fb4a14f0c27b2620bf8ecc}{rio\_readinitb}}(rp, fd);}
+\DoxyCodeLine{00917 \} }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{csapp_8c_aed8da04ad4ae95341fe8951de010c52d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=295pt]{csapp_8c_aed8da04ad4ae95341fe8951de010c52d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a9859728f6c15428877d9a75279374909}\label{csapp_8c_a9859728f6c15428877d9a75279374909}} 
+\index{csapp.c@{csapp.c}!rio\_readlineb@{rio\_readlineb}}
+\index{rio\_readlineb@{rio\_readlineb}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{rio\_readlineb()}{rio\_readlineb()}}
+{\footnotesize\ttfamily ssize\+\_\+t rio\+\_\+readlineb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp,  }\item[{void $\ast$}]{usrbuf,  }\item[{size\+\_\+t}]{maxlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00871}{871}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00872 \{}
+\DoxyCodeLine{00873     \textcolor{keywordtype}{int} n, rc;}
+\DoxyCodeLine{00874     \textcolor{keywordtype}{char} c, *bufp = usrbuf;}
+\DoxyCodeLine{00875 }
+\DoxyCodeLine{00876     \textcolor{keywordflow}{for} (n = 1; n < maxlen; n++) \{ }
+\DoxyCodeLine{00877         \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}{rio\_read}}(rp, \&c, 1)) == 1) \{}
+\DoxyCodeLine{00878         *bufp++ = c;}
+\DoxyCodeLine{00879         \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)n'}) \{}
+\DoxyCodeLine{00880                 n++;}
+\DoxyCodeLine{00881             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00882             \}}
+\DoxyCodeLine{00883     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rc == 0) \{}
+\DoxyCodeLine{00884         \textcolor{keywordflow}{if} (n == 1)}
+\DoxyCodeLine{00885         \textcolor{keywordflow}{return} 0; \textcolor{comment}{/* EOF, no data read */}}
+\DoxyCodeLine{00886         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00887         \textcolor{keywordflow}{break};    \textcolor{comment}{/* EOF, some data was read */}}
+\DoxyCodeLine{00888     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00889         \textcolor{keywordflow}{return} -\/1;    \textcolor{comment}{/* Error */}}
+\DoxyCodeLine{00890     \}}
+\DoxyCodeLine{00891     *bufp = 0;}
+\DoxyCodeLine{00892     \textcolor{keywordflow}{return} n-\/1;}
+\DoxyCodeLine{00893 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{csapp_8c_a9859728f6c15428877d9a75279374909_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a9859728f6c15428877d9a75279374909_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_af381fd78810c004b91987d69e5d29e07}\label{csapp_8c_af381fd78810c004b91987d69e5d29e07}} 
+\index{csapp.c@{csapp.c}!Rio\_readlineb@{Rio\_readlineb}}
+\index{Rio\_readlineb@{Rio\_readlineb}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Rio\_readlineb()}{Rio\_readlineb()}}
+{\footnotesize\ttfamily ssize\+\_\+t Rio\+\_\+readlineb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp,  }\item[{void $\ast$}]{usrbuf,  }\item[{size\+\_\+t}]{maxlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00928}{928}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00929 \{}
+\DoxyCodeLine{00930     ssize\_t rc;}
+\DoxyCodeLine{00931 }
+\DoxyCodeLine{00932     \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_a9859728f6c15428877d9a75279374909}{rio\_readlineb}}(rp, usrbuf, maxlen)) < 0)}
+\DoxyCodeLine{00933     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Rio\_readlineb error"{}});}
+\DoxyCodeLine{00934     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00935 \} }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{csapp_8c_af381fd78810c004b91987d69e5d29e07_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_af381fd78810c004b91987d69e5d29e07_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_abbeba8caa94a14923800b14902803ceb}\label{csapp_8c_abbeba8caa94a14923800b14902803ceb}} 
+\index{csapp.c@{csapp.c}!Rio\_readn@{Rio\_readn}}
+\index{Rio\_readn@{Rio\_readn}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Rio\_readn()}{Rio\_readn()}}
+{\footnotesize\ttfamily ssize\+\_\+t Rio\+\_\+readn (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{nbytes }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00899}{899}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00900 \{}
+\DoxyCodeLine{00901     ssize\_t n;}
+\DoxyCodeLine{00902   }
+\DoxyCodeLine{00903     \textcolor{keywordflow}{if} ((n = \mbox{\hyperlink{csapp_8c_a1cf7126905c6340624de56fd10671867}{rio\_readn}}(fd, ptr, nbytes)) < 0)}
+\DoxyCodeLine{00904     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Rio\_readn error"{}});}
+\DoxyCodeLine{00905     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{00906 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{csapp_8c_abbeba8caa94a14923800b14902803ceb_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a1cf7126905c6340624de56fd10671867}\label{csapp_8c_a1cf7126905c6340624de56fd10671867}} 
+\index{csapp.c@{csapp.c}!rio\_readn@{rio\_readn}}
+\index{rio\_readn@{rio\_readn}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{rio\_readn()}{rio\_readn()}}
+{\footnotesize\ttfamily ssize\+\_\+t rio\+\_\+readn (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{void $\ast$}]{usrbuf,  }\item[{size\+\_\+t}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00749}{749}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00750 \{}
+\DoxyCodeLine{00751     \textcolor{keywordtype}{size\_t} nleft = n;}
+\DoxyCodeLine{00752     ssize\_t nread;}
+\DoxyCodeLine{00753     \textcolor{keywordtype}{char} *bufp = usrbuf;}
+\DoxyCodeLine{00754 }
+\DoxyCodeLine{00755     \textcolor{keywordflow}{while} (nleft > 0) \{}
+\DoxyCodeLine{00756     \textcolor{keywordflow}{if} ((nread = read(fd, bufp, nleft)) < 0) \{}
+\DoxyCodeLine{00757         \textcolor{keywordflow}{if} (errno == EINTR) \textcolor{comment}{/* Interrupted by sig handler return */}}
+\DoxyCodeLine{00758         nread = 0;      \textcolor{comment}{/* and call read() again */}}
+\DoxyCodeLine{00759         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00760         \textcolor{keywordflow}{return} -\/1;      \textcolor{comment}{/* errno set by read() */} }
+\DoxyCodeLine{00761     \} }
+\DoxyCodeLine{00762     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nread == 0)}
+\DoxyCodeLine{00763         \textcolor{keywordflow}{break};              \textcolor{comment}{/* EOF */}}
+\DoxyCodeLine{00764     nleft -\/= nread;}
+\DoxyCodeLine{00765     bufp += nread;}
+\DoxyCodeLine{00766     \}}
+\DoxyCodeLine{00767     \textcolor{keywordflow}{return} (n -\/ nleft);         \textcolor{comment}{/* Return >= 0 */}}
+\DoxyCodeLine{00768 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{csapp_8c_a1cf7126905c6340624de56fd10671867_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8}\label{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8}} 
+\index{csapp.c@{csapp.c}!rio\_readnb@{rio\_readnb}}
+\index{rio\_readnb@{rio\_readnb}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{rio\_readnb()}{rio\_readnb()}}
+{\footnotesize\ttfamily ssize\+\_\+t rio\+\_\+readnb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp,  }\item[{void $\ast$}]{usrbuf,  }\item[{size\+\_\+t}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00849}{849}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00850 \{}
+\DoxyCodeLine{00851     \textcolor{keywordtype}{size\_t} nleft = n;}
+\DoxyCodeLine{00852     ssize\_t nread;}
+\DoxyCodeLine{00853     \textcolor{keywordtype}{char} *bufp = usrbuf;}
+\DoxyCodeLine{00854     }
+\DoxyCodeLine{00855     \textcolor{keywordflow}{while} (nleft > 0) \{}
+\DoxyCodeLine{00856     \textcolor{keywordflow}{if} ((nread = \mbox{\hyperlink{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}{rio\_read}}(rp, bufp, nleft)) < 0) }
+\DoxyCodeLine{00857             \textcolor{keywordflow}{return} -\/1;          \textcolor{comment}{/* errno set by read() */} }
+\DoxyCodeLine{00858     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nread == 0)}
+\DoxyCodeLine{00859         \textcolor{keywordflow}{break};              \textcolor{comment}{/* EOF */}}
+\DoxyCodeLine{00860     nleft -\/= nread;}
+\DoxyCodeLine{00861     bufp += nread;}
+\DoxyCodeLine{00862     \}}
+\DoxyCodeLine{00863     \textcolor{keywordflow}{return} (n -\/ nleft);         \textcolor{comment}{/* return >= 0 */}}
+\DoxyCodeLine{00864 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ac53e1402df452f5f3ce6f332bb0a8465}\label{csapp_8c_ac53e1402df452f5f3ce6f332bb0a8465}} 
+\index{csapp.c@{csapp.c}!Rio\_readnb@{Rio\_readnb}}
+\index{Rio\_readnb@{Rio\_readnb}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Rio\_readnb()}{Rio\_readnb()}}
+{\footnotesize\ttfamily ssize\+\_\+t Rio\+\_\+readnb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp,  }\item[{void $\ast$}]{usrbuf,  }\item[{size\+\_\+t}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00919}{919}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00920 \{}
+\DoxyCodeLine{00921     ssize\_t rc;}
+\DoxyCodeLine{00922 }
+\DoxyCodeLine{00923     \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8}{rio\_readnb}}(rp, usrbuf, n)) < 0)}
+\DoxyCodeLine{00924     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Rio\_readnb error"{}});}
+\DoxyCodeLine{00925     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00926 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{csapp_8c_ac53e1402df452f5f3ce6f332bb0a8465_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_abfa235e4a4aecc432a600dac286a48ba}\label{csapp_8c_abfa235e4a4aecc432a600dac286a48ba}} 
+\index{csapp.c@{csapp.c}!rio\_writen@{rio\_writen}}
+\index{rio\_writen@{rio\_writen}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{rio\_writen()}{rio\_writen()}}
+{\footnotesize\ttfamily ssize\+\_\+t rio\+\_\+writen (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{void $\ast$}]{usrbuf,  }\item[{size\+\_\+t}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00775}{775}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00776 \{}
+\DoxyCodeLine{00777     \textcolor{keywordtype}{size\_t} nleft = n;}
+\DoxyCodeLine{00778     ssize\_t nwritten;}
+\DoxyCodeLine{00779     \textcolor{keywordtype}{char} *bufp = usrbuf;}
+\DoxyCodeLine{00780 }
+\DoxyCodeLine{00781     \textcolor{keywordflow}{while} (nleft > 0) \{}
+\DoxyCodeLine{00782     \textcolor{keywordflow}{if} ((nwritten = write(fd, bufp, nleft)) <= 0) \{}
+\DoxyCodeLine{00783         \textcolor{keywordflow}{if} (errno == EINTR)  \textcolor{comment}{/* Interrupted by sig handler return */}}
+\DoxyCodeLine{00784         nwritten = 0;    \textcolor{comment}{/* and call write() again */}}
+\DoxyCodeLine{00785         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00786         \textcolor{keywordflow}{return} -\/1;       \textcolor{comment}{/* errno set by write() */}}
+\DoxyCodeLine{00787     \}}
+\DoxyCodeLine{00788     nleft -\/= nwritten;}
+\DoxyCodeLine{00789     bufp += nwritten;}
+\DoxyCodeLine{00790     \}}
+\DoxyCodeLine{00791     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{00792 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_abfa235e4a4aecc432a600dac286a48ba_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ade1f0ac256103699aa3a599f120331ac}\label{csapp_8c_ade1f0ac256103699aa3a599f120331ac}} 
+\index{csapp.c@{csapp.c}!Rio\_writen@{Rio\_writen}}
+\index{Rio\_writen@{Rio\_writen}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Rio\_writen()}{Rio\_writen()}}
+{\footnotesize\ttfamily void Rio\+\_\+writen (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{void $\ast$}]{usrbuf,  }\item[{size\+\_\+t}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00908}{908}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00909 \{}
+\DoxyCodeLine{00910     \textcolor{keywordflow}{if} (\mbox{\hyperlink{csapp_8c_abfa235e4a4aecc432a600dac286a48ba}{rio\_writen}}(fd, usrbuf, n) != n)}
+\DoxyCodeLine{00911     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Rio\_writen error"{}});}
+\DoxyCodeLine{00912 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{csapp_8c_ade1f0ac256103699aa3a599f120331ac_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_ade1f0ac256103699aa3a599f120331ac_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ae353913c0c1a54b7f067c9baff4bfbad}\label{csapp_8c_ae353913c0c1a54b7f067c9baff4bfbad}} 
+\index{csapp.c@{csapp.c}!Select@{Select}}
+\index{Select@{Select}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Select()}{Select()}}
+{\footnotesize\ttfamily int Select (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{fd\+\_\+set $\ast$}]{readfds,  }\item[{fd\+\_\+set $\ast$}]{writefds,  }\item[{fd\+\_\+set $\ast$}]{exceptfds,  }\item[{struct timeval $\ast$}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00365}{365}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00367 \{}
+\DoxyCodeLine{00368     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00369 }
+\DoxyCodeLine{00370     \textcolor{keywordflow}{if} ((rc = select(n, readfds, writefds, exceptfds, timeout)) < 0)}
+\DoxyCodeLine{00371     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Select error"{}});}
+\DoxyCodeLine{00372     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00373 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{csapp_8c_ae353913c0c1a54b7f067c9baff4bfbad_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ae010289b7ef93f854a4dba379399537c}\label{csapp_8c_ae010289b7ef93f854a4dba379399537c}} 
+\index{csapp.c@{csapp.c}!Sem\_init@{Sem\_init}}
+\index{Sem\_init@{Sem\_init}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sem\_init()}{Sem\_init()}}
+{\footnotesize\ttfamily void Sem\+\_\+init (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem,  }\item[{int}]{pshared,  }\item[{unsigned int}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00723}{723}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00724 \{}
+\DoxyCodeLine{00725     \textcolor{keywordflow}{if} (sem\_init(sem, pshared, value) < 0)}
+\DoxyCodeLine{00726     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sem\_init error"{}});}
+\DoxyCodeLine{00727 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{csapp_8c_ae010289b7ef93f854a4dba379399537c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a12d36aea8dd814a5b4db2416be575cd8}\label{csapp_8c_a12d36aea8dd814a5b4db2416be575cd8}} 
+\index{csapp.c@{csapp.c}!Setpgid@{Setpgid}}
+\index{Setpgid@{Setpgid}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Setpgid()}{Setpgid()}}
+{\footnotesize\ttfamily void Setpgid (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid,  }\item[{pid\+\_\+t}]{pgid }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00135}{135}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00135                                     \{}
+\DoxyCodeLine{00136     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00137 }
+\DoxyCodeLine{00138     \textcolor{keywordflow}{if} ((rc = setpgid(pid, pgid)) < 0)}
+\DoxyCodeLine{00139     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Setpgid error"{}});}
+\DoxyCodeLine{00140     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00141 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{csapp_8c_a12d36aea8dd814a5b4db2416be575cd8_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aa60a3616258115e3fc537440b64bf9b5}\label{csapp_8c_aa60a3616258115e3fc537440b64bf9b5}} 
+\index{csapp.c@{csapp.c}!Setsockopt@{Setsockopt}}
+\index{Setsockopt@{Setsockopt}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Setsockopt()}{Setsockopt()}}
+{\footnotesize\ttfamily void Setsockopt (\begin{DoxyParamCaption}\item[{int}]{s,  }\item[{int}]{level,  }\item[{int}]{optname,  }\item[{const void $\ast$}]{optval,  }\item[{int}]{optlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00557}{557}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00558 \{}
+\DoxyCodeLine{00559     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00560 }
+\DoxyCodeLine{00561     \textcolor{keywordflow}{if} ((rc = setsockopt(s, level, optname, optval, optlen)) < 0)}
+\DoxyCodeLine{00562     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Setsockopt error"{}});}
+\DoxyCodeLine{00563 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{csapp_8c_aa60a3616258115e3fc537440b64bf9b5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aa1c88b372ef4a6d57118d2787dd4dfe1}\label{csapp_8c_aa1c88b372ef4a6d57118d2787dd4dfe1}} 
+\index{csapp.c@{csapp.c}!Sigaddset@{Sigaddset}}
+\index{Sigaddset@{Sigaddset}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sigaddset()}{Sigaddset()}}
+{\footnotesize\ttfamily void Sigaddset (\begin{DoxyParamCaption}\item[{sigset\+\_\+t $\ast$}]{set,  }\item[{int}]{signum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00187}{187}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00188 \{}
+\DoxyCodeLine{00189     \textcolor{keywordflow}{if} (sigaddset(set, signum) < 0)}
+\DoxyCodeLine{00190     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigaddset error"{}});}
+\DoxyCodeLine{00191     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00192 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{csapp_8c_aa1c88b372ef4a6d57118d2787dd4dfe1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a1c10d5fb697d7f4726f9d2ac18239485}\label{csapp_8c_a1c10d5fb697d7f4726f9d2ac18239485}} 
+\index{csapp.c@{csapp.c}!Sigdelset@{Sigdelset}}
+\index{Sigdelset@{Sigdelset}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sigdelset()}{Sigdelset()}}
+{\footnotesize\ttfamily void Sigdelset (\begin{DoxyParamCaption}\item[{sigset\+\_\+t $\ast$}]{set,  }\item[{int}]{signum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00194}{194}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00195 \{}
+\DoxyCodeLine{00196     \textcolor{keywordflow}{if} (sigdelset(set, signum) < 0)}
+\DoxyCodeLine{00197     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigdelset error"{}});}
+\DoxyCodeLine{00198     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00199 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{csapp_8c_a1c10d5fb697d7f4726f9d2ac18239485_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a6fe299482800a6039392d1cf612e7422}\label{csapp_8c_a6fe299482800a6039392d1cf612e7422}} 
+\index{csapp.c@{csapp.c}!Sigemptyset@{Sigemptyset}}
+\index{Sigemptyset@{Sigemptyset}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sigemptyset()}{Sigemptyset()}}
+{\footnotesize\ttfamily void Sigemptyset (\begin{DoxyParamCaption}\item[{sigset\+\_\+t $\ast$}]{set }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00173}{173}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00174 \{}
+\DoxyCodeLine{00175     \textcolor{keywordflow}{if} (sigemptyset(set) < 0)}
+\DoxyCodeLine{00176     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigemptyset error"{}});}
+\DoxyCodeLine{00177     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00178 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{csapp_8c_a6fe299482800a6039392d1cf612e7422_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aef5a5d2d2f8bee4f4b96e39278bf45fc}\label{csapp_8c_aef5a5d2d2f8bee4f4b96e39278bf45fc}} 
+\index{csapp.c@{csapp.c}!Sigfillset@{Sigfillset}}
+\index{Sigfillset@{Sigfillset}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sigfillset()}{Sigfillset()}}
+{\footnotesize\ttfamily void Sigfillset (\begin{DoxyParamCaption}\item[{sigset\+\_\+t $\ast$}]{set }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00180}{180}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00181 \{ }
+\DoxyCodeLine{00182     \textcolor{keywordflow}{if} (sigfillset(set) < 0)}
+\DoxyCodeLine{00183     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigfillset error"{}});}
+\DoxyCodeLine{00184     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00185 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{csapp_8c_aef5a5d2d2f8bee4f4b96e39278bf45fc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_af13d23717cad62011d2fb376d6ebee1c}\label{csapp_8c_af13d23717cad62011d2fb376d6ebee1c}} 
+\index{csapp.c@{csapp.c}!Sigismember@{Sigismember}}
+\index{Sigismember@{Sigismember}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sigismember()}{Sigismember()}}
+{\footnotesize\ttfamily int Sigismember (\begin{DoxyParamCaption}\item[{const sigset\+\_\+t $\ast$}]{set,  }\item[{int}]{signum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00201}{201}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00202 \{}
+\DoxyCodeLine{00203     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00204     \textcolor{keywordflow}{if} ((rc = sigismember(set, signum)) < 0)}
+\DoxyCodeLine{00205     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigismember error"{}});}
+\DoxyCodeLine{00206     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00207 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{csapp_8c_af13d23717cad62011d2fb376d6ebee1c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a0a297a3a4d8d08503dd1d71da450733f}\label{csapp_8c_a0a297a3a4d8d08503dd1d71da450733f}} 
+\index{csapp.c@{csapp.c}!Signal@{Signal}}
+\index{Signal@{Signal}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Signal()}{Signal()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{csapp_8h_acefb2ae1d743b3e28bdcd190cd1060f5}{handler\+\_\+t}} $\ast$ Signal (\begin{DoxyParamCaption}\item[{int}]{signum,  }\item[{\mbox{\hyperlink{csapp_8h_acefb2ae1d743b3e28bdcd190cd1060f5}{handler\+\_\+t}} $\ast$}]{handler }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00152}{152}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00153 \{}
+\DoxyCodeLine{00154     \textcolor{keyword}{struct }sigaction action, old\_action;}
+\DoxyCodeLine{00155 }
+\DoxyCodeLine{00156     action.sa\_handler = handler;  }
+\DoxyCodeLine{00157     sigemptyset(\&action.sa\_mask); \textcolor{comment}{/* Block sigs of type being handled */}}
+\DoxyCodeLine{00158     action.sa\_flags = SA\_RESTART; \textcolor{comment}{/* Restart syscalls if possible */}}
+\DoxyCodeLine{00159 }
+\DoxyCodeLine{00160     \textcolor{keywordflow}{if} (sigaction(signum, \&action, \&old\_action) < 0)}
+\DoxyCodeLine{00161     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Signal error"{}});}
+\DoxyCodeLine{00162     \textcolor{keywordflow}{return} (old\_action.sa\_handler);}
+\DoxyCodeLine{00163 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{csapp_8c_a0a297a3a4d8d08503dd1d71da450733f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a3b1a337757afe9dcac6e0711c8b48d0d}\label{csapp_8c_a3b1a337757afe9dcac6e0711c8b48d0d}} 
+\index{csapp.c@{csapp.c}!Sigprocmask@{Sigprocmask}}
+\index{Sigprocmask@{Sigprocmask}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sigprocmask()}{Sigprocmask()}}
+{\footnotesize\ttfamily void Sigprocmask (\begin{DoxyParamCaption}\item[{int}]{how,  }\item[{const sigset\+\_\+t $\ast$}]{set,  }\item[{sigset\+\_\+t $\ast$}]{oldset }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00166}{166}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00167 \{}
+\DoxyCodeLine{00168     \textcolor{keywordflow}{if} (sigprocmask(how, set, oldset) < 0)}
+\DoxyCodeLine{00169     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigprocmask error"{}});}
+\DoxyCodeLine{00170     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00171 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{csapp_8c_a3b1a337757afe9dcac6e0711c8b48d0d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a18c0a6e1622eb39bca88d96a8b2933c8}\label{csapp_8c_a18c0a6e1622eb39bca88d96a8b2933c8}} 
+\index{csapp.c@{csapp.c}!Sigsuspend@{Sigsuspend}}
+\index{Sigsuspend@{Sigsuspend}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sigsuspend()}{Sigsuspend()}}
+{\footnotesize\ttfamily int Sigsuspend (\begin{DoxyParamCaption}\item[{const sigset\+\_\+t $\ast$}]{set }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00209}{209}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00210 \{}
+\DoxyCodeLine{00211     \textcolor{keywordtype}{int} rc = sigsuspend(set); \textcolor{comment}{/* always returns -\/1 */}}
+\DoxyCodeLine{00212     \textcolor{keywordflow}{if} (errno != EINTR)}
+\DoxyCodeLine{00213         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigsuspend error"{}});}
+\DoxyCodeLine{00214     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00215 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{csapp_8c_a18c0a6e1622eb39bca88d96a8b2933c8_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}\label{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}} 
+\index{csapp.c@{csapp.c}!sio\_error@{sio\_error}}
+\index{sio\_error@{sio\_error}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{sio\_error()}{sio\_error()}}
+{\footnotesize\ttfamily void sio\+\_\+error (\begin{DoxyParamCaption}\item[{char}]{s\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00284}{284}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00285 \{}
+\DoxyCodeLine{00286     \mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{sio\_puts}}(s);}
+\DoxyCodeLine{00287     \_exit(1);                                      \textcolor{comment}{//line:csapp:sioexit}}
+\DoxyCodeLine{00288 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_aa535c4f02a5e0e47e304504b5ff1b8d2}\label{csapp_8c_aa535c4f02a5e0e47e304504b5ff1b8d2}} 
+\index{csapp.c@{csapp.c}!Sio\_error@{Sio\_error}}
+\index{Sio\_error@{Sio\_error}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sio\_error()}{Sio\_error()}}
+{\footnotesize\ttfamily void Sio\+\_\+error (\begin{DoxyParamCaption}\item[{char}]{s\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00312}{312}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00313 \{}
+\DoxyCodeLine{00314     \mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{sio\_error}}(s);}
+\DoxyCodeLine{00315 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_aa535c4f02a5e0e47e304504b5ff1b8d2_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d}\label{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d}} 
+\index{csapp.c@{csapp.c}!sio\_ltoa@{sio\_ltoa}}
+\index{sio\_ltoa@{sio\_ltoa}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{sio\_ltoa()}{sio\_ltoa()}}
+{\footnotesize\ttfamily static void sio\+\_\+ltoa (\begin{DoxyParamCaption}\item[{long}]{v,  }\item[{char}]{s\mbox{[}$\,$\mbox{]},  }\item[{int}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00238}{238}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00239 \{}
+\DoxyCodeLine{00240     \textcolor{keywordtype}{int} c, i = 0;}
+\DoxyCodeLine{00241     \textcolor{keywordtype}{int} neg = v < 0;}
+\DoxyCodeLine{00242 }
+\DoxyCodeLine{00243     \textcolor{keywordflow}{if} (neg)}
+\DoxyCodeLine{00244     v = -\/v;}
+\DoxyCodeLine{00245 }
+\DoxyCodeLine{00246     \textcolor{keywordflow}{do} \{  }
+\DoxyCodeLine{00247         s[i++] = ((c = (v \% b)) < 10)  ?  c + \textcolor{charliteral}{'0'} : c -\/ 10 + \textcolor{charliteral}{'a'};}
+\DoxyCodeLine{00248     \} \textcolor{keywordflow}{while} ((v /= b) > 0);}
+\DoxyCodeLine{00249 }
+\DoxyCodeLine{00250     \textcolor{keywordflow}{if} (neg)}
+\DoxyCodeLine{00251     s[i++] = \textcolor{charliteral}{'-\/'};}
+\DoxyCodeLine{00252 }
+\DoxyCodeLine{00253     s[i] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00254     \mbox{\hyperlink{csapp_8c_a7280ec8bbd5b4ef0a9b65faaaf28faf3}{sio\_reverse}}(s);}
+\DoxyCodeLine{00255 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ab966f509eca3c980efbd1c99686884d1}\label{csapp_8c_ab966f509eca3c980efbd1c99686884d1}} 
+\index{csapp.c@{csapp.c}!sio\_putl@{sio\_putl}}
+\index{sio\_putl@{sio\_putl}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{sio\_putl()}{sio\_putl()}}
+{\footnotesize\ttfamily ssize\+\_\+t sio\+\_\+putl (\begin{DoxyParamCaption}\item[{long}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00276}{276}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00277 \{}
+\DoxyCodeLine{00278     \textcolor{keywordtype}{char} s[128];}
+\DoxyCodeLine{00279     }
+\DoxyCodeLine{00280     \mbox{\hyperlink{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d}{sio\_ltoa}}(v, s, 10); \textcolor{comment}{/* Based on K\&R itoa() */}  \textcolor{comment}{//line:csapp:sioltoa}}
+\DoxyCodeLine{00281     \textcolor{keywordflow}{return} \mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{sio\_puts}}(s);}
+\DoxyCodeLine{00282 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{csapp_8c_ab966f509eca3c980efbd1c99686884d1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{csapp_8c_ab966f509eca3c980efbd1c99686884d1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a5bc192f6925f61352e147bc049b9fce0}\label{csapp_8c_a5bc192f6925f61352e147bc049b9fce0}} 
+\index{csapp.c@{csapp.c}!Sio\_putl@{Sio\_putl}}
+\index{Sio\_putl@{Sio\_putl}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sio\_putl()}{Sio\_putl()}}
+{\footnotesize\ttfamily ssize\+\_\+t Sio\+\_\+putl (\begin{DoxyParamCaption}\item[{long}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00294}{294}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00295 \{}
+\DoxyCodeLine{00296     ssize\_t n;}
+\DoxyCodeLine{00297   }
+\DoxyCodeLine{00298     \textcolor{keywordflow}{if} ((n = \mbox{\hyperlink{csapp_8c_ab966f509eca3c980efbd1c99686884d1}{sio\_putl}}(v)) < 0)}
+\DoxyCodeLine{00299     \mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{sio\_error}}(\textcolor{stringliteral}{"{}Sio\_putl error"{}});}
+\DoxyCodeLine{00300     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{00301 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a5bc192f6925f61352e147bc049b9fce0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}\label{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}} 
+\index{csapp.c@{csapp.c}!sio\_puts@{sio\_puts}}
+\index{sio\_puts@{sio\_puts}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{sio\_puts()}{sio\_puts()}}
+{\footnotesize\ttfamily ssize\+\_\+t sio\+\_\+puts (\begin{DoxyParamCaption}\item[{char}]{s\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00271}{271}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00272 \{}
+\DoxyCodeLine{00273     \textcolor{keywordflow}{return} write(STDOUT\_FILENO, s, \mbox{\hyperlink{csapp_8c_a34d77d7ef5e0af44bf1f6b0ccc3bc0de}{sio\_strlen}}(s)); \textcolor{comment}{//line:csapp:siostrlen}}
+\DoxyCodeLine{00274 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a6feaaee84f440ba84aee16da38e50c6a}\label{csapp_8c_a6feaaee84f440ba84aee16da38e50c6a}} 
+\index{csapp.c@{csapp.c}!Sio\_puts@{Sio\_puts}}
+\index{Sio\_puts@{Sio\_puts}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sio\_puts()}{Sio\_puts()}}
+{\footnotesize\ttfamily ssize\+\_\+t Sio\+\_\+puts (\begin{DoxyParamCaption}\item[{char}]{s\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00303}{303}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00304 \{}
+\DoxyCodeLine{00305     ssize\_t n;}
+\DoxyCodeLine{00306   }
+\DoxyCodeLine{00307     \textcolor{keywordflow}{if} ((n = \mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{sio\_puts}}(s)) < 0)}
+\DoxyCodeLine{00308     \mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{sio\_error}}(\textcolor{stringliteral}{"{}Sio\_puts error"{}});}
+\DoxyCodeLine{00309     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{00310 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a6feaaee84f440ba84aee16da38e50c6a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a7280ec8bbd5b4ef0a9b65faaaf28faf3}\label{csapp_8c_a7280ec8bbd5b4ef0a9b65faaaf28faf3}} 
+\index{csapp.c@{csapp.c}!sio\_reverse@{sio\_reverse}}
+\index{sio\_reverse@{sio\_reverse}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{sio\_reverse()}{sio\_reverse()}}
+{\footnotesize\ttfamily static void sio\+\_\+reverse (\begin{DoxyParamCaption}\item[{char}]{s\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00226}{226}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00227 \{}
+\DoxyCodeLine{00228     \textcolor{keywordtype}{int} c, i, j;}
+\DoxyCodeLine{00229 }
+\DoxyCodeLine{00230     \textcolor{keywordflow}{for} (i = 0, j = strlen(s)-\/1; i < j; i++, j-\/-\/) \{}
+\DoxyCodeLine{00231         c = s[i];}
+\DoxyCodeLine{00232         s[i] = s[j];}
+\DoxyCodeLine{00233         s[j] = c;}
+\DoxyCodeLine{00234     \}}
+\DoxyCodeLine{00235 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a7280ec8bbd5b4ef0a9b65faaaf28faf3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a34d77d7ef5e0af44bf1f6b0ccc3bc0de}\label{csapp_8c_a34d77d7ef5e0af44bf1f6b0ccc3bc0de}} 
+\index{csapp.c@{csapp.c}!sio\_strlen@{sio\_strlen}}
+\index{sio\_strlen@{sio\_strlen}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{sio\_strlen()}{sio\_strlen()}}
+{\footnotesize\ttfamily static size\+\_\+t sio\+\_\+strlen (\begin{DoxyParamCaption}\item[{char}]{s\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00258}{258}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00259 \{}
+\DoxyCodeLine{00260     \textcolor{keywordtype}{int} i = 0;}
+\DoxyCodeLine{00261 }
+\DoxyCodeLine{00262     \textcolor{keywordflow}{while} (s[i] != \textcolor{charliteral}{'\(\backslash\)0'})}
+\DoxyCodeLine{00263         ++i;}
+\DoxyCodeLine{00264     \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{00265 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a34d77d7ef5e0af44bf1f6b0ccc3bc0de_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a361f45640c372f3405605187d71c415d}\label{csapp_8c_a361f45640c372f3405605187d71c415d}} 
+\index{csapp.c@{csapp.c}!Sleep@{Sleep}}
+\index{Sleep@{Sleep}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Sleep()}{Sleep()}}
+{\footnotesize\ttfamily unsigned int Sleep (\begin{DoxyParamCaption}\item[{unsigned int}]{secs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00122}{122}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00123 \{}
+\DoxyCodeLine{00124     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00125 }
+\DoxyCodeLine{00126     \textcolor{keywordflow}{if} ((rc = sleep(secs)) < 0)}
+\DoxyCodeLine{00127     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sleep error"{}});}
+\DoxyCodeLine{00128     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00129 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{csapp_8c_a361f45640c372f3405605187d71c415d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_ab40b825366ecd47b1693784284633633}\label{csapp_8c_ab40b825366ecd47b1693784284633633}} 
+\index{csapp.c@{csapp.c}!Socket@{Socket}}
+\index{Socket@{Socket}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Socket()}{Socket()}}
+{\footnotesize\ttfamily int Socket (\begin{DoxyParamCaption}\item[{int}]{domain,  }\item[{int}]{type,  }\item[{int}]{protocol }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00548}{548}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00549 \{}
+\DoxyCodeLine{00550     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{00551 }
+\DoxyCodeLine{00552     \textcolor{keywordflow}{if} ((rc = socket(domain, type, protocol)) < 0)}
+\DoxyCodeLine{00553     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Socket error"{}});}
+\DoxyCodeLine{00554     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00555 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{csapp_8c_ab40b825366ecd47b1693784284633633_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_af805ffaf4f4efcfe194b3ffcc481991b}\label{csapp_8c_af805ffaf4f4efcfe194b3ffcc481991b}} 
+\index{csapp.c@{csapp.c}!Stat@{Stat}}
+\index{Stat@{Stat}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Stat()}{Stat()}}
+{\footnotesize\ttfamily void Stat (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{struct stat $\ast$}]{buf }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00384}{384}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00385 \{}
+\DoxyCodeLine{00386     \textcolor{keywordflow}{if} (stat(filename, buf) < 0)}
+\DoxyCodeLine{00387     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Stat error"{}});}
+\DoxyCodeLine{00388 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{csapp_8c_af805ffaf4f4efcfe194b3ffcc481991b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}\label{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}} 
+\index{csapp.c@{csapp.c}!unix\_error@{unix\_error}}
+\index{unix\_error@{unix\_error}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{unix\_error()}{unix\_error()}}
+{\footnotesize\ttfamily void unix\+\_\+error (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00032}{32}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033 \{}
+\DoxyCodeLine{00034     fprintf(stderr, \textcolor{stringliteral}{"{}\%s: \%s\(\backslash\)n"{}}, msg, strerror(errno));}
+\DoxyCodeLine{00035     exit(0);}
+\DoxyCodeLine{00036 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{csapp_8c_a8540b39306541d6d133d787ea01d833a}\label{csapp_8c_a8540b39306541d6d133d787ea01d833a}} 
+\index{csapp.c@{csapp.c}!V@{V}}
+\index{V@{V}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{V()}{V()}}
+{\footnotesize\ttfamily void V (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00735}{735}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00736 \{}
+\DoxyCodeLine{00737     \textcolor{keywordflow}{if} (sem\_post(sem) < 0)}
+\DoxyCodeLine{00738     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}V error"{}});}
+\DoxyCodeLine{00739 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{csapp_8c_a8540b39306541d6d133d787ea01d833a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0}\label{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0}} 
+\index{csapp.c@{csapp.c}!Wait@{Wait}}
+\index{Wait@{Wait}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Wait()}{Wait()}}
+{\footnotesize\ttfamily pid\+\_\+t Wait (\begin{DoxyParamCaption}\item[{int $\ast$}]{status }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00087}{87}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00088 \{}
+\DoxyCodeLine{00089     pid\_t pid;}
+\DoxyCodeLine{00090 }
+\DoxyCodeLine{00091     \textcolor{keywordflow}{if} ((pid  = wait(status)) < 0)}
+\DoxyCodeLine{00092     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Wait error"{}});}
+\DoxyCodeLine{00093     \textcolor{keywordflow}{return} pid;}
+\DoxyCodeLine{00094 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a1ce4844fc4b688bf455e0388b8b11b09}\label{csapp_8c_a1ce4844fc4b688bf455e0388b8b11b09}} 
+\index{csapp.c@{csapp.c}!Waitpid@{Waitpid}}
+\index{Waitpid@{Waitpid}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Waitpid()}{Waitpid()}}
+{\footnotesize\ttfamily pid\+\_\+t Waitpid (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid,  }\item[{int $\ast$}]{iptr,  }\item[{int}]{options }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00097}{97}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00098 \{}
+\DoxyCodeLine{00099     pid\_t retpid;}
+\DoxyCodeLine{00100 }
+\DoxyCodeLine{00101     \textcolor{keywordflow}{if} ((retpid  = waitpid(pid, iptr, options)) < 0) }
+\DoxyCodeLine{00102     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Waitpid error"{}});}
+\DoxyCodeLine{00103     \textcolor{keywordflow}{return}(retpid);}
+\DoxyCodeLine{00104 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{csapp_8c_a1ce4844fc4b688bf455e0388b8b11b09_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{csapp_8c_a9428ea024e46af2e8a00c874c637ad01}\label{csapp_8c_a9428ea024e46af2e8a00c874c637ad01}} 
+\index{csapp.c@{csapp.c}!Write@{Write}}
+\index{Write@{Write}!csapp.c@{csapp.c}}
+\doxysubsubsection{\texorpdfstring{Write()}{Write()}}
+{\footnotesize\ttfamily ssize\+\_\+t Write (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{const void $\ast$}]{buf,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{csapp_8c_source_l00339}{339}} of file \mbox{\hyperlink{csapp_8c_source}{csapp.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00340 \{}
+\DoxyCodeLine{00341     ssize\_t rc;}
+\DoxyCodeLine{00342 }
+\DoxyCodeLine{00343     \textcolor{keywordflow}{if} ((rc = write(fd, buf, count)) < 0)}
+\DoxyCodeLine{00344     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Write error"{}});}
+\DoxyCodeLine{00345     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{00346 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{csapp_8c_a9428ea024e46af2e8a00c874c637ad01_cgraph}
+\end{center}
+\end{figure}

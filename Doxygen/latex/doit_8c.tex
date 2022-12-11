@@ -1,0 +1,123 @@
+\hypertarget{doit_8c}{}\doxysection{code/doit.c File Reference}
+\label{doit_8c}\index{code/doit.c@{code/doit.c}}
+{\ttfamily \#include \char`\"{}csapp.\+h\char`\"{}}\newline
+Include dependency graph for doit.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{doit_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{doit_8c_af6fadf4f00ede1251c7cae226549b474}{doit}} (int fd)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{doit_8c_af6fadf4f00ede1251c7cae226549b474}\label{doit_8c_af6fadf4f00ede1251c7cae226549b474}} 
+\index{doit.c@{doit.c}!doit@{doit}}
+\index{doit@{doit}!doit.c@{doit.c}}
+\doxysubsubsection{\texorpdfstring{doit()}{doit()}}
+{\footnotesize\ttfamily void doit (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{doit_8c_source_l00009}{9}} of file \mbox{\hyperlink{doit_8c_source}{doit.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010 \{}
+\DoxyCodeLine{00011     \textcolor{keywordtype}{int} is\_static;}
+\DoxyCodeLine{00012     \textcolor{keyword}{struct }stat sbuf;}
+\DoxyCodeLine{00013     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], method[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], uri[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], version[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{00014     \textcolor{keywordtype}{char} filename[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], cgiargs[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{00015     \mbox{\hyperlink{structrio__t}{rio\_t}} rio;}
+\DoxyCodeLine{00016 }
+\DoxyCodeLine{00017     \textcolor{comment}{/* Read request line and headers */}}
+\DoxyCodeLine{00018     \textcolor{comment}{// 요청 라인을 읽고 분석}}
+\DoxyCodeLine{00019     \textcolor{comment}{// 한 개의 빈 버퍼를 설정하고, 이 버퍼와 한 개의 오픈한 파일 식별자와 연결}}
+\DoxyCodeLine{00020     \textcolor{comment}{// 식별자 fd를 rio\_t 타입의 읽기 버퍼(rio)와 연결}}
+\DoxyCodeLine{00021     \mbox{\hyperlink{csapp_8c_aed8da04ad4ae95341fe8951de010c52d}{Rio\_readinitb}}(\&rio, fd);}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     \textcolor{comment}{// 다음 텍스트 줄을 파일 rio에서 읽고, 이를 메모리 위치 buf로 복사후, 텍스트 라인을 null로 종료}}
+\DoxyCodeLine{00024     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{Rio\_readlineb}}(\&rio, buf, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}))}
+\DoxyCodeLine{00025         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00026 }
+\DoxyCodeLine{00027     \textcolor{comment}{// 요청된 라인을 pritf로 보여줌(최초 요청 라인: GET / HTTP/1.1)}}
+\DoxyCodeLine{00028     printf(\textcolor{stringliteral}{"{}\%s"{}}, buf);}
+\DoxyCodeLine{00029 }
+\DoxyCodeLine{00030     \textcolor{comment}{// buf의 내용을 method, uri, version이라는 문장열에 저장}}
+\DoxyCodeLine{00031     sscanf(buf, \textcolor{stringliteral}{"{}\%s \%s \%s"{}}, method, uri, version);}
+\DoxyCodeLine{00032 }
+\DoxyCodeLine{00033     \textcolor{comment}{// GET, HEAD, 메소드만 지원(두 문자가 같으면 0)}}
+\DoxyCodeLine{00034     \textcolor{keywordflow}{if} (strcasecmp(method, \textcolor{stringliteral}{"{}GET"{}})) \{}
+\DoxyCodeLine{00035         \textcolor{comment}{// 다른 메소드가 들어올 경우, 에러를 출력하고 리턴}}
+\DoxyCodeLine{00036         \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(fd, method, \textcolor{stringliteral}{"{}501"{}}, \textcolor{stringliteral}{"{}Not Implemented"{}}, \textcolor{stringliteral}{"{}Tiny does not implement this method"{}});}
+\DoxyCodeLine{00037         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00038     \}}
+\DoxyCodeLine{00039 }
+\DoxyCodeLine{00040     \textcolor{comment}{// 요청 라인을 제외한 요청 헤더를 출력}}
+\DoxyCodeLine{00041     \mbox{\hyperlink{read__requesthdrs_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}{read\_requesthdrs}}(\&rio);}
+\DoxyCodeLine{00042 }
+\DoxyCodeLine{00043     \textcolor{comment}{/* Parse URI from GET request */}}
+\DoxyCodeLine{00044     \textcolor{comment}{// URI를 filename과 CGI argument string으로 parse 하고}}
+\DoxyCodeLine{00045     \textcolor{comment}{// request가 정적인지, 동적인지 확인하는 flag를 리턴함}}
+\DoxyCodeLine{00046     \textcolor{comment}{// 1이면 정적}}
+\DoxyCodeLine{00047     is\_static = \mbox{\hyperlink{parse__uri_8c_aff908518ae341555df4dc671f145f992}{parse\_uri}}(uri, filename, cgiargs);}
+\DoxyCodeLine{00048 }
+\DoxyCodeLine{00049     \textcolor{comment}{// 디스크에 파일이 없다면 filename을 sbuf에 넣음}}
+\DoxyCodeLine{00050     \textcolor{comment}{// 종류, 크기 등등이 sbuf에 저장 -\/ 성공시 1, 실패시 -\/1}}
+\DoxyCodeLine{00051     \textcolor{keywordflow}{if} (stat(filename, \&sbuf) < 0) \{}
+\DoxyCodeLine{00052         \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(fd, filename, \textcolor{stringliteral}{"{}404"{}}, \textcolor{stringliteral}{"{}Not found"{}}, \textcolor{stringliteral}{"{}Tiny couldn't find this file"{}});}
+\DoxyCodeLine{00053         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00054     \}}
+\DoxyCodeLine{00055 }
+\DoxyCodeLine{00056     \textcolor{comment}{/* Serve static content */}}
+\DoxyCodeLine{00057     \textcolor{comment}{// 서버 정적 콘텐츠}}
+\DoxyCodeLine{00058     \textcolor{keywordflow}{if} (is\_static) \{}
+\DoxyCodeLine{00059         \textcolor{comment}{// S\_ISREG-\/> 파일 종류 확인: 일반 파일인지 판별}}
+\DoxyCodeLine{00060         \textcolor{comment}{// 읽기 권한(S\_IRUSR)을 가지고 있는지 판별}}
+\DoxyCodeLine{00061         \textcolor{keywordflow}{if} (!(S\_ISREG(sbuf.st\_mode)) || !(S\_IRUSR \& sbuf.st\_mode)) \{}
+\DoxyCodeLine{00062             \textcolor{comment}{// 읽기 권한이 없거나 정규 파일이 아니면 읽을 수 없음}}
+\DoxyCodeLine{00063             \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(fd, filename, \textcolor{stringliteral}{"{}403"{}}, \textcolor{stringliteral}{"{}Forbidden"{}}, \textcolor{stringliteral}{"{}Tiny couldn't read the file"{}});}
+\DoxyCodeLine{00064             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00065         \}}
+\DoxyCodeLine{00066 }
+\DoxyCodeLine{00067         \textcolor{comment}{// fd: connfd}}
+\DoxyCodeLine{00068         \textcolor{comment}{// 정적 컨텐츠를 클라이언트에게 제공}}
+\DoxyCodeLine{00069         \mbox{\hyperlink{serve__static_8c_a0d660c3747c171f05c61acd48a3d4f26}{serve\_static}}(fd, filename, sbuf.st\_size);}
+\DoxyCodeLine{00070     \}}
+\DoxyCodeLine{00071     \textcolor{comment}{/* Serve dynamic content */}}
+\DoxyCodeLine{00072     \textcolor{comment}{// 서버 동적 컨텐츠}}
+\DoxyCodeLine{00073     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00074         \textcolor{comment}{// 파일이 실행 가능한지 검증}}
+\DoxyCodeLine{00075         \textcolor{keywordflow}{if} (!(S\_ISREG(sbuf.st\_mode)) || !(S\_IXUSR \& sbuf.st\_mode)) \{}
+\DoxyCodeLine{00076             \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(fd, filename, \textcolor{stringliteral}{"{}403"{}}, \textcolor{stringliteral}{"{}Forbidden"{}}, \textcolor{stringliteral}{"{}Tiny couldn't run the CGI program"{}});}
+\DoxyCodeLine{00077             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00078         \}}
+\DoxyCodeLine{00079 }
+\DoxyCodeLine{00080         \textcolor{comment}{// 실행 가능하가면 동적 컨텐츠를 클라이언트에게 제공}}
+\DoxyCodeLine{00081         \mbox{\hyperlink{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}{serve\_dynamic}}(fd, filename, cgiargs);}
+\DoxyCodeLine{00082     \}}
+\DoxyCodeLine{00083 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{doit_8c_af6fadf4f00ede1251c7cae226549b474_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{doit_8c_af6fadf4f00ede1251c7cae226549b474_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['read_0',['Read',['../csapp_8c.html#aa126411f5821a2671133529b6e139560',1,'Read(int fd, void *buf, size_t count):&#160;csapp.c'],['../csapp_8h.html#aa126411f5821a2671133529b6e139560',1,'Read(int fd, void *buf, size_t count):&#160;csapp.c']]],
+  ['read_5frequesthdrs_1',['read_requesthdrs',['../read__requesthdrs_8c.html#a9ecea2c5ba8b75cf357d9141e3bebc22',1,'read_requesthdrs(rio_t *rp):&#160;read_requesthdrs.c'],['../tiny__main_8c.html#a9ecea2c5ba8b75cf357d9141e3bebc22',1,'read_requesthdrs(rio_t *rp):&#160;read_requesthdrs.c']]],
+  ['read_5frequesthdrs_2ec_2',['read_requesthdrs.c',['../read__requesthdrs_8c.html',1,'']]],
+  ['readdir_3',['Readdir',['../csapp_8c.html#a73e3a81a0e94f7a7d122ad019786f6a4',1,'Readdir(DIR *dirp):&#160;csapp.c'],['../csapp_8h.html#a73e3a81a0e94f7a7d122ad019786f6a4',1,'Readdir(DIR *dirp):&#160;csapp.c']]],
+  ['readme_2emd_4',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['realloc_5',['Realloc',['../csapp_8c.html#a3f29198eb411631180ed2785999f5f65',1,'Realloc(void *ptr, size_t size):&#160;csapp.c'],['../csapp_8h.html#a3f29198eb411631180ed2785999f5f65',1,'Realloc(void *ptr, size_t size):&#160;csapp.c']]],
+  ['rio_5fbuf_6',['rio_buf',['../structrio__t.html#a4e43f22ee20ed52db81cc426742456f1',1,'rio_t']]],
+  ['rio_5fbufptr_7',['rio_bufptr',['../structrio__t.html#a3424cb59935fd4697cdc8783292eb124',1,'rio_t']]],
+  ['rio_5fbufsize_8',['RIO_BUFSIZE',['../csapp_8h.html#a32a7fe92a150d891d386b20d4ab711a0',1,'csapp.h']]],
+  ['rio_5fcnt_9',['rio_cnt',['../structrio__t.html#a0caeb88040ca469cc8066a0bb160cf39',1,'rio_t']]],
+  ['rio_5ffd_10',['rio_fd',['../structrio__t.html#ace5418d5f962c7ae18facbba7044414f',1,'rio_t']]],
+  ['rio_5fread_11',['rio_read',['../csapp_8c.html#a3d3d663b2c3cef61228fa3efa7a332db',1,'csapp.c']]],
+  ['rio_5freadinitb_12',['Rio_readinitb',['../csapp_8h.html#aed8da04ad4ae95341fe8951de010c52d',1,'Rio_readinitb(rio_t *rp, int fd):&#160;csapp.c'],['../csapp_8c.html#aed8da04ad4ae95341fe8951de010c52d',1,'Rio_readinitb(rio_t *rp, int fd):&#160;csapp.c']]],
+  ['rio_5freadinitb_13',['rio_readinitb',['../csapp_8c.html#ab883ce6c47fb4a14f0c27b2620bf8ecc',1,'rio_readinitb(rio_t *rp, int fd):&#160;csapp.c'],['../csapp_8h.html#ab883ce6c47fb4a14f0c27b2620bf8ecc',1,'rio_readinitb(rio_t *rp, int fd):&#160;csapp.c']]],
+  ['rio_5freadlineb_14',['Rio_readlineb',['../csapp_8c.html#af381fd78810c004b91987d69e5d29e07',1,'Rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen):&#160;csapp.c'],['../csapp_8h.html#af381fd78810c004b91987d69e5d29e07',1,'Rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen):&#160;csapp.c']]],
+  ['rio_5freadlineb_15',['rio_readlineb',['../csapp_8c.html#a9859728f6c15428877d9a75279374909',1,'rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen):&#160;csapp.c'],['../csapp_8h.html#a9859728f6c15428877d9a75279374909',1,'rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen):&#160;csapp.c']]],
+  ['rio_5freadn_16',['rio_readn',['../csapp_8c.html#a1cf7126905c6340624de56fd10671867',1,'rio_readn(int fd, void *usrbuf, size_t n):&#160;csapp.c'],['../csapp_8h.html#a1cf7126905c6340624de56fd10671867',1,'rio_readn(int fd, void *usrbuf, size_t n):&#160;csapp.c']]],
+  ['rio_5freadn_17',['Rio_readn',['../csapp_8c.html#abbeba8caa94a14923800b14902803ceb',1,'Rio_readn(int fd, void *ptr, size_t nbytes):&#160;csapp.c'],['../csapp_8h.html#a126fb39f82372ba61da04ffd68b0a47d',1,'Rio_readn(int fd, void *usrbuf, size_t n):&#160;csapp.c']]],
+  ['rio_5freadnb_18',['rio_readnb',['../csapp_8c.html#a6b1a25153f92301aaac15bb54bace8e8',1,'rio_readnb(rio_t *rp, void *usrbuf, size_t n):&#160;csapp.c'],['../csapp_8h.html#a6b1a25153f92301aaac15bb54bace8e8',1,'rio_readnb(rio_t *rp, void *usrbuf, size_t n):&#160;csapp.c']]],
+  ['rio_5freadnb_19',['Rio_readnb',['../csapp_8c.html#ac53e1402df452f5f3ce6f332bb0a8465',1,'Rio_readnb(rio_t *rp, void *usrbuf, size_t n):&#160;csapp.c'],['../csapp_8h.html#ac53e1402df452f5f3ce6f332bb0a8465',1,'Rio_readnb(rio_t *rp, void *usrbuf, size_t n):&#160;csapp.c']]],
+  ['rio_5ft_20',['rio_t',['../structrio__t.html',1,'']]],
+  ['rio_5fwriten_21',['rio_writen',['../csapp_8c.html#abfa235e4a4aecc432a600dac286a48ba',1,'rio_writen(int fd, void *usrbuf, size_t n):&#160;csapp.c'],['../csapp_8h.html#abfa235e4a4aecc432a600dac286a48ba',1,'rio_writen(int fd, void *usrbuf, size_t n):&#160;csapp.c']]],
+  ['rio_5fwriten_22',['Rio_writen',['../csapp_8c.html#ade1f0ac256103699aa3a599f120331ac',1,'Rio_writen(int fd, void *usrbuf, size_t n):&#160;csapp.c'],['../csapp_8h.html#ade1f0ac256103699aa3a599f120331ac',1,'Rio_writen(int fd, void *usrbuf, size_t n):&#160;csapp.c']]]
+];

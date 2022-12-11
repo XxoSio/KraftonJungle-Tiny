@@ -1,0 +1,1076 @@
+\hypertarget{csapp_8c_source}{}\doxysection{csapp.\+c}
+\label{csapp_8c_source}\index{code/csapp.c@{code/csapp.c}}
+\mbox{\hyperlink{csapp_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00001}00001 \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00002}00002 \textcolor{comment}{ * csapp.c -\/ Functions for the CS:APP3e book}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00003}00003 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00004}00004 \textcolor{comment}{ * Updated 10/2016 reb:}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00005}00005 \textcolor{comment}{ *   -\/ Fixed bug in sio\_ltoa that didn't cover negative numbers}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00006}00006 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00007}00007 \textcolor{comment}{ * Updated 2/2016 droh:}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00008}00008 \textcolor{comment}{ *   -\/ Updated open\_clientfd and open\_listenfd to fail more gracefully}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00009}00009 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00010}00010 \textcolor{comment}{ * Updated 8/2014 droh: }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00011}00011 \textcolor{comment}{ *   -\/ New versions of open\_clientfd and open\_listenfd are reentrant and}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00012}00012 \textcolor{comment}{ *     protocol independent.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00014}00014 \textcolor{comment}{ *   -\/ Added protocol-\/independent inet\_ntop and inet\_pton functions. The}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00015}00015 \textcolor{comment}{ *     inet\_ntoa and inet\_aton functions are obsolete.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00016}00016 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00017}00017 \textcolor{comment}{ * Updated 7/2014 droh:}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00018}00018 \textcolor{comment}{ *   -\/ Aded reentrant sio (signal-\/safe I/O) routines}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00019}00019 \textcolor{comment}{ * }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00020}00020 \textcolor{comment}{ * Updated 4/2013 droh: }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00021}00021 \textcolor{comment}{ *   -\/ rio\_readlineb: fixed edge case bug}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00022}00022 \textcolor{comment}{ *   -\/ rio\_readnb: removed redundant EINTR check}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00023}00023 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00024}00024 \textcolor{comment}{/* \$begin csapp.c */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00025}00025 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{csapp_8h}{csapp.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00027}00027 \textcolor{comment}{/************************** }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00028}00028 \textcolor{comment}{ * Error-\/handling functions}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00029}00029 \textcolor{comment}{ **************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00030}00030 \textcolor{comment}{/* \$begin errorfuns */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00031}00031 \textcolor{comment}{/* \$begin unixerror */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00032}\mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{00032}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{keywordtype}{char} *msg) \textcolor{comment}{/* Unix-\/style error */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00033}00033 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00034}00034     fprintf(stderr, \textcolor{stringliteral}{"{}\%s: \%s\(\backslash\)n"{}}, msg, strerror(errno));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00035}00035     exit(0);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00037}00037 \textcolor{comment}{/* \$end unixerror */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00039}\mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{00039}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(\textcolor{keywordtype}{int} code, \textcolor{keywordtype}{char} *msg) \textcolor{comment}{/* Posix-\/style error */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00040}00040 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00041}00041     fprintf(stderr, \textcolor{stringliteral}{"{}\%s: \%s\(\backslash\)n"{}}, msg, strerror(code));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00042}00042     exit(0);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00043}00043 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00045}\mbox{\hyperlink{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}{00045}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}{gai\_error}}(\textcolor{keywordtype}{int} code, \textcolor{keywordtype}{char} *msg) \textcolor{comment}{/* Getaddrinfo-\/style error */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00046}00046 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00047}00047     fprintf(stderr, \textcolor{stringliteral}{"{}\%s: \%s\(\backslash\)n"{}}, msg, gai\_strerror(code));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00048}00048     exit(0);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00049}00049 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00051}\mbox{\hyperlink{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}{00051}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}{app\_error}}(\textcolor{keywordtype}{char} *msg) \textcolor{comment}{/* Application error */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00052}00052 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00053}00053     fprintf(stderr, \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}}, msg);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00054}00054     exit(0);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00055}00055 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00056}00056 \textcolor{comment}{/* \$end errorfuns */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00058}\mbox{\hyperlink{csapp_8c_a4378bd8eb844245a9bebe850221a0818}{00058}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a4378bd8eb844245a9bebe850221a0818}{dns\_error}}(\textcolor{keywordtype}{char} *msg) \textcolor{comment}{/* Obsolete gethostbyname error */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00059}00059 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00060}00060     fprintf(stderr, \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}}, msg);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00061}00061     exit(0);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00062}00062 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00065}00065 \textcolor{comment}{/*********************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00066}00066 \textcolor{comment}{ * Wrappers for Unix process control functions}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00067}00067 \textcolor{comment}{ ********************************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00069}00069 \textcolor{comment}{/* \$begin forkwrapper */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00070}\mbox{\hyperlink{csapp_8c_a00057fe93008a3ee1793005e659fa82f}{00070}} pid\_t \mbox{\hyperlink{csapp_8c_a00057fe93008a3ee1793005e659fa82f}{Fork}}(\textcolor{keywordtype}{void}) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00071}00071 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00072}00072     pid\_t pid;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00074}00074     \textcolor{keywordflow}{if} ((pid = fork()) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00075}00075     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fork error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00076}00076     \textcolor{keywordflow}{return} pid;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00077}00077 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00078}00078 \textcolor{comment}{/* \$end forkwrapper */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00080}\mbox{\hyperlink{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899}{00080}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899}{Execve}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename, \textcolor{keywordtype}{char} *\textcolor{keyword}{const} argv[], \textcolor{keywordtype}{char} *\textcolor{keyword}{const} envp[]) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00081}00081 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00082}00082     \textcolor{keywordflow}{if} (execve(filename, argv, envp) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00083}00083     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Execve error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00084}00084 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00086}00086 \textcolor{comment}{/* \$begin wait */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00087}\mbox{\hyperlink{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0}{00087}} pid\_t \mbox{\hyperlink{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0}{Wait}}(\textcolor{keywordtype}{int} *status) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00088}00088 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00089}00089     pid\_t pid;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00091}00091     \textcolor{keywordflow}{if} ((pid  = wait(status)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00092}00092     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Wait error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00093}00093     \textcolor{keywordflow}{return} pid;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00094}00094 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00095}00095 \textcolor{comment}{/* \$end wait */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00097}\mbox{\hyperlink{csapp_8c_a1ce4844fc4b688bf455e0388b8b11b09}{00097}} pid\_t \mbox{\hyperlink{csapp_8c_a1ce4844fc4b688bf455e0388b8b11b09}{Waitpid}}(pid\_t pid, \textcolor{keywordtype}{int} *iptr, \textcolor{keywordtype}{int} options) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00098}00098 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00099}00099     pid\_t retpid;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00101}00101     \textcolor{keywordflow}{if} ((retpid  = waitpid(pid, iptr, options)) < 0) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00102}00102     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Waitpid error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00103}00103     \textcolor{keywordflow}{return}(retpid);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00104}00104 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00106}00106 \textcolor{comment}{/* \$begin kill */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00107}\mbox{\hyperlink{csapp_8c_a93f0f3dbc04b6e97c97caa3a0b03764a}{00107}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a93f0f3dbc04b6e97c97caa3a0b03764a}{Kill}}(pid\_t pid, \textcolor{keywordtype}{int} signum) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00108}00108 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00109}00109     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00111}00111     \textcolor{keywordflow}{if} ((rc = kill(pid, signum)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00112}00112     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Kill error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00113}00113 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00114}00114 \textcolor{comment}{/* \$end kill */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00116}\mbox{\hyperlink{csapp_8c_a70babc5227ddd16ca31dccc6cec0bb22}{00116}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a70babc5227ddd16ca31dccc6cec0bb22}{Pause}}() }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00117}00117 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00118}00118     (void)pause();}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00119}00119     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00120}00120 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00122}\mbox{\hyperlink{csapp_8c_a361f45640c372f3405605187d71c415d}{00122}} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_a361f45640c372f3405605187d71c415d}{Sleep}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} secs) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00123}00123 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00124}00124     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00126}00126     \textcolor{keywordflow}{if} ((rc = sleep(secs)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00127}00127     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sleep error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00128}00128     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00129}00129 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00131}\mbox{\hyperlink{csapp_8c_abaca2294e0e2a8d770138a221ebbab96}{00131}} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_abaca2294e0e2a8d770138a221ebbab96}{Alarm}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} seconds) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00132}00132     \textcolor{keywordflow}{return} alarm(seconds);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00133}00133 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00134}00134  }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00135}\mbox{\hyperlink{csapp_8c_a12d36aea8dd814a5b4db2416be575cd8}{00135}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a12d36aea8dd814a5b4db2416be575cd8}{Setpgid}}(pid\_t pid, pid\_t pgid) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00136}00136     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00138}00138     \textcolor{keywordflow}{if} ((rc = setpgid(pid, pgid)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00139}00139     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Setpgid error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00140}00140     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00141}00141 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00143}\mbox{\hyperlink{csapp_8c_a17a82432b029286b2d44efa3e389898f}{00143}} pid\_t \mbox{\hyperlink{csapp_8c_a17a82432b029286b2d44efa3e389898f}{Getpgrp}}(\textcolor{keywordtype}{void}) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00144}00144     \textcolor{keywordflow}{return} getpgrp();}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00145}00145 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00146}00146 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00147}00147 \textcolor{comment}{/************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00148}00148 \textcolor{comment}{ * Wrappers for Unix signal functions }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00149}00149 \textcolor{comment}{ ***********************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00151}00151 \textcolor{comment}{/* \$begin sigaction */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00152}\mbox{\hyperlink{csapp_8c_a0a297a3a4d8d08503dd1d71da450733f}{00152}} \mbox{\hyperlink{csapp_8h_acefb2ae1d743b3e28bdcd190cd1060f5}{handler\_t}} *\mbox{\hyperlink{csapp_8c_a0a297a3a4d8d08503dd1d71da450733f}{Signal}}(\textcolor{keywordtype}{int} signum, \mbox{\hyperlink{csapp_8h_acefb2ae1d743b3e28bdcd190cd1060f5}{handler\_t}} *handler) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00153}00153 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00154}00154     \textcolor{keyword}{struct }sigaction action, old\_action;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00156}00156     action.sa\_handler = handler;  }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00157}00157     sigemptyset(\&action.sa\_mask); \textcolor{comment}{/* Block sigs of type being handled */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00158}00158     action.sa\_flags = SA\_RESTART; \textcolor{comment}{/* Restart syscalls if possible */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00160}00160     \textcolor{keywordflow}{if} (sigaction(signum, \&action, \&old\_action) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00161}00161     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Signal error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00162}00162     \textcolor{keywordflow}{return} (old\_action.sa\_handler);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00163}00163 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00164}00164 \textcolor{comment}{/* \$end sigaction */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00166}\mbox{\hyperlink{csapp_8c_a3b1a337757afe9dcac6e0711c8b48d0d}{00166}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a3b1a337757afe9dcac6e0711c8b48d0d}{Sigprocmask}}(\textcolor{keywordtype}{int} how, \textcolor{keyword}{const} sigset\_t *set, sigset\_t *oldset)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00167}00167 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00168}00168     \textcolor{keywordflow}{if} (sigprocmask(how, set, oldset) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00169}00169     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigprocmask error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00170}00170     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00171}00171 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00172}00172 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00173}\mbox{\hyperlink{csapp_8c_a6fe299482800a6039392d1cf612e7422}{00173}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a6fe299482800a6039392d1cf612e7422}{Sigemptyset}}(sigset\_t *set)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00174}00174 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00175}00175     \textcolor{keywordflow}{if} (sigemptyset(set) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00176}00176     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigemptyset error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00177}00177     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00178}00178 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00179}00179 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00180}\mbox{\hyperlink{csapp_8c_aef5a5d2d2f8bee4f4b96e39278bf45fc}{00180}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_aef5a5d2d2f8bee4f4b96e39278bf45fc}{Sigfillset}}(sigset\_t *set)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00181}00181 \{ }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00182}00182     \textcolor{keywordflow}{if} (sigfillset(set) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00183}00183     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigfillset error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00184}00184     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00185}00185 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00187}\mbox{\hyperlink{csapp_8c_aa1c88b372ef4a6d57118d2787dd4dfe1}{00187}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_aa1c88b372ef4a6d57118d2787dd4dfe1}{Sigaddset}}(sigset\_t *set, \textcolor{keywordtype}{int} signum)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00188}00188 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00189}00189     \textcolor{keywordflow}{if} (sigaddset(set, signum) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00190}00190     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigaddset error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00191}00191     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00192}00192 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00194}\mbox{\hyperlink{csapp_8c_a1c10d5fb697d7f4726f9d2ac18239485}{00194}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a1c10d5fb697d7f4726f9d2ac18239485}{Sigdelset}}(sigset\_t *set, \textcolor{keywordtype}{int} signum)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00195}00195 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00196}00196     \textcolor{keywordflow}{if} (sigdelset(set, signum) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00197}00197     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigdelset error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00198}00198     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00199}00199 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00200}00200 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00201}\mbox{\hyperlink{csapp_8c_af13d23717cad62011d2fb376d6ebee1c}{00201}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_af13d23717cad62011d2fb376d6ebee1c}{Sigismember}}(\textcolor{keyword}{const} sigset\_t *set, \textcolor{keywordtype}{int} signum)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00202}00202 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00203}00203     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00204}00204     \textcolor{keywordflow}{if} ((rc = sigismember(set, signum)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00205}00205     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigismember error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00206}00206     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00207}00207 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00208}00208 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00209}\mbox{\hyperlink{csapp_8c_a18c0a6e1622eb39bca88d96a8b2933c8}{00209}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_a18c0a6e1622eb39bca88d96a8b2933c8}{Sigsuspend}}(\textcolor{keyword}{const} sigset\_t *set)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00210}00210 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00211}00211     \textcolor{keywordtype}{int} rc = sigsuspend(set); \textcolor{comment}{/* always returns -\/1 */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00212}00212     \textcolor{keywordflow}{if} (errno != EINTR)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00213}00213         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sigsuspend error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00214}00214     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00215}00215 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00216}00216 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00217}00217 \textcolor{comment}{/*************************************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00218}00218 \textcolor{comment}{ * The Sio (Signal-\/safe I/O) package -\/ simple reentrant output}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00219}00219 \textcolor{comment}{ * functions that are safe for signal handlers.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00220}00220 \textcolor{comment}{ *************************************************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00221}00221 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00222}00222 \textcolor{comment}{/* Private sio functions */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00223}00223 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00224}00224 \textcolor{comment}{/* \$begin sioprivate */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00225}00225 \textcolor{comment}{/* sio\_reverse -\/ Reverse a string (from K\&R) */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00226}\mbox{\hyperlink{csapp_8c_a7280ec8bbd5b4ef0a9b65faaaf28faf3}{00226}} \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a7280ec8bbd5b4ef0a9b65faaaf28faf3}{sio\_reverse}}(\textcolor{keywordtype}{char} s[])}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00227}00227 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00228}00228     \textcolor{keywordtype}{int} c, i, j;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00229}00229 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00230}00230     \textcolor{keywordflow}{for} (i = 0, j = strlen(s)-\/1; i < j; i++, j-\/-\/) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00231}00231         c = s[i];}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00232}00232         s[i] = s[j];}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00233}00233         s[j] = c;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00234}00234     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00235}00235 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00237}00237 \textcolor{comment}{/* sio\_ltoa -\/ Convert long to base b string (from K\&R) */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00238}\mbox{\hyperlink{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d}{00238}} \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d}{sio\_ltoa}}(\textcolor{keywordtype}{long} v, \textcolor{keywordtype}{char} s[], \textcolor{keywordtype}{int} b) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00239}00239 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00240}00240     \textcolor{keywordtype}{int} c, i = 0;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00241}00241     \textcolor{keywordtype}{int} neg = v < 0;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00243}00243     \textcolor{keywordflow}{if} (neg)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00244}00244     v = -\/v;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00245}00245 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00246}00246     \textcolor{keywordflow}{do} \{  }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00247}00247         s[i++] = ((c = (v \% b)) < 10)  ?  c + \textcolor{charliteral}{'0'} : c -\/ 10 + \textcolor{charliteral}{'a'};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00248}00248     \} \textcolor{keywordflow}{while} ((v /= b) > 0);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00249}00249 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00250}00250     \textcolor{keywordflow}{if} (neg)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00251}00251     s[i++] = \textcolor{charliteral}{'-\/'};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00252}00252 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00253}00253     s[i] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00254}00254     \mbox{\hyperlink{csapp_8c_a7280ec8bbd5b4ef0a9b65faaaf28faf3}{sio\_reverse}}(s);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00255}00255 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00257}00257 \textcolor{comment}{/* sio\_strlen -\/ Return length of string (from K\&R) */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00258}\mbox{\hyperlink{csapp_8c_a34d77d7ef5e0af44bf1f6b0ccc3bc0de}{00258}} \textcolor{keyword}{static} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{csapp_8c_a34d77d7ef5e0af44bf1f6b0ccc3bc0de}{sio\_strlen}}(\textcolor{keywordtype}{char} s[])}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00259}00259 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00260}00260     \textcolor{keywordtype}{int} i = 0;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00261}00261 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00262}00262     \textcolor{keywordflow}{while} (s[i] != \textcolor{charliteral}{'\(\backslash\)0'})}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00263}00263         ++i;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00264}00264     \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00265}00265 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00266}00266 \textcolor{comment}{/* \$end sioprivate */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00267}00267 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00268}00268 \textcolor{comment}{/* Public Sio functions */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00269}00269 \textcolor{comment}{/* \$begin siopublic */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00270}00270 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00271}\mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{00271}} ssize\_t \mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{sio\_puts}}(\textcolor{keywordtype}{char} s[]) \textcolor{comment}{/* Put string */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00272}00272 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00273}00273     \textcolor{keywordflow}{return} write(STDOUT\_FILENO, s, \mbox{\hyperlink{csapp_8c_a34d77d7ef5e0af44bf1f6b0ccc3bc0de}{sio\_strlen}}(s)); \textcolor{comment}{//line:csapp:siostrlen}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00274}00274 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00275}00275 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00276}\mbox{\hyperlink{csapp_8c_ab966f509eca3c980efbd1c99686884d1}{00276}} ssize\_t \mbox{\hyperlink{csapp_8c_ab966f509eca3c980efbd1c99686884d1}{sio\_putl}}(\textcolor{keywordtype}{long} v) \textcolor{comment}{/* Put long */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00277}00277 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00278}00278     \textcolor{keywordtype}{char} s[128];}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00279}00279     }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00280}00280     \mbox{\hyperlink{csapp_8c_ad8b8f253ac73d525e8d84998d8a9170d}{sio\_ltoa}}(v, s, 10); \textcolor{comment}{/* Based on K\&R itoa() */}  \textcolor{comment}{//line:csapp:sioltoa}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00281}00281     \textcolor{keywordflow}{return} \mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{sio\_puts}}(s);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00282}00282 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00283}00283 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00284}\mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{00284}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{sio\_error}}(\textcolor{keywordtype}{char} s[]) \textcolor{comment}{/* Put error message and exit */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00285}00285 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00286}00286     \mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{sio\_puts}}(s);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00287}00287     \_exit(1);                                      \textcolor{comment}{//line:csapp:sioexit}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00288}00288 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00289}00289 \textcolor{comment}{/* \$end siopublic */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00290}00290 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00291}00291 \textcolor{comment}{/*******************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00292}00292 \textcolor{comment}{ * Wrappers for the SIO routines}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00293}00293 \textcolor{comment}{ ******************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00294}\mbox{\hyperlink{csapp_8c_a5bc192f6925f61352e147bc049b9fce0}{00294}} ssize\_t \mbox{\hyperlink{csapp_8c_a5bc192f6925f61352e147bc049b9fce0}{Sio\_putl}}(\textcolor{keywordtype}{long} v)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00295}00295 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00296}00296     ssize\_t n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00297}00297   }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00298}00298     \textcolor{keywordflow}{if} ((n = \mbox{\hyperlink{csapp_8c_ab966f509eca3c980efbd1c99686884d1}{sio\_putl}}(v)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00299}00299     \mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{sio\_error}}(\textcolor{stringliteral}{"{}Sio\_putl error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00300}00300     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00301}00301 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00302}00302 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00303}\mbox{\hyperlink{csapp_8c_a6feaaee84f440ba84aee16da38e50c6a}{00303}} ssize\_t \mbox{\hyperlink{csapp_8c_a6feaaee84f440ba84aee16da38e50c6a}{Sio\_puts}}(\textcolor{keywordtype}{char} s[])}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00304}00304 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00305}00305     ssize\_t n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00306}00306   }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00307}00307     \textcolor{keywordflow}{if} ((n = \mbox{\hyperlink{csapp_8c_a76aa72aa3af272f6849d8d8826a1c101}{sio\_puts}}(s)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00308}00308     \mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{sio\_error}}(\textcolor{stringliteral}{"{}Sio\_puts error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00309}00309     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00310}00310 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00311}00311 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00312}\mbox{\hyperlink{csapp_8c_aa535c4f02a5e0e47e304504b5ff1b8d2}{00312}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_aa535c4f02a5e0e47e304504b5ff1b8d2}{Sio\_error}}(\textcolor{keywordtype}{char} s[])}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00313}00313 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00314}00314     \mbox{\hyperlink{csapp_8c_a961b288d09ad88f6ac1b7cfb8ab4f674}{sio\_error}}(s);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00315}00315 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00316}00316 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00317}00317 \textcolor{comment}{/********************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00318}00318 \textcolor{comment}{ * Wrappers for Unix I/O routines}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00319}00319 \textcolor{comment}{ ********************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00320}00320 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00321}\mbox{\hyperlink{csapp_8c_a78bf11eb07f8d1ba271034ef5f8904d4}{00321}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_a78bf11eb07f8d1ba271034ef5f8904d4}{Open}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *pathname, \textcolor{keywordtype}{int} flags, mode\_t mode) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00322}00322 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00323}00323     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00324}00324 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00325}00325     \textcolor{keywordflow}{if} ((rc = open(pathname, flags, mode))  < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00326}00326     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Open error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00327}00327     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00328}00328 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00329}00329 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00330}\mbox{\hyperlink{csapp_8c_aa126411f5821a2671133529b6e139560}{00330}} ssize\_t \mbox{\hyperlink{csapp_8c_aa126411f5821a2671133529b6e139560}{Read}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{void} *buf, \textcolor{keywordtype}{size\_t} count) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00331}00331 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00332}00332     ssize\_t rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00333}00333 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00334}00334     \textcolor{keywordflow}{if} ((rc = read(fd, buf, count)) < 0) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00335}00335     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Read error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00336}00336     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00337}00337 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00338}00338 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00339}\mbox{\hyperlink{csapp_8c_a9428ea024e46af2e8a00c874c637ad01}{00339}} ssize\_t \mbox{\hyperlink{csapp_8c_a9428ea024e46af2e8a00c874c637ad01}{Write}}(\textcolor{keywordtype}{int} fd, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *buf, \textcolor{keywordtype}{size\_t} count) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00340}00340 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00341}00341     ssize\_t rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00342}00342 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00343}00343     \textcolor{keywordflow}{if} ((rc = write(fd, buf, count)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00344}00344     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Write error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00345}00345     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00346}00346 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00347}00347 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00348}\mbox{\hyperlink{csapp_8c_a95ac08c7753d84d6c58a8c9f452a7d15}{00348}} off\_t \mbox{\hyperlink{csapp_8c_a95ac08c7753d84d6c58a8c9f452a7d15}{Lseek}}(\textcolor{keywordtype}{int} fildes, off\_t offset, \textcolor{keywordtype}{int} whence) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00349}00349 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00350}00350     off\_t rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00351}00351 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00352}00352     \textcolor{keywordflow}{if} ((rc = lseek(fildes, offset, whence)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00353}00353     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Lseek error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00354}00354     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00355}00355 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00356}00356 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00357}\mbox{\hyperlink{csapp_8c_ade6d4842f21ea284e126636e424e6614}{00357}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ade6d4842f21ea284e126636e424e6614}{Close}}(\textcolor{keywordtype}{int} fd) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00358}00358 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00359}00359     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00360}00360 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00361}00361     \textcolor{keywordflow}{if} ((rc = close(fd)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00362}00362     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Close error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00363}00363 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00364}00364 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00365}\mbox{\hyperlink{csapp_8c_ae353913c0c1a54b7f067c9baff4bfbad}{00365}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_ae353913c0c1a54b7f067c9baff4bfbad}{Select}}(\textcolor{keywordtype}{int}  n, fd\_set *readfds, fd\_set *writefds,}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00366}00366        fd\_set *exceptfds, \textcolor{keyword}{struct} timeval *timeout) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00367}00367 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00368}00368     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00369}00369 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00370}00370     \textcolor{keywordflow}{if} ((rc = select(n, readfds, writefds, exceptfds, timeout)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00371}00371     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Select error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00372}00372     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00373}00373 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00374}00374 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00375}\mbox{\hyperlink{csapp_8c_ab0380f32f746c6557e0223260c6d70d2}{00375}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_ab0380f32f746c6557e0223260c6d70d2}{Dup2}}(\textcolor{keywordtype}{int} fd1, \textcolor{keywordtype}{int} fd2) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00376}00376 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00377}00377     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00378}00378 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00379}00379     \textcolor{keywordflow}{if} ((rc = dup2(fd1, fd2)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00380}00380     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Dup2 error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00381}00381     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00382}00382 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00383}00383 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00384}\mbox{\hyperlink{csapp_8c_af805ffaf4f4efcfe194b3ffcc481991b}{00384}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_af805ffaf4f4efcfe194b3ffcc481991b}{Stat}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename, \textcolor{keyword}{struct} stat *buf) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00385}00385 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00386}00386     \textcolor{keywordflow}{if} (stat(filename, buf) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00387}00387     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Stat error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00388}00388 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00389}00389 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00390}\mbox{\hyperlink{csapp_8c_a386158a454e36f16758f5805e640effe}{00390}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a386158a454e36f16758f5805e640effe}{Fstat}}(\textcolor{keywordtype}{int} fd, \textcolor{keyword}{struct} stat *buf) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00391}00391 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00392}00392     \textcolor{keywordflow}{if} (fstat(fd, buf) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00393}00393     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fstat error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00394}00394 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00395}00395 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00396}00396 \textcolor{comment}{/*********************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00397}00397 \textcolor{comment}{ * Wrappers for directory function}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00398}00398 \textcolor{comment}{ *********************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00399}00399 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00400}\mbox{\hyperlink{csapp_8c_aa034a018bcdd45163e6cd3bd866b4d88}{00400}} DIR *\mbox{\hyperlink{csapp_8c_aa034a018bcdd45163e6cd3bd866b4d88}{Opendir}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *name) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00401}00401 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00402}00402     DIR *dirp = opendir(name); }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00403}00403 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00404}00404     \textcolor{keywordflow}{if} (!dirp)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00405}00405         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}opendir error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00406}00406     \textcolor{keywordflow}{return} dirp;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00407}00407 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00408}00408 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00409}\mbox{\hyperlink{csapp_8c_a73e3a81a0e94f7a7d122ad019786f6a4}{00409}} \textcolor{keyword}{struct }dirent *\mbox{\hyperlink{csapp_8c_a73e3a81a0e94f7a7d122ad019786f6a4}{Readdir}}(DIR *dirp)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00410}00410 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00411}00411     \textcolor{keyword}{struct }dirent *dep;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00412}00412     }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00413}00413     errno = 0;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00414}00414     dep = readdir(dirp);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00415}00415     \textcolor{keywordflow}{if} ((dep == NULL) \&\& (errno != 0))}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00416}00416         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}readdir error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00417}00417     \textcolor{keywordflow}{return} dep;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00418}00418 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00419}00419 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00420}\mbox{\hyperlink{csapp_8c_af11e78949dd91377948e24e73eaeb15d}{00420}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_af11e78949dd91377948e24e73eaeb15d}{Closedir}}(DIR *dirp) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00421}00421 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00422}00422     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00423}00423 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00424}00424     \textcolor{keywordflow}{if} ((rc = closedir(dirp)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00425}00425         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}closedir error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00426}00426     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00427}00427 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00428}00428 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00429}00429 \textcolor{comment}{/***************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00430}00430 \textcolor{comment}{ * Wrappers for memory mapping functions}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00431}00431 \textcolor{comment}{ ***************************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00432}\mbox{\hyperlink{csapp_8c_a0cacede8957c9a8347c025eacbe4a65d}{00432}} \textcolor{keywordtype}{void} *\mbox{\hyperlink{csapp_8c_a0cacede8957c9a8347c025eacbe4a65d}{Mmap}}(\textcolor{keywordtype}{void} *addr, \textcolor{keywordtype}{size\_t} len, \textcolor{keywordtype}{int} prot, \textcolor{keywordtype}{int} flags, \textcolor{keywordtype}{int} fd, off\_t offset) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00433}00433 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00434}00434     \textcolor{keywordtype}{void} *ptr;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00435}00435 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00436}00436     \textcolor{keywordflow}{if} ((ptr = mmap(addr, len, prot, flags, fd, offset)) == ((\textcolor{keywordtype}{void} *) -\/1))}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00437}00437     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}mmap error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00438}00438     \textcolor{keywordflow}{return}(ptr);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00439}00439 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00440}00440 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00441}\mbox{\hyperlink{csapp_8c_a2ea5ad9d40a4599aeeb9edf95d42c2d1}{00441}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a2ea5ad9d40a4599aeeb9edf95d42c2d1}{Munmap}}(\textcolor{keywordtype}{void} *start, \textcolor{keywordtype}{size\_t} length) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00442}00442 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00443}00443     \textcolor{keywordflow}{if} (munmap(start, length) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00444}00444     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}munmap error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00445}00445 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00446}00446 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00447}00447 \textcolor{comment}{/***************************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00448}00448 \textcolor{comment}{ * Wrappers for dynamic storage allocation functions}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00449}00449 \textcolor{comment}{ ***************************************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00450}00450 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00451}\mbox{\hyperlink{csapp_8c_a9a7684ec7a101845e6c146df4c3ddd67}{00451}} \textcolor{keywordtype}{void} *\mbox{\hyperlink{csapp_8c_a9a7684ec7a101845e6c146df4c3ddd67}{Malloc}}(\textcolor{keywordtype}{size\_t} size) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00452}00452 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00453}00453     \textcolor{keywordtype}{void} *p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00454}00454 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00455}00455     \textcolor{keywordflow}{if} ((p  = malloc(size)) == NULL)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00456}00456     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Malloc error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00457}00457     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00458}00458 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00459}00459 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00460}\mbox{\hyperlink{csapp_8c_a3f29198eb411631180ed2785999f5f65}{00460}} \textcolor{keywordtype}{void} *\mbox{\hyperlink{csapp_8c_a3f29198eb411631180ed2785999f5f65}{Realloc}}(\textcolor{keywordtype}{void} *ptr, \textcolor{keywordtype}{size\_t} size) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00461}00461 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00462}00462     \textcolor{keywordtype}{void} *p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00463}00463 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00464}00464     \textcolor{keywordflow}{if} ((p  = realloc(ptr, size)) == NULL)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00465}00465     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Realloc error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00466}00466     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00467}00467 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00468}00468 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00469}\mbox{\hyperlink{csapp_8c_a165d26955e8d87c05fc67337b105140a}{00469}} \textcolor{keywordtype}{void} *\mbox{\hyperlink{csapp_8c_a165d26955e8d87c05fc67337b105140a}{Calloc}}(\textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00470}00470 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00471}00471     \textcolor{keywordtype}{void} *p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00472}00472 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00473}00473     \textcolor{keywordflow}{if} ((p = calloc(nmemb, size)) == NULL)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00474}00474     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Calloc error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00475}00475     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00476}00476 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00477}00477 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00478}\mbox{\hyperlink{csapp_8c_a2b9bb176fa6405b0237f05cb6d5dc3e6}{00478}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a2b9bb176fa6405b0237f05cb6d5dc3e6}{Free}}(\textcolor{keywordtype}{void} *ptr) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00479}00479 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00480}00480     free(ptr);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00481}00481 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00482}00482 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00483}00483 \textcolor{comment}{/******************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00484}00484 \textcolor{comment}{ * Wrappers for the Standard I/O functions.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00485}00485 \textcolor{comment}{ ******************************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00486}\mbox{\hyperlink{csapp_8c_aeeee80da7fbbaa82da8e8b350759cfc0}{00486}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_aeeee80da7fbbaa82da8e8b350759cfc0}{Fclose}}(FILE *fp) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00487}00487 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00488}00488     \textcolor{keywordflow}{if} (fclose(fp) != 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00489}00489     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fclose error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00490}00490 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00491}00491 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00492}\mbox{\hyperlink{csapp_8c_a4e478ff44e1864ede54e70d3450a6311}{00492}} FILE *\mbox{\hyperlink{csapp_8c_a4e478ff44e1864ede54e70d3450a6311}{Fdopen}}(\textcolor{keywordtype}{int} fd, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *type) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00493}00493 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00494}00494     FILE *fp;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00495}00495 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00496}00496     \textcolor{keywordflow}{if} ((fp = fdopen(fd, type)) == NULL)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00497}00497     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fdopen error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00498}00498 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00499}00499     \textcolor{keywordflow}{return} fp;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00500}00500 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00501}00501 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00502}\mbox{\hyperlink{csapp_8c_add6ba221dc16cc92f8e582dbb0734fbd}{00502}} \textcolor{keywordtype}{char} *\mbox{\hyperlink{csapp_8c_add6ba221dc16cc92f8e582dbb0734fbd}{Fgets}}(\textcolor{keywordtype}{char} *ptr, \textcolor{keywordtype}{int} n, FILE *stream) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00503}00503 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00504}00504     \textcolor{keywordtype}{char} *rptr;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00505}00505 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00506}00506     \textcolor{keywordflow}{if} (((rptr = fgets(ptr, n, stream)) == NULL) \&\& ferror(stream))}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00507}00507     \mbox{\hyperlink{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}{app\_error}}(\textcolor{stringliteral}{"{}Fgets error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00508}00508 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00509}00509     \textcolor{keywordflow}{return} rptr;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00510}00510 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00511}00511 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00512}\mbox{\hyperlink{csapp_8c_a8f86c214181b217d0af38e1481c4207d}{00512}} FILE *\mbox{\hyperlink{csapp_8c_a8f86c214181b217d0af38e1481c4207d}{Fopen}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *mode) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00513}00513 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00514}00514     FILE *fp;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00515}00515 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00516}00516     \textcolor{keywordflow}{if} ((fp = fopen(filename, mode)) == NULL)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00517}00517     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fopen error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00518}00518 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00519}00519     \textcolor{keywordflow}{return} fp;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00520}00520 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00521}00521 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00522}\mbox{\hyperlink{csapp_8c_ab73963d63d93d5e54425208b2be5b8f4}{00522}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ab73963d63d93d5e54425208b2be5b8f4}{Fputs}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *ptr, FILE *stream) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00523}00523 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00524}00524     \textcolor{keywordflow}{if} (fputs(ptr, stream) == EOF)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00525}00525     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fputs error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00526}00526 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00527}00527 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00528}\mbox{\hyperlink{csapp_8c_a1d4a671becd543eb823efe48bd4298d2}{00528}} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{csapp_8c_a1d4a671becd543eb823efe48bd4298d2}{Fread}}(\textcolor{keywordtype}{void} *ptr, \textcolor{keywordtype}{size\_t} size, \textcolor{keywordtype}{size\_t} nmemb, FILE *stream) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00529}00529 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00530}00530     \textcolor{keywordtype}{size\_t} n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00531}00531 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00532}00532     \textcolor{keywordflow}{if} (((n = fread(ptr, size, nmemb, stream)) < nmemb) \&\& ferror(stream)) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00533}00533     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fread error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00534}00534     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00535}00535 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00536}00536 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00537}\mbox{\hyperlink{csapp_8c_a47f38fbb42408f96f6946ba7bfdd7741}{00537}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a47f38fbb42408f96f6946ba7bfdd7741}{Fwrite}}(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *ptr, \textcolor{keywordtype}{size\_t} size, \textcolor{keywordtype}{size\_t} nmemb, FILE *stream) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00538}00538 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00539}00539     \textcolor{keywordflow}{if} (fwrite(ptr, size, nmemb, stream) < nmemb)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00540}00540     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Fwrite error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00541}00541 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00542}00542 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00543}00543 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00544}00544 \textcolor{comment}{/**************************** }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00545}00545 \textcolor{comment}{ * Sockets interface wrappers}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00546}00546 \textcolor{comment}{ ****************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00547}00547 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00548}\mbox{\hyperlink{csapp_8c_ab40b825366ecd47b1693784284633633}{00548}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_ab40b825366ecd47b1693784284633633}{Socket}}(\textcolor{keywordtype}{int} domain, \textcolor{keywordtype}{int} type, \textcolor{keywordtype}{int} protocol) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00549}00549 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00550}00550     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00551}00551 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00552}00552     \textcolor{keywordflow}{if} ((rc = socket(domain, type, protocol)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00553}00553     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Socket error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00554}00554     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00555}00555 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00556}00556 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00557}\mbox{\hyperlink{csapp_8c_aa60a3616258115e3fc537440b64bf9b5}{00557}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_aa60a3616258115e3fc537440b64bf9b5}{Setsockopt}}(\textcolor{keywordtype}{int} s, \textcolor{keywordtype}{int} level, \textcolor{keywordtype}{int} optname, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *optval, \textcolor{keywordtype}{int} optlen) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00558}00558 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00559}00559     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00560}00560 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00561}00561     \textcolor{keywordflow}{if} ((rc = setsockopt(s, level, optname, optval, optlen)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00562}00562     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Setsockopt error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00563}00563 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00564}00564 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00565}\mbox{\hyperlink{csapp_8c_a1e7b9a4287a5ac6fba5e9cb68156c645}{00565}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a1e7b9a4287a5ac6fba5e9cb68156c645}{Bind}}(\textcolor{keywordtype}{int} sockfd, \textcolor{keyword}{struct} sockaddr *my\_addr, \textcolor{keywordtype}{int} addrlen) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00566}00566 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00567}00567     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00568}00568 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00569}00569     \textcolor{keywordflow}{if} ((rc = bind(sockfd, my\_addr, addrlen)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00570}00570     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Bind error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00571}00571 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00572}00572 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00573}\mbox{\hyperlink{csapp_8c_a37bccc725d820a0d8ba8c3ecaf843fcc}{00573}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a37bccc725d820a0d8ba8c3ecaf843fcc}{Listen}}(\textcolor{keywordtype}{int} s, \textcolor{keywordtype}{int} backlog) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00574}00574 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00575}00575     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00576}00576 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00577}00577     \textcolor{keywordflow}{if} ((rc = listen(s,  backlog)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00578}00578     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Listen error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00579}00579 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00580}00580 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00581}\mbox{\hyperlink{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1}{00581}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1}{Accept}}(\textcolor{keywordtype}{int} s, \textcolor{keyword}{struct} sockaddr *addr, socklen\_t *addrlen) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00582}00582 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00583}00583     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00584}00584 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00585}00585     \textcolor{keywordflow}{if} ((rc = accept(s, addr, addrlen)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00586}00586     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Accept error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00587}00587     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00588}00588 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00589}00589 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00590}\mbox{\hyperlink{csapp_8c_a4aaa270f4f53cf5a6a70ca0fa49bbc96}{00590}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a4aaa270f4f53cf5a6a70ca0fa49bbc96}{Connect}}(\textcolor{keywordtype}{int} sockfd, \textcolor{keyword}{struct} sockaddr *serv\_addr, \textcolor{keywordtype}{int} addrlen) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00591}00591 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00592}00592     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00593}00593 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00594}00594     \textcolor{keywordflow}{if} ((rc = connect(sockfd, serv\_addr, addrlen)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00595}00595     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Connect error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00596}00596 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00597}00597 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00598}00598 \textcolor{comment}{/*******************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00599}00599 \textcolor{comment}{ * Protocol-\/independent wrappers}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00600}00600 \textcolor{comment}{ *******************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00601}00601 \textcolor{comment}{/* \$begin getaddrinfo */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00602}\mbox{\hyperlink{csapp_8c_adf6da240d6d554a07dcd36d797923665}{00602}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_adf6da240d6d554a07dcd36d797923665}{Getaddrinfo}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *node, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *service, }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00603}00603                  \textcolor{keyword}{const} \textcolor{keyword}{struct} addrinfo *hints, \textcolor{keyword}{struct} addrinfo **res)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00604}00604 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00605}00605     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00606}00606 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00607}00607     \textcolor{keywordflow}{if} ((rc = getaddrinfo(node, service, hints, res)) != 0) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00608}00608         \mbox{\hyperlink{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}{gai\_error}}(rc, \textcolor{stringliteral}{"{}Getaddrinfo error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00609}00609 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00610}00610 \textcolor{comment}{/* \$end getaddrinfo */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00611}00611 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00612}\mbox{\hyperlink{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c}{00612}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c}{Getnameinfo}}(\textcolor{keyword}{const} \textcolor{keyword}{struct} sockaddr *sa, socklen\_t salen, \textcolor{keywordtype}{char} *host, }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00613}00613                  \textcolor{keywordtype}{size\_t} hostlen, \textcolor{keywordtype}{char} *serv, \textcolor{keywordtype}{size\_t} servlen, \textcolor{keywordtype}{int} flags)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00614}00614 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00615}00615     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00616}00616 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00617}00617     \textcolor{keywordflow}{if} ((rc = getnameinfo(sa, salen, host, hostlen, serv, }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00618}00618                           servlen, flags)) != 0) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00619}00619         \mbox{\hyperlink{csapp_8c_ac16ae0f54e1d24b243785d08c1ecf861}{gai\_error}}(rc, \textcolor{stringliteral}{"{}Getnameinfo error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00620}00620 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00621}00621 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00622}\mbox{\hyperlink{csapp_8c_acdecddf812f13fc175824e7075496a34}{00622}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_acdecddf812f13fc175824e7075496a34}{Freeaddrinfo}}(\textcolor{keyword}{struct} addrinfo *res)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00623}00623 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00624}00624     freeaddrinfo(res);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00625}00625 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00626}00626 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00627}\mbox{\hyperlink{csapp_8c_a6157592cb2f349885f589b03ba14cfab}{00627}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a6157592cb2f349885f589b03ba14cfab}{Inet\_ntop}}(\textcolor{keywordtype}{int} af, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *src, \textcolor{keywordtype}{char} *dst, socklen\_t size)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00628}00628 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00629}00629     \textcolor{keywordflow}{if} (!inet\_ntop(af, src, dst, size))}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00630}00630         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Inet\_ntop error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00631}00631 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00632}00632 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00633}\mbox{\hyperlink{csapp_8c_a071058d9c8f8bc71c88a931bd658585d}{00633}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a071058d9c8f8bc71c88a931bd658585d}{Inet\_pton}}(\textcolor{keywordtype}{int} af, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *src, \textcolor{keywordtype}{void} *dst) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00634}00634 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00635}00635     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00636}00636 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00637}00637     rc = inet\_pton(af, src, dst);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00638}00638     \textcolor{keywordflow}{if} (rc == 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00639}00639     \mbox{\hyperlink{csapp_8c_a8086cfc11cf33d923a2cf47805096d4d}{app\_error}}(\textcolor{stringliteral}{"{}inet\_pton error: invalid dotted-\/decimal address"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00640}00640     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rc < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00641}00641         \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Inet\_pton error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00642}00642 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00643}00643 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00644}00644 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00645}00645 \textcolor{comment}{ * DNS interface wrappers. }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00646}00646 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00647}00647 \textcolor{comment}{ * NOTE: These are obsolete because they are not thread safe. Use}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00648}00648 \textcolor{comment}{ * getaddrinfo and getnameinfo instead}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00649}00649 \textcolor{comment}{ ***********************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00650}00650 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00651}00651 \textcolor{comment}{/* \$begin gethostbyname */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00652}\mbox{\hyperlink{csapp_8c_abab47464f0183976da5b4fb0e691942c}{00652}} \textcolor{keyword}{struct }hostent *\mbox{\hyperlink{csapp_8c_abab47464f0183976da5b4fb0e691942c}{Gethostbyname}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *name) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00653}00653 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00654}00654     \textcolor{keyword}{struct }hostent *p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00655}00655 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00656}00656     \textcolor{keywordflow}{if} ((p = gethostbyname(name)) == NULL)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00657}00657     \mbox{\hyperlink{csapp_8c_a4378bd8eb844245a9bebe850221a0818}{dns\_error}}(\textcolor{stringliteral}{"{}Gethostbyname error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00658}00658     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00659}00659 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00660}00660 \textcolor{comment}{/* \$end gethostbyname */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00661}00661 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00662}\mbox{\hyperlink{csapp_8c_a742dff6d42737924118e12df9425b42e}{00662}} \textcolor{keyword}{struct }hostent *\mbox{\hyperlink{csapp_8c_a742dff6d42737924118e12df9425b42e}{Gethostbyaddr}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *addr, \textcolor{keywordtype}{int} len, \textcolor{keywordtype}{int} type) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00663}00663 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00664}00664     \textcolor{keyword}{struct }hostent *p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00665}00665 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00666}00666     \textcolor{keywordflow}{if} ((p = gethostbyaddr(addr, len, type)) == NULL)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00667}00667     \mbox{\hyperlink{csapp_8c_a4378bd8eb844245a9bebe850221a0818}{dns\_error}}(\textcolor{stringliteral}{"{}Gethostbyaddr error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00668}00668     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00669}00669 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00670}00670 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00671}00671 \textcolor{comment}{/************************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00672}00672 \textcolor{comment}{ * Wrappers for Pthreads thread control functions}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00673}00673 \textcolor{comment}{ ************************************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00674}00674 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00675}\mbox{\hyperlink{csapp_8c_aa6d8a6ddf79bff38d27a2f95ad82c5c7}{00675}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_aa6d8a6ddf79bff38d27a2f95ad82c5c7}{Pthread\_create}}(pthread\_t *tidp, pthread\_attr\_t *attrp, }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00676}00676             \textcolor{keywordtype}{void} * (*routine)(\textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} *argp) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00677}00677 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00678}00678     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00679}00679 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00680}00680     \textcolor{keywordflow}{if} ((rc = pthread\_create(tidp, attrp, routine, argp)) != 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00681}00681     \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(rc, \textcolor{stringliteral}{"{}Pthread\_create error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00682}00682 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00683}00683 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00684}\mbox{\hyperlink{csapp_8c_a98942f3e2170be6281cf746fffc3c7fd}{00684}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a98942f3e2170be6281cf746fffc3c7fd}{Pthread\_cancel}}(pthread\_t tid) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00685}00685     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00686}00686 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00687}00687     \textcolor{keywordflow}{if} ((rc = pthread\_cancel(tid)) != 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00688}00688     \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(rc, \textcolor{stringliteral}{"{}Pthread\_cancel error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00689}00689 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00690}00690 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00691}\mbox{\hyperlink{csapp_8c_a70cd5f9708d6fc60d1d1f2ffebaa10be}{00691}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a70cd5f9708d6fc60d1d1f2ffebaa10be}{Pthread\_join}}(pthread\_t tid, \textcolor{keywordtype}{void} **thread\_return) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00692}00692     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00693}00693 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00694}00694     \textcolor{keywordflow}{if} ((rc = pthread\_join(tid, thread\_return)) != 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00695}00695     \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(rc, \textcolor{stringliteral}{"{}Pthread\_join error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00696}00696 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00697}00697 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00698}00698 \textcolor{comment}{/* \$begin detach */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00699}\mbox{\hyperlink{csapp_8c_abe98ca7f09e647a538d75a2ef784db30}{00699}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_abe98ca7f09e647a538d75a2ef784db30}{Pthread\_detach}}(pthread\_t tid) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00700}00700     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00701}00701 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00702}00702     \textcolor{keywordflow}{if} ((rc = pthread\_detach(tid)) != 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00703}00703     \mbox{\hyperlink{csapp_8c_aa880cd1e4685fa55506abba23b0c716f}{posix\_error}}(rc, \textcolor{stringliteral}{"{}Pthread\_detach error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00704}00704 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00705}00705 \textcolor{comment}{/* \$end detach */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00706}00706 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00707}\mbox{\hyperlink{csapp_8c_ac1d25c755489cca5be72c74c80acb299}{00707}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ac1d25c755489cca5be72c74c80acb299}{Pthread\_exit}}(\textcolor{keywordtype}{void} *retval) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00708}00708     pthread\_exit(retval);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00709}00709 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00710}00710 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00711}\mbox{\hyperlink{csapp_8c_aa335e1a70a69c668d9d3556d6c6a22df}{00711}} pthread\_t \mbox{\hyperlink{csapp_8c_aa335e1a70a69c668d9d3556d6c6a22df}{Pthread\_self}}(\textcolor{keywordtype}{void}) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00712}00712     \textcolor{keywordflow}{return} pthread\_self();}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00713}00713 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00714}00714  }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00715}\mbox{\hyperlink{csapp_8c_a1f8f79a19161e180b1ba85e91ac3b53f}{00715}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a1f8f79a19161e180b1ba85e91ac3b53f}{Pthread\_once}}(pthread\_once\_t *once\_control, \textcolor{keywordtype}{void} (*init\_function)()) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00716}00716     pthread\_once(once\_control, init\_function);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00717}00717 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00718}00718 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00719}00719 \textcolor{comment}{/*******************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00720}00720 \textcolor{comment}{ * Wrappers for Posix semaphores}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00721}00721 \textcolor{comment}{ *******************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00722}00722 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00723}\mbox{\hyperlink{csapp_8c_ae010289b7ef93f854a4dba379399537c}{00723}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ae010289b7ef93f854a4dba379399537c}{Sem\_init}}(sem\_t *sem, \textcolor{keywordtype}{int} pshared, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} value) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00724}00724 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00725}00725     \textcolor{keywordflow}{if} (sem\_init(sem, pshared, value) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00726}00726     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Sem\_init error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00727}00727 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00728}00728 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00729}\mbox{\hyperlink{csapp_8c_a542aba31fd254d7c5f15b8dffa0f2425}{00729}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a542aba31fd254d7c5f15b8dffa0f2425}{P}}(sem\_t *sem) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00730}00730 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00731}00731     \textcolor{keywordflow}{if} (sem\_wait(sem) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00732}00732     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}P error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00733}00733 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00734}00734 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00735}\mbox{\hyperlink{csapp_8c_a8540b39306541d6d133d787ea01d833a}{00735}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_a8540b39306541d6d133d787ea01d833a}{V}}(sem\_t *sem) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00736}00736 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00737}00737     \textcolor{keywordflow}{if} (sem\_post(sem) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00738}00738     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}V error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00739}00739 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00740}00740 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00741}00741 \textcolor{comment}{/****************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00742}00742 \textcolor{comment}{ * The Rio package -\/ Robust I/O functions}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00743}00743 \textcolor{comment}{ ****************************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00744}00744 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00745}00745 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00746}00746 \textcolor{comment}{ * rio\_readn -\/ Robustly read n bytes (unbuffered)}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00747}00747 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00748}00748 \textcolor{comment}{/* \$begin rio\_readn */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00749}\mbox{\hyperlink{csapp_8c_a1cf7126905c6340624de56fd10671867}{00749}} ssize\_t \mbox{\hyperlink{csapp_8c_a1cf7126905c6340624de56fd10671867}{rio\_readn}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{void} *usrbuf, \textcolor{keywordtype}{size\_t} n) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00750}00750 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00751}00751     \textcolor{keywordtype}{size\_t} nleft = n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00752}00752     ssize\_t nread;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00753}00753     \textcolor{keywordtype}{char} *bufp = usrbuf;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00754}00754 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00755}00755     \textcolor{keywordflow}{while} (nleft > 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00756}00756     \textcolor{keywordflow}{if} ((nread = read(fd, bufp, nleft)) < 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00757}00757         \textcolor{keywordflow}{if} (errno == EINTR) \textcolor{comment}{/* Interrupted by sig handler return */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00758}00758         nread = 0;      \textcolor{comment}{/* and call read() again */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00759}00759         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00760}00760         \textcolor{keywordflow}{return} -\/1;      \textcolor{comment}{/* errno set by read() */} }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00761}00761     \} }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00762}00762     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nread == 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00763}00763         \textcolor{keywordflow}{break};              \textcolor{comment}{/* EOF */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00764}00764     nleft -\/= nread;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00765}00765     bufp += nread;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00766}00766     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00767}00767     \textcolor{keywordflow}{return} (n -\/ nleft);         \textcolor{comment}{/* Return >= 0 */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00768}00768 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00769}00769 \textcolor{comment}{/* \$end rio\_readn */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00770}00770 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00771}00771 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00772}00772 \textcolor{comment}{ * rio\_writen -\/ Robustly write n bytes (unbuffered)}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00773}00773 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00774}00774 \textcolor{comment}{/* \$begin rio\_writen */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00775}\mbox{\hyperlink{csapp_8c_abfa235e4a4aecc432a600dac286a48ba}{00775}} ssize\_t \mbox{\hyperlink{csapp_8c_abfa235e4a4aecc432a600dac286a48ba}{rio\_writen}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{void} *usrbuf, \textcolor{keywordtype}{size\_t} n) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00776}00776 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00777}00777     \textcolor{keywordtype}{size\_t} nleft = n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00778}00778     ssize\_t nwritten;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00779}00779     \textcolor{keywordtype}{char} *bufp = usrbuf;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00780}00780 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00781}00781     \textcolor{keywordflow}{while} (nleft > 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00782}00782     \textcolor{keywordflow}{if} ((nwritten = write(fd, bufp, nleft)) <= 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00783}00783         \textcolor{keywordflow}{if} (errno == EINTR)  \textcolor{comment}{/* Interrupted by sig handler return */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00784}00784         nwritten = 0;    \textcolor{comment}{/* and call write() again */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00785}00785         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00786}00786         \textcolor{keywordflow}{return} -\/1;       \textcolor{comment}{/* errno set by write() */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00787}00787     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00788}00788     nleft -\/= nwritten;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00789}00789     bufp += nwritten;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00790}00790     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00791}00791     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00792}00792 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00793}00793 \textcolor{comment}{/* \$end rio\_writen */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00794}00794 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00795}00795 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00796}00796 \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00797}00797 \textcolor{comment}{ * rio\_read -\/ This is a wrapper for the Unix read() function that}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00798}00798 \textcolor{comment}{ *    transfers min(n, rio\_cnt) bytes from an internal buffer to a user}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00799}00799 \textcolor{comment}{ *    buffer, where n is the number of bytes requested by the user and}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00800}00800 \textcolor{comment}{ *    rio\_cnt is the number of unread bytes in the internal buffer. On}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00801}00801 \textcolor{comment}{ *    entry, rio\_read() refills the internal buffer via a call to}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00802}00802 \textcolor{comment}{ *    read() if the internal buffer is empty.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00803}00803 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00804}00804 \textcolor{comment}{/* \$begin rio\_read */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00805}\mbox{\hyperlink{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}{00805}} \textcolor{keyword}{static} ssize\_t \mbox{\hyperlink{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}{rio\_read}}(\mbox{\hyperlink{structrio__t}{rio\_t}} *rp, \textcolor{keywordtype}{char} *usrbuf, \textcolor{keywordtype}{size\_t} n)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00806}00806 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00807}00807     \textcolor{keywordtype}{int} cnt;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00808}00808 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00809}00809     \textcolor{keywordflow}{while} (rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} <= 0) \{  \textcolor{comment}{/* Refill if buf is empty */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00810}00810     rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} = read(rp-\/>\mbox{\hyperlink{structrio__t_ace5418d5f962c7ae18facbba7044414f}{rio\_fd}}, rp-\/>\mbox{\hyperlink{structrio__t_a4e43f22ee20ed52db81cc426742456f1}{rio\_buf}}, }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00811}00811                \textcolor{keyword}{sizeof}(rp-\/>\mbox{\hyperlink{structrio__t_a4e43f22ee20ed52db81cc426742456f1}{rio\_buf}}));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00812}00812     \textcolor{keywordflow}{if} (rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} < 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00813}00813         \textcolor{keywordflow}{if} (errno != EINTR) \textcolor{comment}{/* Interrupted by sig handler return */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00814}00814         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00815}00815     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00816}00816     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} == 0)  \textcolor{comment}{/* EOF */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00817}00817         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00818}00818     \textcolor{keywordflow}{else} }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00819}00819         rp-\/>\mbox{\hyperlink{structrio__t_a3424cb59935fd4697cdc8783292eb124}{rio\_bufptr}} = rp-\/>\mbox{\hyperlink{structrio__t_a4e43f22ee20ed52db81cc426742456f1}{rio\_buf}}; \textcolor{comment}{/* Reset buffer ptr */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00820}00820     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00821}00821 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00822}00822     \textcolor{comment}{/* Copy min(n, rp-\/>rio\_cnt) bytes from internal buf to user buf */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00823}00823     cnt = n;          }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00824}00824     \textcolor{keywordflow}{if} (rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} < n)   }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00825}00825     cnt = rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00826}00826     memcpy(usrbuf, rp-\/>\mbox{\hyperlink{structrio__t_a3424cb59935fd4697cdc8783292eb124}{rio\_bufptr}}, cnt);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00827}00827     rp-\/>\mbox{\hyperlink{structrio__t_a3424cb59935fd4697cdc8783292eb124}{rio\_bufptr}} += cnt;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00828}00828     rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} -\/= cnt;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00829}00829     \textcolor{keywordflow}{return} cnt;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00830}00830 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00831}00831 \textcolor{comment}{/* \$end rio\_read */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00832}00832 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00833}00833 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00834}00834 \textcolor{comment}{ * rio\_readinitb -\/ Associate a descriptor with a read buffer and reset buffer}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00835}00835 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00836}00836 \textcolor{comment}{/* \$begin rio\_readinitb */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00837}\mbox{\hyperlink{csapp_8c_ab883ce6c47fb4a14f0c27b2620bf8ecc}{00837}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ab883ce6c47fb4a14f0c27b2620bf8ecc}{rio\_readinitb}}(\mbox{\hyperlink{structrio__t}{rio\_t}} *rp, \textcolor{keywordtype}{int} fd) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00838}00838 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00839}00839     rp-\/>\mbox{\hyperlink{structrio__t_ace5418d5f962c7ae18facbba7044414f}{rio\_fd}} = fd;  }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00840}00840     rp-\/>\mbox{\hyperlink{structrio__t_a0caeb88040ca469cc8066a0bb160cf39}{rio\_cnt}} = 0;  }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00841}00841     rp-\/>\mbox{\hyperlink{structrio__t_a3424cb59935fd4697cdc8783292eb124}{rio\_bufptr}} = rp-\/>\mbox{\hyperlink{structrio__t_a4e43f22ee20ed52db81cc426742456f1}{rio\_buf}};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00842}00842 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00843}00843 \textcolor{comment}{/* \$end rio\_readinitb */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00844}00844 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00845}00845 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00846}00846 \textcolor{comment}{ * rio\_readnb -\/ Robustly read n bytes (buffered)}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00847}00847 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00848}00848 \textcolor{comment}{/* \$begin rio\_readnb */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00849}\mbox{\hyperlink{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8}{00849}} ssize\_t \mbox{\hyperlink{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8}{rio\_readnb}}(\mbox{\hyperlink{structrio__t}{rio\_t}} *rp, \textcolor{keywordtype}{void} *usrbuf, \textcolor{keywordtype}{size\_t} n) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00850}00850 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00851}00851     \textcolor{keywordtype}{size\_t} nleft = n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00852}00852     ssize\_t nread;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00853}00853     \textcolor{keywordtype}{char} *bufp = usrbuf;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00854}00854     }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00855}00855     \textcolor{keywordflow}{while} (nleft > 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00856}00856     \textcolor{keywordflow}{if} ((nread = \mbox{\hyperlink{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}{rio\_read}}(rp, bufp, nleft)) < 0) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00857}00857             \textcolor{keywordflow}{return} -\/1;          \textcolor{comment}{/* errno set by read() */} }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00858}00858     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nread == 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00859}00859         \textcolor{keywordflow}{break};              \textcolor{comment}{/* EOF */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00860}00860     nleft -\/= nread;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00861}00861     bufp += nread;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00862}00862     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00863}00863     \textcolor{keywordflow}{return} (n -\/ nleft);         \textcolor{comment}{/* return >= 0 */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00864}00864 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00865}00865 \textcolor{comment}{/* \$end rio\_readnb */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00866}00866 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00867}00867 \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00868}00868 \textcolor{comment}{ * rio\_readlineb -\/ Robustly read a text line (buffered)}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00869}00869 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00870}00870 \textcolor{comment}{/* \$begin rio\_readlineb */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00871}\mbox{\hyperlink{csapp_8c_a9859728f6c15428877d9a75279374909}{00871}} ssize\_t \mbox{\hyperlink{csapp_8c_a9859728f6c15428877d9a75279374909}{rio\_readlineb}}(\mbox{\hyperlink{structrio__t}{rio\_t}} *rp, \textcolor{keywordtype}{void} *usrbuf, \textcolor{keywordtype}{size\_t} maxlen) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00872}00872 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00873}00873     \textcolor{keywordtype}{int} n, rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00874}00874     \textcolor{keywordtype}{char} c, *bufp = usrbuf;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00875}00875 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00876}00876     \textcolor{keywordflow}{for} (n = 1; n < maxlen; n++) \{ }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00877}00877         \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_a3d3d663b2c3cef61228fa3efa7a332db}{rio\_read}}(rp, \&c, 1)) == 1) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00878}00878         *bufp++ = c;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00879}00879         \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)n'}) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00880}00880                 n++;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00881}00881             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00882}00882             \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00883}00883     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rc == 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00884}00884         \textcolor{keywordflow}{if} (n == 1)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00885}00885         \textcolor{keywordflow}{return} 0; \textcolor{comment}{/* EOF, no data read */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00886}00886         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00887}00887         \textcolor{keywordflow}{break};    \textcolor{comment}{/* EOF, some data was read */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00888}00888     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00889}00889         \textcolor{keywordflow}{return} -\/1;    \textcolor{comment}{/* Error */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00890}00890     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00891}00891     *bufp = 0;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00892}00892     \textcolor{keywordflow}{return} n-\/1;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00893}00893 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00894}00894 \textcolor{comment}{/* \$end rio\_readlineb */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00895}00895 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00896}00896 \textcolor{comment}{/**********************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00897}00897 \textcolor{comment}{ * Wrappers for robust I/O routines}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00898}00898 \textcolor{comment}{ **********************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00899}\mbox{\hyperlink{csapp_8c_abbeba8caa94a14923800b14902803ceb}{00899}} ssize\_t \mbox{\hyperlink{csapp_8c_abbeba8caa94a14923800b14902803ceb}{Rio\_readn}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{void} *ptr, \textcolor{keywordtype}{size\_t} nbytes) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00900}00900 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00901}00901     ssize\_t n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00902}00902   }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00903}00903     \textcolor{keywordflow}{if} ((n = \mbox{\hyperlink{csapp_8c_a1cf7126905c6340624de56fd10671867}{rio\_readn}}(fd, ptr, nbytes)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00904}00904     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Rio\_readn error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00905}00905     \textcolor{keywordflow}{return} n;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00906}00906 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00907}00907 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00908}\mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{00908}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{void} *usrbuf, \textcolor{keywordtype}{size\_t} n) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00909}00909 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00910}00910     \textcolor{keywordflow}{if} (\mbox{\hyperlink{csapp_8c_abfa235e4a4aecc432a600dac286a48ba}{rio\_writen}}(fd, usrbuf, n) != n)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00911}00911     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Rio\_writen error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00912}00912 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00913}00913 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00914}\mbox{\hyperlink{csapp_8c_aed8da04ad4ae95341fe8951de010c52d}{00914}} \textcolor{keywordtype}{void} \mbox{\hyperlink{csapp_8c_aed8da04ad4ae95341fe8951de010c52d}{Rio\_readinitb}}(\mbox{\hyperlink{structrio__t}{rio\_t}} *rp, \textcolor{keywordtype}{int} fd)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00915}00915 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00916}00916     \mbox{\hyperlink{csapp_8c_ab883ce6c47fb4a14f0c27b2620bf8ecc}{rio\_readinitb}}(rp, fd);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00917}00917 \} }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00918}00918 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00919}\mbox{\hyperlink{csapp_8c_ac53e1402df452f5f3ce6f332bb0a8465}{00919}} ssize\_t \mbox{\hyperlink{csapp_8c_ac53e1402df452f5f3ce6f332bb0a8465}{Rio\_readnb}}(\mbox{\hyperlink{structrio__t}{rio\_t}} *rp, \textcolor{keywordtype}{void} *usrbuf, \textcolor{keywordtype}{size\_t} n) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00920}00920 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00921}00921     ssize\_t rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00922}00922 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00923}00923     \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_a6b1a25153f92301aaac15bb54bace8e8}{rio\_readnb}}(rp, usrbuf, n)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00924}00924     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Rio\_readnb error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00925}00925     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00926}00926 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00927}00927 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00928}\mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{00928}} ssize\_t \mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{Rio\_readlineb}}(\mbox{\hyperlink{structrio__t}{rio\_t}} *rp, \textcolor{keywordtype}{void} *usrbuf, \textcolor{keywordtype}{size\_t} maxlen) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00929}00929 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00930}00930     ssize\_t rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00931}00931 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00932}00932     \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_a9859728f6c15428877d9a75279374909}{rio\_readlineb}}(rp, usrbuf, maxlen)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00933}00933     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Rio\_readlineb error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00934}00934     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00935}00935 \} }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00936}00936 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00937}00937 \textcolor{comment}{/******************************** }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00938}00938 \textcolor{comment}{ * Client/server helper functions}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00939}00939 \textcolor{comment}{ ********************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00940}00940 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00941}00941 \textcolor{comment}{ * open\_clientfd -\/ Open connection to server at <hostname, port> and}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00942}00942 \textcolor{comment}{ *     return a socket descriptor ready for reading and writing. This}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00943}00943 \textcolor{comment}{ *     function is reentrant and protocol-\/independent.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00944}00944 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00945}00945 \textcolor{comment}{ *     On error, returns: }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00946}00946 \textcolor{comment}{ *       -\/2 for getaddrinfo error}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00947}00947 \textcolor{comment}{ *       -\/1 with errno set for other errors.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00948}00948 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00949}00949 \textcolor{comment}{/* \$begin open\_clientfd */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00950}\mbox{\hyperlink{csapp_8c_af3d89fae9c95718b173c5ba48a0d0cfc}{00950}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_af3d89fae9c95718b173c5ba48a0d0cfc}{open\_clientfd}}(\textcolor{keywordtype}{char} *hostname, \textcolor{keywordtype}{char} *port) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00951}00951     \textcolor{keywordtype}{int} clientfd, rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00952}00952     \textcolor{keyword}{struct }addrinfo hints, *listp, *p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00953}00953 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00954}00954     \textcolor{comment}{/* Get a list of potential server addresses */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00955}00955     memset(\&hints, 0, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} addrinfo));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00956}00956     hints.ai\_socktype = SOCK\_STREAM;  \textcolor{comment}{/* Open a connection */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00957}00957     hints.ai\_flags = AI\_NUMERICSERV;  \textcolor{comment}{/* ... using a numeric port arg. */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00958}00958     hints.ai\_flags |= AI\_ADDRCONFIG;  \textcolor{comment}{/* Recommended for connections */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00959}00959     \textcolor{keywordflow}{if} ((rc = getaddrinfo(hostname, port, \&hints, \&listp)) != 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00960}00960         fprintf(stderr, \textcolor{stringliteral}{"{}getaddrinfo failed (\%s:\%s): \%s\(\backslash\)n"{}}, hostname, port, gai\_strerror(rc));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00961}00961         \textcolor{keywordflow}{return} -\/2;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00962}00962     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00963}00963   }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00964}00964     \textcolor{comment}{/* Walk the list for one that we can successfully connect to */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00965}00965     \textcolor{keywordflow}{for} (p = listp; p; p = p-\/>ai\_next) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00966}00966         \textcolor{comment}{/* Create a socket descriptor */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00967}00967         \textcolor{keywordflow}{if} ((clientfd = socket(p-\/>ai\_family, p-\/>ai\_socktype, p-\/>ai\_protocol)) < 0) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00968}00968             \textcolor{keywordflow}{continue}; \textcolor{comment}{/* Socket failed, try the next */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00969}00969 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00970}00970         \textcolor{comment}{/* Connect to the server */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00971}00971         \textcolor{keywordflow}{if} (connect(clientfd, p-\/>ai\_addr, p-\/>ai\_addrlen) != -\/1) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00972}00972             \textcolor{keywordflow}{break}; \textcolor{comment}{/* Success */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00973}00973         \textcolor{keywordflow}{if} (close(clientfd) < 0) \{ \textcolor{comment}{/* Connect failed, try another */}  \textcolor{comment}{//line:netp:openclientfd:closefd}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00974}00974             fprintf(stderr, \textcolor{stringliteral}{"{}open\_clientfd: close failed: \%s\(\backslash\)n"{}}, strerror(errno));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00975}00975             \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00976}00976         \} }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00977}00977     \} }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00978}00978 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00979}00979     \textcolor{comment}{/* Clean up */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00980}00980     freeaddrinfo(listp);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00981}00981     \textcolor{keywordflow}{if} (!p) \textcolor{comment}{/* All connects failed */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00982}00982         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00983}00983     \textcolor{keywordflow}{else}    \textcolor{comment}{/* The last connect succeeded */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00984}00984         \textcolor{keywordflow}{return} clientfd;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00985}00985 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00986}00986 \textcolor{comment}{/* \$end open\_clientfd */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00987}00987 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00988}00988 \textcolor{comment}{/*  }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00989}00989 \textcolor{comment}{ * open\_listenfd -\/ Open and return a listening socket on port. This}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00990}00990 \textcolor{comment}{ *     function is reentrant and protocol-\/independent.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00991}00991 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00992}00992 \textcolor{comment}{ *     On error, returns: }}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00993}00993 \textcolor{comment}{ *       -\/2 for getaddrinfo error}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00994}00994 \textcolor{comment}{ *       -\/1 with errno set for other errors.}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00995}00995 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00996}00996 \textcolor{comment}{/* \$begin open\_listenfd */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00997}\mbox{\hyperlink{csapp_8c_ad6d48be42e6ddbaa0eddf3fdfc0a57d1}{00997}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_ad6d48be42e6ddbaa0eddf3fdfc0a57d1}{open\_listenfd}}(\textcolor{keywordtype}{char} *port) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00998}00998 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l00999}00999     \textcolor{keyword}{struct }addrinfo hints, *listp, *p;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01000}01000     \textcolor{keywordtype}{int} listenfd, rc, optval=1;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01001}01001 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01002}01002     \textcolor{comment}{/* Get a list of potential server addresses */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01003}01003     memset(\&hints, 0, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} addrinfo));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01004}01004     hints.ai\_socktype = SOCK\_STREAM;             \textcolor{comment}{/* Accept connections */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01005}01005     hints.ai\_flags = AI\_PASSIVE | AI\_ADDRCONFIG; \textcolor{comment}{/* ... on any IP address */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01006}01006     hints.ai\_flags |= AI\_NUMERICSERV;            \textcolor{comment}{/* ... using port number */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01007}01007     \textcolor{keywordflow}{if} ((rc = getaddrinfo(NULL, port, \&hints, \&listp)) != 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01008}01008         fprintf(stderr, \textcolor{stringliteral}{"{}getaddrinfo failed (port \%s): \%s\(\backslash\)n"{}}, port, gai\_strerror(rc));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01009}01009         \textcolor{keywordflow}{return} -\/2;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01010}01010     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01011}01011 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01012}01012     \textcolor{comment}{/* Walk the list for one that we can bind to */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01013}01013     \textcolor{keywordflow}{for} (p = listp; p; p = p-\/>ai\_next) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01014}01014         \textcolor{comment}{/* Create a socket descriptor */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01015}01015         \textcolor{keywordflow}{if} ((listenfd = socket(p-\/>ai\_family, p-\/>ai\_socktype, p-\/>ai\_protocol)) < 0) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01016}01016             \textcolor{keywordflow}{continue};  \textcolor{comment}{/* Socket failed, try the next */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01017}01017 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01018}01018         \textcolor{comment}{/* Eliminates "{}Address already in use"{} error from bind */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01019}01019         setsockopt(listenfd, SOL\_SOCKET, SO\_REUSEADDR,    \textcolor{comment}{//line:netp:csapp:setsockopt}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01020}01020                    (\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)\&optval , \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01021}01021 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01022}01022         \textcolor{comment}{/* Bind the descriptor to the address */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01023}01023         \textcolor{keywordflow}{if} (bind(listenfd, p-\/>ai\_addr, p-\/>ai\_addrlen) == 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01024}01024             \textcolor{keywordflow}{break}; \textcolor{comment}{/* Success */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01025}01025         \textcolor{keywordflow}{if} (close(listenfd) < 0) \{ \textcolor{comment}{/* Bind failed, try the next */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01026}01026             fprintf(stderr, \textcolor{stringliteral}{"{}open\_listenfd close failed: \%s\(\backslash\)n"{}}, strerror(errno));}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01027}01027             \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01028}01028         \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01029}01029     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01030}01030 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01031}01031 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01032}01032     \textcolor{comment}{/* Clean up */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01033}01033     freeaddrinfo(listp);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01034}01034     \textcolor{keywordflow}{if} (!p) \textcolor{comment}{/* No address worked */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01035}01035         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01036}01036 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01037}01037     \textcolor{comment}{/* Make it a listening socket ready to accept connection requests */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01038}01038     \textcolor{keywordflow}{if} (listen(listenfd, \mbox{\hyperlink{csapp_8h_a41a458f49434afe16fb9eec6735a09ad}{LISTENQ}}) < 0) \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01039}01039         close(listenfd);}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01040}01040     \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01041}01041     \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01042}01042     \textcolor{keywordflow}{return} listenfd;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01043}01043 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01044}01044 \textcolor{comment}{/* \$end open\_listenfd */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01045}01045 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01046}01046 \textcolor{comment}{/****************************************************}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01047}01047 \textcolor{comment}{ * Wrappers for reentrant protocol-\/independent helpers}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01048}01048 \textcolor{comment}{ ****************************************************/}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01049}\mbox{\hyperlink{csapp_8c_aef8a605f56519280d3fac186dafd1ad4}{01049}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_aef8a605f56519280d3fac186dafd1ad4}{Open\_clientfd}}(\textcolor{keywordtype}{char} *hostname, \textcolor{keywordtype}{char} *port) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01050}01050 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01051}01051     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01052}01052 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01053}01053     \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_af3d89fae9c95718b173c5ba48a0d0cfc}{open\_clientfd}}(hostname, port)) < 0) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01054}01054     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Open\_clientfd error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01055}01055     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01056}01056 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01057}01057 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01058}\mbox{\hyperlink{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5}{01058}} \textcolor{keywordtype}{int} \mbox{\hyperlink{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5}{Open\_listenfd}}(\textcolor{keywordtype}{char} *port) }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01059}01059 \{}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01060}01060     \textcolor{keywordtype}{int} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01061}01061 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01062}01062     \textcolor{keywordflow}{if} ((rc = \mbox{\hyperlink{csapp_8c_ad6d48be42e6ddbaa0eddf3fdfc0a57d1}{open\_listenfd}}(port)) < 0)}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01063}01063     \mbox{\hyperlink{csapp_8c_a17e24e521a7c65e0dbd3bf2f82f5230b}{unix\_error}}(\textcolor{stringliteral}{"{}Open\_listenfd error"{}});}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01064}01064     \textcolor{keywordflow}{return} rc;}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01065}01065 \}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01066}01066 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01067}01067 \textcolor{comment}{/* \$end csapp.c */}}
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01068}01068 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01069}01069 }
+\DoxyCodeLine{\Hypertarget{csapp_8c_source_l01070}01070 }
+
+\end{DoxyCode}

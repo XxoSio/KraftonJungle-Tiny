@@ -1,0 +1,30 @@
+\hypertarget{clienterror_8c_source}{}\doxysection{clienterror.\+c}
+\label{clienterror_8c_source}\index{code/clienterror.c@{code/clienterror.c}}
+\mbox{\hyperlink{clienterror_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{csapp_8h}{csapp.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00003}\mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{00003}} \textcolor{keywordtype}{void} \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{char} *cause, \textcolor{keywordtype}{char} *errnum, \textcolor{keywordtype}{char} *shortmsg, \textcolor{keywordtype}{char} *longmsg)}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00004}00004 \{}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00005}00005     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], body[\mbox{\hyperlink{csapp_8h_ad7871643c05865c80f5d8050aead2b57}{MAXBUF}}];}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00007}00007     \textcolor{comment}{// Build the HTTP response body}}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00008}00008     \textcolor{comment}{// sprintf는 출력하는 결과 값을 변수에 저장하게 해주는 기능있음}}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00009}00009     sprintf(body, \textcolor{stringliteral}{"{}<html><title>Tiny Error</title>"{}});}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00010}00010     sprintf(body, \textcolor{stringliteral}{"{}\%s<body bgcolor="{}}\textcolor{stringliteral}{"{}ffffff"{}}\textcolor{stringliteral}{"{}>\(\backslash\)r\(\backslash\)n"{}}, body);}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00011}00011     sprintf(body, \textcolor{stringliteral}{"{}\%s\%s: \%s\(\backslash\)r\(\backslash\)n"{}}, body, errnum, shortmsg);}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00012}00012     sprintf(body, \textcolor{stringliteral}{"{}\%s<p>\%s: \%s\(\backslash\)r\(\backslash\)n"{}}, body, longmsg, cause);}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00013}00013     sprintf(body, \textcolor{stringliteral}{"{}\%s<hr><em>The Tiny Web server</em>\(\backslash\)r\(\backslash\)n"{}},body);}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00015}00015     \textcolor{comment}{// Print the HTTP response}}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00016}00016     \textcolor{comment}{// HTTP의 응답을 출력}}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00017}00017     sprintf(buf, \textcolor{stringliteral}{"{}HTTP/1.0 \%s \%s\(\backslash\)r\(\backslash\)n"{}}, errnum, shortmsg);}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00018}00018     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00019}00019     sprintf(buf, \textcolor{stringliteral}{"{}Content-\/type: text/html\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00020}00020     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00021}00021     sprintf(buf, \textcolor{stringliteral}{"{}Content-\/length: \%d\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"{}}, (\textcolor{keywordtype}{int})strlen(body));}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00022}00022     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00023}00023     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, body, strlen(body));}
+\DoxyCodeLine{\Hypertarget{clienterror_8c_source_l00024}00024 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,12 @@
+<map id="code/csapp.h" name="code/csapp.h">
+<area shape="rect" id="node1" title=" " coords="559,5,659,31"/>
+<area shape="rect" id="node2" href="$adder_8c.html" title=" " coords="5,79,144,104"/>
+<area shape="rect" id="node3" href="$clienterror_8c.html" title=" " coords="168,79,291,104"/>
+<area shape="rect" id="node4" href="$csapp_8c.html" title=" " coords="315,79,415,104"/>
+<area shape="rect" id="node5" href="$doit_8c.html" title=" " coords="439,79,526,104"/>
+<area shape="rect" id="node6" href="$parse__uri_8c.html" title=" " coords="550,79,669,104"/>
+<area shape="rect" id="node7" href="$read__requesthdrs_8c.html" title=" " coords="693,79,859,104"/>
+<area shape="rect" id="node8" href="$serve__dynamic_8c.html" title=" " coords="883,79,1034,104"/>
+<area shape="rect" id="node9" href="$serve__static_8c.html" title=" " coords="1058,79,1193,104"/>
+<area shape="rect" id="node10" href="$tiny__main_8c.html" title=" " coords="1217,79,1338,104"/>
+</map>

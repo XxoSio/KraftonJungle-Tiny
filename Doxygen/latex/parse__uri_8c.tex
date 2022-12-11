@@ -1,0 +1,82 @@
+\hypertarget{parse__uri_8c}{}\doxysection{code/parse\+\_\+uri.c File Reference}
+\label{parse__uri_8c}\index{code/parse\_uri.c@{code/parse\_uri.c}}
+{\ttfamily \#include \char`\"{}csapp.\+h\char`\"{}}\newline
+Include dependency graph for parse\+\_\+uri.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse__uri_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{parse__uri_8c_aff908518ae341555df4dc671f145f992}{parse\+\_\+uri}} (char $\ast$uri, char $\ast$filename, char $\ast$cgiargs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{parse__uri_8c_aff908518ae341555df4dc671f145f992}\label{parse__uri_8c_aff908518ae341555df4dc671f145f992}} 
+\index{parse\_uri.c@{parse\_uri.c}!parse\_uri@{parse\_uri}}
+\index{parse\_uri@{parse\_uri}!parse\_uri.c@{parse\_uri.c}}
+\doxysubsubsection{\texorpdfstring{parse\_uri()}{parse\_uri()}}
+{\footnotesize\ttfamily int parse\+\_\+uri (\begin{DoxyParamCaption}\item[{char $\ast$}]{uri,  }\item[{char $\ast$}]{filename,  }\item[{char $\ast$}]{cgiargs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{parse__uri_8c_source_l00012}{12}} of file \mbox{\hyperlink{parse__uri_8c_source}{parse\+\_\+uri.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00013 \{}
+\DoxyCodeLine{00014     \textcolor{keywordtype}{char} *ptr;}
+\DoxyCodeLine{00015 }
+\DoxyCodeLine{00016     \textcolor{comment}{// strstr(대상 문자열, 검색할 문자열) -\/> 검색된 문자열(대상 문자열)뒤에 모든 문자열이 나옴}}
+\DoxyCodeLine{00017     \textcolor{comment}{// uri에서 'cgi-\/bin'이라는 문자열이 없으면 정적 컨텐츠}}
+\DoxyCodeLine{00018     \textcolor{keywordflow}{if} (!strstr(uri, \textcolor{stringliteral}{"{}cgi-\/bin"{}})) \{}
+\DoxyCodeLine{00019         \textcolor{comment}{// cgiargs 인자 string을 지움}}
+\DoxyCodeLine{00020         strcpy(cgiargs, \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00021         \textcolor{comment}{// 상대 리눅스 경로 이름으로 변환 -\/ '.'}}
+\DoxyCodeLine{00022         strcpy(filename, \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{00023         \textcolor{comment}{// 상대 리눅스 경로 이름으로 변환 -\/ '.' + '/index.html'}}
+\DoxyCodeLine{00024         strcat(filename, uri);}
+\DoxyCodeLine{00025     \textcolor{comment}{// URI가 '/'문자로 끝나는 경우}}
+\DoxyCodeLine{00026     \textcolor{keywordflow}{if} (uri[strlen(uri)-\/1] == \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{00027         \textcolor{comment}{// 기본 파일 이름인 home.html을 추가}}
+\DoxyCodeLine{00028         strcat(filename, \textcolor{stringliteral}{"{}home.html"{}});}
+\DoxyCodeLine{00029 }
+\DoxyCodeLine{00030         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{00031     \}}
+\DoxyCodeLine{00032     \textcolor{comment}{// 동적 컨텐츠}}
+\DoxyCodeLine{00033     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00034         \textcolor{comment}{// 모든 CGI인자를 추출}}
+\DoxyCodeLine{00035         ptr = index(uri, \textcolor{charliteral}{'?'});}
+\DoxyCodeLine{00036 }
+\DoxyCodeLine{00037         \textcolor{comment}{// index: 첫번째에서 두번째 인자를 찾음 -\/ 찾으면 위치 포인터를, 못찾으면 NULL을 반환}}
+\DoxyCodeLine{00038         \textcolor{keywordflow}{if} (ptr) \{}
+\DoxyCodeLine{00039             strcpy(cgiargs, ptr+1);}
+\DoxyCodeLine{00040             *ptr = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00041         \}}
+\DoxyCodeLine{00042         \textcolor{comment}{// ?가 없는 경우}}
+\DoxyCodeLine{00043         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00044             \textcolor{comment}{// 빈칸으로 둠}}
+\DoxyCodeLine{00045             strcpy(cgiargs, \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00046 }
+\DoxyCodeLine{00047         \textcolor{comment}{// 나머지 URI 부분을 상대 리눅스 파일이름으로 변환}}
+\DoxyCodeLine{00048         strcpy(filename, \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{00049         strcat(filename, uri);}
+\DoxyCodeLine{00050 }
+\DoxyCodeLine{00051         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00052     \}}
+\DoxyCodeLine{00053 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{parse__uri_8c_aff908518ae341555df4dc671f145f992_icgraph}
+\end{center}
+\end{figure}

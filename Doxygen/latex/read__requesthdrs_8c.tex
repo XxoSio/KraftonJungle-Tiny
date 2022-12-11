@@ -1,0 +1,68 @@
+\hypertarget{read__requesthdrs_8c}{}\doxysection{code/read\+\_\+requesthdrs.c File Reference}
+\label{read__requesthdrs_8c}\index{code/read\_requesthdrs.c@{code/read\_requesthdrs.c}}
+{\ttfamily \#include \char`\"{}csapp.\+h\char`\"{}}\newline
+Include dependency graph for read\+\_\+requesthdrs.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{read__requesthdrs_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{read__requesthdrs_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}{read\+\_\+requesthdrs}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{read__requesthdrs_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}\label{read__requesthdrs_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}} 
+\index{read\_requesthdrs.c@{read\_requesthdrs.c}!read\_requesthdrs@{read\_requesthdrs}}
+\index{read\_requesthdrs@{read\_requesthdrs}!read\_requesthdrs.c@{read\_requesthdrs.c}}
+\doxysubsubsection{\texorpdfstring{read\_requesthdrs()}{read\_requesthdrs()}}
+{\footnotesize\ttfamily void read\+\_\+requesthdrs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{read__requesthdrs_8c_source_l00010}{10}} of file \mbox{\hyperlink{read__requesthdrs_8c_source}{read\+\_\+requesthdrs.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011 \{}
+\DoxyCodeLine{00012     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{00013 }
+\DoxyCodeLine{00014     \textcolor{comment}{// 한 줄을 읽어들임('\(\backslash\)0'을 만나면 종료되는 식)}}
+\DoxyCodeLine{00015     \mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{Rio\_readlineb}}(rp, buf, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}});}
+\DoxyCodeLine{00016     \textcolor{comment}{// 읽어들인 버퍼 내용 출력}}
+\DoxyCodeLine{00017     printf(\textcolor{stringliteral}{"{}\%s"{}}, buf);}
+\DoxyCodeLine{00018     }
+\DoxyCodeLine{00019     \textcolor{comment}{// strcmp(str1, str2) 같은 경우 0을 반환 -\/> 이 경우에만 탈출}}
+\DoxyCodeLine{00020     \textcolor{comment}{// buf가 "{}\(\backslash\)r\(\backslash\)n"{}이 되는 경우는 모든 줄을 읽고 마지막 줄에 도착한 경우}}
+\DoxyCodeLine{00021     \textcolor{comment}{// 헤더의 마지막 줄은 비어있음}}
+\DoxyCodeLine{00022     \textcolor{keywordflow}{while}(strcmp(buf, \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}})) \{}
+\DoxyCodeLine{00023         \textcolor{comment}{// 한줄 한줄 읽은 것을 출력(최대 MAXLINE라인까지 읽을 수 있음)}}
+\DoxyCodeLine{00024         \mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{Rio\_readlineb}}(rp, buf, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}});}
+\DoxyCodeLine{00025         printf(\textcolor{stringliteral}{"{}\%s"{}}, buf);}
+\DoxyCodeLine{00026     \}}
+\DoxyCodeLine{00027     }
+\DoxyCodeLine{00028     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00029 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{read__requesthdrs_8c_a9ecea2c5ba8b75cf357d9141e3bebc22_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{read__requesthdrs_8c_a9ecea2c5ba8b75cf357d9141e3bebc22_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,46 @@
+\hypertarget{adder_8c_source}{}\doxysection{adder.\+c}
+\label{adder_8c_source}\index{code/cgi-\/bin/adder.c@{code/cgi-\/bin/adder.c}}
+\mbox{\hyperlink{adder_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00001}00001 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00002}00002 \textcolor{comment}{ * adder.c -\/ a minimal CGI program that adds two numbers together}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00003}00003 \textcolor{comment}{ *         -\/ 두 개의 숫자를 더하는 최소 CGI 프로그램}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00004}00004 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00005}00005 \textcolor{comment}{/* \$begin adder */}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{csapp_8h}{csapp.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00008}\mbox{\hyperlink{adder_8c_a840291bc02cba5474a4cb46a9b9566fe}{00008}} \textcolor{keywordtype}{int} \mbox{\hyperlink{adder_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}}(\textcolor{keywordtype}{void}) \{}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00009}00009     \textcolor{keywordtype}{char} *buf, *p;}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00010}00010     \textcolor{keywordtype}{char} arg1[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], arg2[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], content[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00011}00011     \textcolor{keywordtype}{int} n1=0, n2=0;}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00013}00013     \textcolor{comment}{/* Extract the two arguments */}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00014}00014     \textcolor{keywordflow}{if} ((buf = getenv(\textcolor{stringliteral}{"{}QUERY\_STRING"{}})) != NULL) \{}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00015}00015         p = strchr(buf, \textcolor{charliteral}{'\&'});}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00016}00016         *p = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00017}00017         strcpy(arg1, buf);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00018}00018         strcpy(arg2, p+1);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00019}00019         n1 = atoi(arg1);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00020}00020         n2 = atoi(arg2);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00021}00021     \}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00023}00023     \textcolor{comment}{/* Make the response body */}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00024}00024     sprintf(content, \textcolor{stringliteral}{"{}Welcome to add.com: "{}});}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00025}00025     sprintf(content, \textcolor{stringliteral}{"{}\%sTHE Internet addition portal.\(\backslash\)r\(\backslash\)n<p>"{}}, content);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00026}00026     sprintf(content, \textcolor{stringliteral}{"{}\%sThe answer is: \%d + \%d = \%d\(\backslash\)r\(\backslash\)n<p>"{}}, }
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00027}00027         content, n1, n2, n1 + n2);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00028}00028     sprintf(content, \textcolor{stringliteral}{"{}\%sThanks for visiting!\(\backslash\)r\(\backslash\)n"{}}, content);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00029}00029   }
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00030}00030     \textcolor{comment}{/* Generate the HTTP response */}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00031}00031     \textcolor{comment}{// method가 GET일 경우에만 reponse를 보냄}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00032}00032     printf(\textcolor{stringliteral}{"{}Connection: close\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00033}00033     printf(\textcolor{stringliteral}{"{}Content-\/length: \%d\(\backslash\)r\(\backslash\)n"{}}, (\textcolor{keywordtype}{int})strlen(content));}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00034}00034     printf(\textcolor{stringliteral}{"{}Content-\/type: text/html\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00035}00035     printf(\textcolor{stringliteral}{"{}\%s"{}}, content);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00036}00036     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00038}00038     exit(0);}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00039}00039 \}}
+\DoxyCodeLine{\Hypertarget{adder_8c_source_l00040}00040 \textcolor{comment}{/* \$end adder */}}
+
+\end{DoxyCode}

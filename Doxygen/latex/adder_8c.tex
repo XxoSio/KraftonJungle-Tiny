@@ -1,0 +1,65 @@
+\hypertarget{adder_8c}{}\doxysection{code/cgi-\/bin/adder.c File Reference}
+\label{adder_8c}\index{code/cgi-\/bin/adder.c@{code/cgi-\/bin/adder.c}}
+{\ttfamily \#include \char`\"{}csapp.\+h\char`\"{}}\newline
+Include dependency graph for adder.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adder_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{adder_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{adder_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{adder_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
+\index{adder.c@{adder.c}!main@{main}}
+\index{main@{main}!adder.c@{adder.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{adder_8c_source_l00008}{8}} of file \mbox{\hyperlink{adder_8c_source}{adder.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00008                \{}
+\DoxyCodeLine{00009     \textcolor{keywordtype}{char} *buf, *p;}
+\DoxyCodeLine{00010     \textcolor{keywordtype}{char} arg1[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], arg2[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], content[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{00011     \textcolor{keywordtype}{int} n1=0, n2=0;}
+\DoxyCodeLine{00012 }
+\DoxyCodeLine{00013     \textcolor{comment}{/* Extract the two arguments */}}
+\DoxyCodeLine{00014     \textcolor{keywordflow}{if} ((buf = getenv(\textcolor{stringliteral}{"{}QUERY\_STRING"{}})) != NULL) \{}
+\DoxyCodeLine{00015         p = strchr(buf, \textcolor{charliteral}{'\&'});}
+\DoxyCodeLine{00016         *p = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00017         strcpy(arg1, buf);}
+\DoxyCodeLine{00018         strcpy(arg2, p+1);}
+\DoxyCodeLine{00019         n1 = atoi(arg1);}
+\DoxyCodeLine{00020         n2 = atoi(arg2);}
+\DoxyCodeLine{00021     \}}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     \textcolor{comment}{/* Make the response body */}}
+\DoxyCodeLine{00024     sprintf(content, \textcolor{stringliteral}{"{}Welcome to add.com: "{}});}
+\DoxyCodeLine{00025     sprintf(content, \textcolor{stringliteral}{"{}\%sTHE Internet addition portal.\(\backslash\)r\(\backslash\)n<p>"{}}, content);}
+\DoxyCodeLine{00026     sprintf(content, \textcolor{stringliteral}{"{}\%sThe answer is: \%d + \%d = \%d\(\backslash\)r\(\backslash\)n<p>"{}}, }
+\DoxyCodeLine{00027         content, n1, n2, n1 + n2);}
+\DoxyCodeLine{00028     sprintf(content, \textcolor{stringliteral}{"{}\%sThanks for visiting!\(\backslash\)r\(\backslash\)n"{}}, content);}
+\DoxyCodeLine{00029   }
+\DoxyCodeLine{00030     \textcolor{comment}{/* Generate the HTTP response */}}
+\DoxyCodeLine{00031     \textcolor{comment}{// method가 GET일 경우에만 reponse를 보냄}}
+\DoxyCodeLine{00032     printf(\textcolor{stringliteral}{"{}Connection: close\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00033     printf(\textcolor{stringliteral}{"{}Content-\/length: \%d\(\backslash\)r\(\backslash\)n"{}}, (\textcolor{keywordtype}{int})strlen(content));}
+\DoxyCodeLine{00034     printf(\textcolor{stringliteral}{"{}Content-\/type: text/html\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00035     printf(\textcolor{stringliteral}{"{}\%s"{}}, content);}
+\DoxyCodeLine{00036     fflush(stdout);}
+\DoxyCodeLine{00037 }
+\DoxyCodeLine{00038     exit(0);}
+\DoxyCodeLine{00039 \}}
+
+\end{DoxyCode}

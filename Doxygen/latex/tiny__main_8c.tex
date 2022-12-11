@@ -1,0 +1,546 @@
+\hypertarget{tiny__main_8c}{}\doxysection{code/tiny\+\_\+main.c File Reference}
+\label{tiny__main_8c}\index{code/tiny\_main.c@{code/tiny\_main.c}}
+{\ttfamily \#include \char`\"{}csapp.\+h\char`\"{}}\newline
+Include dependency graph for tiny\+\_\+main.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tiny__main_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tiny__main_8c_af6fadf4f00ede1251c7cae226549b474}{doit}} (int fd)
+\item 
+void \mbox{\hyperlink{tiny__main_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}{read\+\_\+requesthdrs}} (\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$rp)
+\item 
+int \mbox{\hyperlink{tiny__main_8c_aff908518ae341555df4dc671f145f992}{parse\+\_\+uri}} (char $\ast$uri, char $\ast$filename, char $\ast$cgiargs)
+\item 
+void \mbox{\hyperlink{tiny__main_8c_a0d660c3747c171f05c61acd48a3d4f26}{serve\+\_\+static}} (int fd, char $\ast$filename, int filesize)
+\item 
+void \mbox{\hyperlink{tiny__main_8c_a40728f3c6a63a4c85a79fb0530526608}{get\+\_\+filetype}} (char $\ast$filename, char $\ast$filetype)
+\item 
+void \mbox{\hyperlink{tiny__main_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}{serve\+\_\+dynamic}} (int fd, char $\ast$filename, char $\ast$cgiargs)
+\item 
+void \mbox{\hyperlink{tiny__main_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}} (int fd, char $\ast$cause, char $\ast$errnum, char $\ast$shortmsg, char $\ast$longmsg)
+\item 
+int \mbox{\hyperlink{tiny__main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tiny__main_8c_aba0530ede6e28aff77c037f57996da05}\label{tiny__main_8c_aba0530ede6e28aff77c037f57996da05}} 
+\index{tiny\_main.c@{tiny\_main.c}!clienterror@{clienterror}}
+\index{clienterror@{clienterror}!tiny\_main.c@{tiny\_main.c}}
+\doxysubsubsection{\texorpdfstring{clienterror()}{clienterror()}}
+{\footnotesize\ttfamily void clienterror (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{cause,  }\item[{char $\ast$}]{errnum,  }\item[{char $\ast$}]{shortmsg,  }\item[{char $\ast$}]{longmsg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{clienterror_8c_source_l00003}{3}} of file \mbox{\hyperlink{clienterror_8c_source}{clienterror.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00004 \{}
+\DoxyCodeLine{00005     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], body[\mbox{\hyperlink{csapp_8h_ad7871643c05865c80f5d8050aead2b57}{MAXBUF}}];}
+\DoxyCodeLine{00006 }
+\DoxyCodeLine{00007     \textcolor{comment}{// Build the HTTP response body}}
+\DoxyCodeLine{00008     \textcolor{comment}{// sprintf는 출력하는 결과 값을 변수에 저장하게 해주는 기능있음}}
+\DoxyCodeLine{00009     sprintf(body, \textcolor{stringliteral}{"{}<html><title>Tiny Error</title>"{}});}
+\DoxyCodeLine{00010     sprintf(body, \textcolor{stringliteral}{"{}\%s<body bgcolor="{}}\textcolor{stringliteral}{"{}ffffff"{}}\textcolor{stringliteral}{"{}>\(\backslash\)r\(\backslash\)n"{}}, body);}
+\DoxyCodeLine{00011     sprintf(body, \textcolor{stringliteral}{"{}\%s\%s: \%s\(\backslash\)r\(\backslash\)n"{}}, body, errnum, shortmsg);}
+\DoxyCodeLine{00012     sprintf(body, \textcolor{stringliteral}{"{}\%s<p>\%s: \%s\(\backslash\)r\(\backslash\)n"{}}, body, longmsg, cause);}
+\DoxyCodeLine{00013     sprintf(body, \textcolor{stringliteral}{"{}\%s<hr><em>The Tiny Web server</em>\(\backslash\)r\(\backslash\)n"{}},body);}
+\DoxyCodeLine{00014 }
+\DoxyCodeLine{00015     \textcolor{comment}{// Print the HTTP response}}
+\DoxyCodeLine{00016     \textcolor{comment}{// HTTP의 응답을 출력}}
+\DoxyCodeLine{00017     sprintf(buf, \textcolor{stringliteral}{"{}HTTP/1.0 \%s \%s\(\backslash\)r\(\backslash\)n"{}}, errnum, shortmsg);}
+\DoxyCodeLine{00018     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{00019     sprintf(buf, \textcolor{stringliteral}{"{}Content-\/type: text/html\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00020     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{00021     sprintf(buf, \textcolor{stringliteral}{"{}Content-\/length: \%d\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"{}}, (\textcolor{keywordtype}{int})strlen(body));}
+\DoxyCodeLine{00022     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{00023     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, body, strlen(body));}
+\DoxyCodeLine{00024 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{tiny__main_8c_aba0530ede6e28aff77c037f57996da05_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{tiny__main_8c_aba0530ede6e28aff77c037f57996da05_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{tiny__main_8c_af6fadf4f00ede1251c7cae226549b474}\label{tiny__main_8c_af6fadf4f00ede1251c7cae226549b474}} 
+\index{tiny\_main.c@{tiny\_main.c}!doit@{doit}}
+\index{doit@{doit}!tiny\_main.c@{tiny\_main.c}}
+\doxysubsubsection{\texorpdfstring{doit()}{doit()}}
+{\footnotesize\ttfamily void doit (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{doit_8c_source_l00009}{9}} of file \mbox{\hyperlink{doit_8c_source}{doit.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010 \{}
+\DoxyCodeLine{00011     \textcolor{keywordtype}{int} is\_static;}
+\DoxyCodeLine{00012     \textcolor{keyword}{struct }stat sbuf;}
+\DoxyCodeLine{00013     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], method[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], uri[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], version[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{00014     \textcolor{keywordtype}{char} filename[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], cgiargs[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{00015     \mbox{\hyperlink{structrio__t}{rio\_t}} rio;}
+\DoxyCodeLine{00016 }
+\DoxyCodeLine{00017     \textcolor{comment}{/* Read request line and headers */}}
+\DoxyCodeLine{00018     \textcolor{comment}{// 요청 라인을 읽고 분석}}
+\DoxyCodeLine{00019     \textcolor{comment}{// 한 개의 빈 버퍼를 설정하고, 이 버퍼와 한 개의 오픈한 파일 식별자와 연결}}
+\DoxyCodeLine{00020     \textcolor{comment}{// 식별자 fd를 rio\_t 타입의 읽기 버퍼(rio)와 연결}}
+\DoxyCodeLine{00021     \mbox{\hyperlink{csapp_8c_aed8da04ad4ae95341fe8951de010c52d}{Rio\_readinitb}}(\&rio, fd);}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023     \textcolor{comment}{// 다음 텍스트 줄을 파일 rio에서 읽고, 이를 메모리 위치 buf로 복사후, 텍스트 라인을 null로 종료}}
+\DoxyCodeLine{00024     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{Rio\_readlineb}}(\&rio, buf, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}))}
+\DoxyCodeLine{00025         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00026 }
+\DoxyCodeLine{00027     \textcolor{comment}{// 요청된 라인을 pritf로 보여줌(최초 요청 라인: GET / HTTP/1.1)}}
+\DoxyCodeLine{00028     printf(\textcolor{stringliteral}{"{}\%s"{}}, buf);}
+\DoxyCodeLine{00029 }
+\DoxyCodeLine{00030     \textcolor{comment}{// buf의 내용을 method, uri, version이라는 문장열에 저장}}
+\DoxyCodeLine{00031     sscanf(buf, \textcolor{stringliteral}{"{}\%s \%s \%s"{}}, method, uri, version);}
+\DoxyCodeLine{00032 }
+\DoxyCodeLine{00033     \textcolor{comment}{// GET, HEAD, 메소드만 지원(두 문자가 같으면 0)}}
+\DoxyCodeLine{00034     \textcolor{keywordflow}{if} (strcasecmp(method, \textcolor{stringliteral}{"{}GET"{}})) \{}
+\DoxyCodeLine{00035         \textcolor{comment}{// 다른 메소드가 들어올 경우, 에러를 출력하고 리턴}}
+\DoxyCodeLine{00036         \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(fd, method, \textcolor{stringliteral}{"{}501"{}}, \textcolor{stringliteral}{"{}Not Implemented"{}}, \textcolor{stringliteral}{"{}Tiny does not implement this method"{}});}
+\DoxyCodeLine{00037         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00038     \}}
+\DoxyCodeLine{00039 }
+\DoxyCodeLine{00040     \textcolor{comment}{// 요청 라인을 제외한 요청 헤더를 출력}}
+\DoxyCodeLine{00041     \mbox{\hyperlink{read__requesthdrs_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}{read\_requesthdrs}}(\&rio);}
+\DoxyCodeLine{00042 }
+\DoxyCodeLine{00043     \textcolor{comment}{/* Parse URI from GET request */}}
+\DoxyCodeLine{00044     \textcolor{comment}{// URI를 filename과 CGI argument string으로 parse 하고}}
+\DoxyCodeLine{00045     \textcolor{comment}{// request가 정적인지, 동적인지 확인하는 flag를 리턴함}}
+\DoxyCodeLine{00046     \textcolor{comment}{// 1이면 정적}}
+\DoxyCodeLine{00047     is\_static = \mbox{\hyperlink{parse__uri_8c_aff908518ae341555df4dc671f145f992}{parse\_uri}}(uri, filename, cgiargs);}
+\DoxyCodeLine{00048 }
+\DoxyCodeLine{00049     \textcolor{comment}{// 디스크에 파일이 없다면 filename을 sbuf에 넣음}}
+\DoxyCodeLine{00050     \textcolor{comment}{// 종류, 크기 등등이 sbuf에 저장 -\/ 성공시 1, 실패시 -\/1}}
+\DoxyCodeLine{00051     \textcolor{keywordflow}{if} (stat(filename, \&sbuf) < 0) \{}
+\DoxyCodeLine{00052         \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(fd, filename, \textcolor{stringliteral}{"{}404"{}}, \textcolor{stringliteral}{"{}Not found"{}}, \textcolor{stringliteral}{"{}Tiny couldn't find this file"{}});}
+\DoxyCodeLine{00053         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00054     \}}
+\DoxyCodeLine{00055 }
+\DoxyCodeLine{00056     \textcolor{comment}{/* Serve static content */}}
+\DoxyCodeLine{00057     \textcolor{comment}{// 서버 정적 콘텐츠}}
+\DoxyCodeLine{00058     \textcolor{keywordflow}{if} (is\_static) \{}
+\DoxyCodeLine{00059         \textcolor{comment}{// S\_ISREG-\/> 파일 종류 확인: 일반 파일인지 판별}}
+\DoxyCodeLine{00060         \textcolor{comment}{// 읽기 권한(S\_IRUSR)을 가지고 있는지 판별}}
+\DoxyCodeLine{00061         \textcolor{keywordflow}{if} (!(S\_ISREG(sbuf.st\_mode)) || !(S\_IRUSR \& sbuf.st\_mode)) \{}
+\DoxyCodeLine{00062             \textcolor{comment}{// 읽기 권한이 없거나 정규 파일이 아니면 읽을 수 없음}}
+\DoxyCodeLine{00063             \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(fd, filename, \textcolor{stringliteral}{"{}403"{}}, \textcolor{stringliteral}{"{}Forbidden"{}}, \textcolor{stringliteral}{"{}Tiny couldn't read the file"{}});}
+\DoxyCodeLine{00064             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00065         \}}
+\DoxyCodeLine{00066 }
+\DoxyCodeLine{00067         \textcolor{comment}{// fd: connfd}}
+\DoxyCodeLine{00068         \textcolor{comment}{// 정적 컨텐츠를 클라이언트에게 제공}}
+\DoxyCodeLine{00069         \mbox{\hyperlink{serve__static_8c_a0d660c3747c171f05c61acd48a3d4f26}{serve\_static}}(fd, filename, sbuf.st\_size);}
+\DoxyCodeLine{00070     \}}
+\DoxyCodeLine{00071     \textcolor{comment}{/* Serve dynamic content */}}
+\DoxyCodeLine{00072     \textcolor{comment}{// 서버 동적 컨텐츠}}
+\DoxyCodeLine{00073     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00074         \textcolor{comment}{// 파일이 실행 가능한지 검증}}
+\DoxyCodeLine{00075         \textcolor{keywordflow}{if} (!(S\_ISREG(sbuf.st\_mode)) || !(S\_IXUSR \& sbuf.st\_mode)) \{}
+\DoxyCodeLine{00076             \mbox{\hyperlink{clienterror_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(fd, filename, \textcolor{stringliteral}{"{}403"{}}, \textcolor{stringliteral}{"{}Forbidden"{}}, \textcolor{stringliteral}{"{}Tiny couldn't run the CGI program"{}});}
+\DoxyCodeLine{00077             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00078         \}}
+\DoxyCodeLine{00079 }
+\DoxyCodeLine{00080         \textcolor{comment}{// 실행 가능하가면 동적 컨텐츠를 클라이언트에게 제공}}
+\DoxyCodeLine{00081         \mbox{\hyperlink{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}{serve\_dynamic}}(fd, filename, cgiargs);}
+\DoxyCodeLine{00082     \}}
+\DoxyCodeLine{00083 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tiny__main_8c_af6fadf4f00ede1251c7cae226549b474_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{tiny__main_8c_af6fadf4f00ede1251c7cae226549b474_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{tiny__main_8c_a40728f3c6a63a4c85a79fb0530526608}\label{tiny__main_8c_a40728f3c6a63a4c85a79fb0530526608}} 
+\index{tiny\_main.c@{tiny\_main.c}!get\_filetype@{get\_filetype}}
+\index{get\_filetype@{get\_filetype}!tiny\_main.c@{tiny\_main.c}}
+\doxysubsubsection{\texorpdfstring{get\_filetype()}{get\_filetype()}}
+{\footnotesize\ttfamily void get\+\_\+filetype (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{char $\ast$}]{filetype }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{serve__static_8c_source_l00064}{64}} of file \mbox{\hyperlink{serve__static_8c_source}{serve\+\_\+static.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065 \{}
+\DoxyCodeLine{00066     \textcolor{comment}{// filename 문자열 안에 '.html'이 있는지 검사}}
+\DoxyCodeLine{00067     \textcolor{keywordflow}{if} (strstr(filename, \textcolor{stringliteral}{"{}.html"{}}))}
+\DoxyCodeLine{00068         strcpy(filetype, \textcolor{stringliteral}{"{}text/html"{}}); }
+\DoxyCodeLine{00069     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strstr(filename, \textcolor{stringliteral}{"{}.gif"{}}))}
+\DoxyCodeLine{00070         strcpy(filetype, \textcolor{stringliteral}{"{}image/gif"{}});}
+\DoxyCodeLine{00071     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strstr(filename, \textcolor{stringliteral}{"{}.png"{}}))}
+\DoxyCodeLine{00072         strcpy(filetype, \textcolor{stringliteral}{"{}image/png"{}});}
+\DoxyCodeLine{00073     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strstr(filename, \textcolor{stringliteral}{"{}.jpg"{}}))}
+\DoxyCodeLine{00074         strcpy(filetype, \textcolor{stringliteral}{"{}image/jpeg"{}});}
+\DoxyCodeLine{00075     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00076         strcpy(filetype, \textcolor{stringliteral}{"{}text/plain"{}});}
+\DoxyCodeLine{00077 \}  }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tiny__main_8c_a40728f3c6a63a4c85a79fb0530526608_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{tiny__main_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{tiny__main_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{tiny\_main.c@{tiny\_main.c}!main@{main}}
+\index{main@{main}!tiny\_main.c@{tiny\_main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tiny__main_8c_source_l00020}{20}} of file \mbox{\hyperlink{tiny__main_8c_source}{tiny\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00021 \{}
+\DoxyCodeLine{00022     \textcolor{comment}{// listen \& connected에 필요한 file descriptor}}
+\DoxyCodeLine{00023     \textcolor{keywordtype}{int} listenfd, connfd;}
+\DoxyCodeLine{00024     \textcolor{comment}{// client host name, port를 저장할 배열 선언}}
+\DoxyCodeLine{00025     \textcolor{keywordtype}{char} hostname[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], port[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{00026     \textcolor{comment}{// unsigned int}}
+\DoxyCodeLine{00027     socklen\_t clientlen;}
+\DoxyCodeLine{00028     \textcolor{keyword}{struct }sockaddr\_storage clientaddr;}
+\DoxyCodeLine{00029 }
+\DoxyCodeLine{00030     \textcolor{comment}{/* Check command line args */}}
+\DoxyCodeLine{00031     \textcolor{comment}{// 입력 인자가 2개가 아닌 경우}}
+\DoxyCodeLine{00032     \textcolor{keywordflow}{if} (argc != 2) \{}
+\DoxyCodeLine{00033         fprintf(stderr, \textcolor{stringliteral}{"{}usage: \%s <port>\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{00034         exit(1);}
+\DoxyCodeLine{00035     \}}
+\DoxyCodeLine{00036 }
+\DoxyCodeLine{00037     \textcolor{comment}{// 듣기 소켓 오픈}}
+\DoxyCodeLine{00038     \textcolor{comment}{// argv은 main 함수가 받는 각각의 인자들}}
+\DoxyCodeLine{00039     \textcolor{comment}{// argv[1]: 우리가 부여하는 포트}}
+\DoxyCodeLine{00040     \textcolor{comment}{// 해당 포트에 연결 요청을 받을 준비가 된 듣기 식별자 리턴}}
+\DoxyCodeLine{00041     \textcolor{comment}{// 즉, 입력ㅂ다은 port로 local에서 passive socket 생성}}
+\DoxyCodeLine{00042     listenfd = \mbox{\hyperlink{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5}{Open\_listenfd}}(argv[1]);}
+\DoxyCodeLine{00043 }
+\DoxyCodeLine{00044     \textcolor{keywordflow}{while} (1) \{}
+\DoxyCodeLine{00045         clientlen = \textcolor{keyword}{sizeof}(clientaddr);}
+\DoxyCodeLine{00046 }
+\DoxyCodeLine{00047         \textcolor{comment}{// 서버는 accept 함수를 호출해서 클라이언트로부터의 연결 요청을 기다림}}
+\DoxyCodeLine{00048         \textcolor{comment}{// client 소켓은 server 소켓의 주소를 알고 있으니까}}
+\DoxyCodeLine{00049         \textcolor{comment}{// client에서 서버로 넘어올때 addr정보를 가지고 올 것이라고 가정}}
+\DoxyCodeLine{00050         \textcolor{comment}{// accept 함수는 연결되면 식별자를 리턴함}}
+\DoxyCodeLine{00051         \textcolor{comment}{// 듣기 식별자, 소켓 주소 구조체의 주소, 주소(소켓 구조체)}}
+\DoxyCodeLine{00052         connfd = \mbox{\hyperlink{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1}{Accept}}(listenfd, (\mbox{\hyperlink{csapp_8h_a1d992e140e70ec004f7faee5d0015bfc}{SA}} *)\&clientaddr, \&clientlen);}
+\DoxyCodeLine{00053 }
+\DoxyCodeLine{00054         \textcolor{comment}{// connfd 확인용}}
+\DoxyCodeLine{00055         \textcolor{comment}{// 책에는 없는 코드}}
+\DoxyCodeLine{00056         printf(\textcolor{stringliteral}{"{}connfd:\%d\(\backslash\)n"{}}, connfd);}
+\DoxyCodeLine{00057         }
+\DoxyCodeLine{00058         \textcolor{comment}{// clientaddr의 구조체에 대응되는 hostname, port를 확인}}
+\DoxyCodeLine{00059         \mbox{\hyperlink{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c}{Getnameinfo}}((\mbox{\hyperlink{csapp_8h_a1d992e140e70ec004f7faee5d0015bfc}{SA}} *) \&clientaddr, clientlen, hostname, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}, port, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}, 0);}
+\DoxyCodeLine{00060 }
+\DoxyCodeLine{00061         \textcolor{comment}{// 어떤 client가 들어왔는지 알려줌}}
+\DoxyCodeLine{00062         printf(\textcolor{stringliteral}{"{}Accepted connection from (\%s, \%s)\(\backslash\)n"{}}, hostname, port);}
+\DoxyCodeLine{00063 }
+\DoxyCodeLine{00064         \textcolor{comment}{// connfd로 트랜잭션 수행}}
+\DoxyCodeLine{00065         \mbox{\hyperlink{tiny__main_8c_af6fadf4f00ede1251c7cae226549b474}{doit}}(connfd); }
+\DoxyCodeLine{00066         \textcolor{comment}{// connfd로 자신쪽의 연결 끝 닫기}}
+\DoxyCodeLine{00067         \mbox{\hyperlink{csapp_8c_ade6d4842f21ea284e126636e424e6614}{Close}}(connfd);}
+\DoxyCodeLine{00068     \}   }
+\DoxyCodeLine{00069 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tiny__main_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{tiny__main_8c_aff908518ae341555df4dc671f145f992}\label{tiny__main_8c_aff908518ae341555df4dc671f145f992}} 
+\index{tiny\_main.c@{tiny\_main.c}!parse\_uri@{parse\_uri}}
+\index{parse\_uri@{parse\_uri}!tiny\_main.c@{tiny\_main.c}}
+\doxysubsubsection{\texorpdfstring{parse\_uri()}{parse\_uri()}}
+{\footnotesize\ttfamily int parse\+\_\+uri (\begin{DoxyParamCaption}\item[{char $\ast$}]{uri,  }\item[{char $\ast$}]{filename,  }\item[{char $\ast$}]{cgiargs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{parse__uri_8c_source_l00012}{12}} of file \mbox{\hyperlink{parse__uri_8c_source}{parse\+\_\+uri.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00013 \{}
+\DoxyCodeLine{00014     \textcolor{keywordtype}{char} *ptr;}
+\DoxyCodeLine{00015 }
+\DoxyCodeLine{00016     \textcolor{comment}{// strstr(대상 문자열, 검색할 문자열) -\/> 검색된 문자열(대상 문자열)뒤에 모든 문자열이 나옴}}
+\DoxyCodeLine{00017     \textcolor{comment}{// uri에서 'cgi-\/bin'이라는 문자열이 없으면 정적 컨텐츠}}
+\DoxyCodeLine{00018     \textcolor{keywordflow}{if} (!strstr(uri, \textcolor{stringliteral}{"{}cgi-\/bin"{}})) \{}
+\DoxyCodeLine{00019         \textcolor{comment}{// cgiargs 인자 string을 지움}}
+\DoxyCodeLine{00020         strcpy(cgiargs, \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00021         \textcolor{comment}{// 상대 리눅스 경로 이름으로 변환 -\/ '.'}}
+\DoxyCodeLine{00022         strcpy(filename, \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{00023         \textcolor{comment}{// 상대 리눅스 경로 이름으로 변환 -\/ '.' + '/index.html'}}
+\DoxyCodeLine{00024         strcat(filename, uri);}
+\DoxyCodeLine{00025     \textcolor{comment}{// URI가 '/'문자로 끝나는 경우}}
+\DoxyCodeLine{00026     \textcolor{keywordflow}{if} (uri[strlen(uri)-\/1] == \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{00027         \textcolor{comment}{// 기본 파일 이름인 home.html을 추가}}
+\DoxyCodeLine{00028         strcat(filename, \textcolor{stringliteral}{"{}home.html"{}});}
+\DoxyCodeLine{00029 }
+\DoxyCodeLine{00030         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{00031     \}}
+\DoxyCodeLine{00032     \textcolor{comment}{// 동적 컨텐츠}}
+\DoxyCodeLine{00033     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00034         \textcolor{comment}{// 모든 CGI인자를 추출}}
+\DoxyCodeLine{00035         ptr = index(uri, \textcolor{charliteral}{'?'});}
+\DoxyCodeLine{00036 }
+\DoxyCodeLine{00037         \textcolor{comment}{// index: 첫번째에서 두번째 인자를 찾음 -\/ 찾으면 위치 포인터를, 못찾으면 NULL을 반환}}
+\DoxyCodeLine{00038         \textcolor{keywordflow}{if} (ptr) \{}
+\DoxyCodeLine{00039             strcpy(cgiargs, ptr+1);}
+\DoxyCodeLine{00040             *ptr = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00041         \}}
+\DoxyCodeLine{00042         \textcolor{comment}{// ?가 없는 경우}}
+\DoxyCodeLine{00043         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00044             \textcolor{comment}{// 빈칸으로 둠}}
+\DoxyCodeLine{00045             strcpy(cgiargs, \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00046 }
+\DoxyCodeLine{00047         \textcolor{comment}{// 나머지 URI 부분을 상대 리눅스 파일이름으로 변환}}
+\DoxyCodeLine{00048         strcpy(filename, \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{00049         strcat(filename, uri);}
+\DoxyCodeLine{00050 }
+\DoxyCodeLine{00051         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00052     \}}
+\DoxyCodeLine{00053 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{tiny__main_8c_aff908518ae341555df4dc671f145f992_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{tiny__main_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}\label{tiny__main_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}} 
+\index{tiny\_main.c@{tiny\_main.c}!read\_requesthdrs@{read\_requesthdrs}}
+\index{read\_requesthdrs@{read\_requesthdrs}!tiny\_main.c@{tiny\_main.c}}
+\doxysubsubsection{\texorpdfstring{read\_requesthdrs()}{read\_requesthdrs()}}
+{\footnotesize\ttfamily void read\+\_\+requesthdrs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrio__t}{rio\+\_\+t}} $\ast$}]{rp }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{read__requesthdrs_8c_source_l00010}{10}} of file \mbox{\hyperlink{read__requesthdrs_8c_source}{read\+\_\+requesthdrs.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011 \{}
+\DoxyCodeLine{00012     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{00013 }
+\DoxyCodeLine{00014     \textcolor{comment}{// 한 줄을 읽어들임('\(\backslash\)0'을 만나면 종료되는 식)}}
+\DoxyCodeLine{00015     \mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{Rio\_readlineb}}(rp, buf, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}});}
+\DoxyCodeLine{00016     \textcolor{comment}{// 읽어들인 버퍼 내용 출력}}
+\DoxyCodeLine{00017     printf(\textcolor{stringliteral}{"{}\%s"{}}, buf);}
+\DoxyCodeLine{00018     }
+\DoxyCodeLine{00019     \textcolor{comment}{// strcmp(str1, str2) 같은 경우 0을 반환 -\/> 이 경우에만 탈출}}
+\DoxyCodeLine{00020     \textcolor{comment}{// buf가 "{}\(\backslash\)r\(\backslash\)n"{}이 되는 경우는 모든 줄을 읽고 마지막 줄에 도착한 경우}}
+\DoxyCodeLine{00021     \textcolor{comment}{// 헤더의 마지막 줄은 비어있음}}
+\DoxyCodeLine{00022     \textcolor{keywordflow}{while}(strcmp(buf, \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}})) \{}
+\DoxyCodeLine{00023         \textcolor{comment}{// 한줄 한줄 읽은 것을 출력(최대 MAXLINE라인까지 읽을 수 있음)}}
+\DoxyCodeLine{00024         \mbox{\hyperlink{csapp_8c_af381fd78810c004b91987d69e5d29e07}{Rio\_readlineb}}(rp, buf, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}});}
+\DoxyCodeLine{00025         printf(\textcolor{stringliteral}{"{}\%s"{}}, buf);}
+\DoxyCodeLine{00026     \}}
+\DoxyCodeLine{00027     }
+\DoxyCodeLine{00028     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00029 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tiny__main_8c_a9ecea2c5ba8b75cf357d9141e3bebc22_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{tiny__main_8c_a9ecea2c5ba8b75cf357d9141e3bebc22_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{tiny__main_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}\label{tiny__main_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}} 
+\index{tiny\_main.c@{tiny\_main.c}!serve\_dynamic@{serve\_dynamic}}
+\index{serve\_dynamic@{serve\_dynamic}!tiny\_main.c@{tiny\_main.c}}
+\doxysubsubsection{\texorpdfstring{serve\_dynamic()}{serve\_dynamic()}}
+{\footnotesize\ttfamily void serve\+\_\+dynamic (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{filename,  }\item[{char $\ast$}]{cgiargs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{serve__dynamic_8c_source_l00006}{6}} of file \mbox{\hyperlink{serve__dynamic_8c_source}{serve\+\_\+dynamic.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00007 \{}
+\DoxyCodeLine{00008     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], *emptylist[] = \{ NULL \};}
+\DoxyCodeLine{00009 }
+\DoxyCodeLine{00010     \textcolor{comment}{/* Return first part of HTTP response */}}
+\DoxyCodeLine{00011     \textcolor{comment}{// 클라이언트에 성공을 알려주는 응답 라인을 보내는 것으로 시작}}
+\DoxyCodeLine{00012     sprintf(buf, \textcolor{stringliteral}{"{}HTTP/1.0 200 OK\(\backslash\)r\(\backslash\)n"{}}); }
+\DoxyCodeLine{00013     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{00014     sprintf(buf, \textcolor{stringliteral}{"{}Server: Tiny Web Server\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00015     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{00016   }
+\DoxyCodeLine{00017     \textcolor{comment}{// 새로운 자식의 프로세스를 fork함}}
+\DoxyCodeLine{00018     \textcolor{keywordflow}{if} (\mbox{\hyperlink{csapp_8c_a00057fe93008a3ee1793005e659fa82f}{Fork}}() == 0) \{ \textcolor{comment}{/* Child */}}
+\DoxyCodeLine{00019         \textcolor{comment}{/* Real server would set all CGI vars here */}}
+\DoxyCodeLine{00020         \textcolor{comment}{// 이때 부모 프로세스는 자식의 PID(process id)를, 자식 프로세스는 0을 반환받음}}
+\DoxyCodeLine{00021         \textcolor{comment}{// QUERY\_STRING 환경변수를 요청 -\/ URI의 CGI 인자들을 넣겠다는 뜻}}
+\DoxyCodeLine{00022         \textcolor{comment}{// 세번째 인자는 기존 환경변수의 유무와 상관없이 값을 변경하겠다면 1, 아니라면 0}}
+\DoxyCodeLine{00023         setenv(\textcolor{stringliteral}{"{}QUERY\_STRING"{}}, cgiargs, 1);}
+\DoxyCodeLine{00024         \textcolor{comment}{/* Redirect stdout to client */}}
+\DoxyCodeLine{00025         \textcolor{comment}{// dup2 함수를 통해 표준 출력을 클라이언트와 연계된 연결 식별자로 재지정}}
+\DoxyCodeLine{00026         \textcolor{comment}{// -\/> CGI 프로그램이 표준 출력으로 쓰는 모든 것은 클라이언트로 바로 감(부모프로세스의 간섭 없이)}}
+\DoxyCodeLine{00027         \mbox{\hyperlink{csapp_8c_ab0380f32f746c6557e0223260c6d70d2}{Dup2}}(fd, STDOUT\_FILENO);}
+\DoxyCodeLine{00028         \textcolor{comment}{/* Run CGI program */}}
+\DoxyCodeLine{00029         \textcolor{comment}{// CGI 프로그램을 실행 -\/ adder을 실행}}
+\DoxyCodeLine{00030         \mbox{\hyperlink{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899}{Execve}}(filename, emptylist, \mbox{\hyperlink{csapp_8h_aa006daaf11f1e2e45a6ababaf463212b}{environ}});}
+\DoxyCodeLine{00031     \}}
+\DoxyCodeLine{00032     }
+\DoxyCodeLine{00033     \textcolor{comment}{/* Parent waits for and reaps child */}}
+\DoxyCodeLine{00034     \textcolor{comment}{// 자식이 아니면}}
+\DoxyCodeLine{00035     \textcolor{comment}{// 즉, 부모는 자식이 종료되어 정리되는 것을 기다리기 위해 wait함수에서 블록됨}}
+\DoxyCodeLine{00036     \mbox{\hyperlink{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0}{Wait}}(NULL);}
+\DoxyCodeLine{00037 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tiny__main_8c_aac51d8b4cf64d6b3033224f90cd1a3e6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{tiny__main_8c_aac51d8b4cf64d6b3033224f90cd1a3e6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{tiny__main_8c_a0d660c3747c171f05c61acd48a3d4f26}\label{tiny__main_8c_a0d660c3747c171f05c61acd48a3d4f26}} 
+\index{tiny\_main.c@{tiny\_main.c}!serve\_static@{serve\_static}}
+\index{serve\_static@{serve\_static}!tiny\_main.c@{tiny\_main.c}}
+\doxysubsubsection{\texorpdfstring{serve\_static()}{serve\_static()}}
+{\footnotesize\ttfamily void serve\+\_\+static (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{filename,  }\item[{int}]{filesize }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{serve__static_8c_source_l00008}{8}} of file \mbox{\hyperlink{serve__static_8c_source}{serve\+\_\+static.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009 \{}
+\DoxyCodeLine{00010     \textcolor{keywordtype}{int} srcfd;}
+\DoxyCodeLine{00011     \textcolor{keywordtype}{char} *srcp, filetype[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], buf[\mbox{\hyperlink{csapp_8h_ad7871643c05865c80f5d8050aead2b57}{MAXBUF}}];}
+\DoxyCodeLine{00012  }
+\DoxyCodeLine{00013     \textcolor{comment}{/* Send response headers to client */}}
+\DoxyCodeLine{00014     \textcolor{comment}{// 5개 중 무슨 파일 형식인지 검사해서 filetype을 채움}}
+\DoxyCodeLine{00015     \mbox{\hyperlink{serve__static_8c_a40728f3c6a63a4c85a79fb0530526608}{get\_filetype}}(filename, filetype);}
+\DoxyCodeLine{00016 }
+\DoxyCodeLine{00017     \textcolor{comment}{// clinet에 응답줄과 헤더를 보냄}}
+\DoxyCodeLine{00018     sprintf(buf, \textcolor{stringliteral}{"{}HTTP/1.0 200 OK\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00019     sprintf(buf, \textcolor{stringliteral}{"{}\%sServer: Tiny Web Server\(\backslash\)r\(\backslash\)n"{}}, buf);}
+\DoxyCodeLine{00020     \textcolor{comment}{// while을 한번 돌면 close가 되고, 새로 연결하면 새로 connect 하므로 close가 디폴트}}
+\DoxyCodeLine{00021     sprintf(buf, \textcolor{stringliteral}{"{}\%sConnection: close\(\backslash\)r\(\backslash\)n"{}}, buf);}
+\DoxyCodeLine{00022     sprintf(buf, \textcolor{stringliteral}{"{}\%sContent-\/length: \%d\(\backslash\)r\(\backslash\)n"{}}, buf, filesize);}
+\DoxyCodeLine{00023     \textcolor{comment}{// 여기\(\backslash\)r\(\backslash\)n 빈줄 하나가 헤더 종료 표시}}
+\DoxyCodeLine{00024     sprintf(buf, \textcolor{stringliteral}{"{}\%sContent-\/type: \%s\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"{}}, buf, filetype);}
+\DoxyCodeLine{00025 }
+\DoxyCodeLine{00026     \textcolor{comment}{// buf에서 strlen(buf) 바이트만큼 fd로 전송}}
+\DoxyCodeLine{00027     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{00028     printf(\textcolor{stringliteral}{"{}Response headers:\(\backslash\)n"{}});}
+\DoxyCodeLine{00029     printf(\textcolor{stringliteral}{"{}\%s"{}}, buf);}
+\DoxyCodeLine{00030 }
+\DoxyCodeLine{00031     \textcolor{comment}{/* Send response body to client */}}
+\DoxyCodeLine{00032     \textcolor{comment}{// open(열려고 하는 대상 파일의 이름, 파일을 열때 적용되는 열기 옵션, 파일 열때의 접근 권한 설명)}}
+\DoxyCodeLine{00033     \textcolor{comment}{// return :  파일 디스크립터}}
+\DoxyCodeLine{00034     \textcolor{comment}{// O\_RDONLY : 읽기 전용으로 파일 열기}}
+\DoxyCodeLine{00035     \textcolor{comment}{// 즉, filename의 파일을 읽기 전용으로 열어서 식별자를 받아옴}}
+\DoxyCodeLine{00036     srcfd = \mbox{\hyperlink{csapp_8c_a78bf11eb07f8d1ba271034ef5f8904d4}{Open}}(filename, O\_RDONLY, 0);}
+\DoxyCodeLine{00037 }
+\DoxyCodeLine{00038     \textcolor{comment}{// 요청한 파일을 디스크에서 가상 메모리로 mapping함}}
+\DoxyCodeLine{00039     \textcolor{comment}{// mmap을 호출하면 파일 srcfd의 첫번째 filesize 바이트를}}
+\DoxyCodeLine{00040     \textcolor{comment}{// 주소 srcp에서 시작하는 읽기-\/허용 가상 메모리 영역으로 mapping}}
+\DoxyCodeLine{00041     \textcolor{comment}{// 말록과 비슷한데 값도 복사해줌}}
+\DoxyCodeLine{00042     srcp = \mbox{\hyperlink{csapp_8c_a0cacede8957c9a8347c025eacbe4a65d}{Mmap}}(0, filesize, PROT\_READ, MAP\_PRIVATE, srcfd, 0);}
+\DoxyCodeLine{00043 }
+\DoxyCodeLine{00044     \textcolor{comment}{// Mmap 대신 malloc 이용}}
+\DoxyCodeLine{00045     \textcolor{comment}{// srcp = (char*)malloc(filesize);}}
+\DoxyCodeLine{00046     \textcolor{comment}{// Rio\_readn(srcfd, srcp, filesize);}}
+\DoxyCodeLine{00047 }
+\DoxyCodeLine{00048     \textcolor{comment}{// 파일 메모리로 매핑한 후 더이상 이 식별자는 필요없으므로 닫기(메모리 누수 방지)}}
+\DoxyCodeLine{00049     \mbox{\hyperlink{csapp_8c_ade6d4842f21ea284e126636e424e6614}{Close}}(srcfd);}
+\DoxyCodeLine{00050     \textcolor{comment}{// 실제로 파일을 client에 전송}}
+\DoxyCodeLine{00051     \textcolor{comment}{// Rio\_writen함수는 주소 srcp에서 시작하는 filesize를 클라이언트의 연결 식별자 fd로 복사}}
+\DoxyCodeLine{00052     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, srcp, filesize);}
+\DoxyCodeLine{00053 }
+\DoxyCodeLine{00054     \textcolor{comment}{// 매핑된 가상 메모리 주소를 반환(메모리 누수 방지)}}
+\DoxyCodeLine{00055     \mbox{\hyperlink{csapp_8c_a2ea5ad9d40a4599aeeb9edf95d42c2d1}{Munmap}}(srcp, filesize);}
+\DoxyCodeLine{00056     \textcolor{comment}{// free(srcp);}}
+\DoxyCodeLine{00057 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{tiny__main_8c_a0d660c3747c171f05c61acd48a3d4f26_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{tiny__main_8c_a0d660c3747c171f05c61acd48a3d4f26_icgraph}
+\end{center}
+\end{figure}

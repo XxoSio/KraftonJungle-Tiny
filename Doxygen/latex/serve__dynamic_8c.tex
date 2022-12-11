@@ -1,0 +1,80 @@
+\hypertarget{serve__dynamic_8c}{}\doxysection{code/serve\+\_\+dynamic.c File Reference}
+\label{serve__dynamic_8c}\index{code/serve\_dynamic.c@{code/serve\_dynamic.c}}
+{\ttfamily \#include \char`\"{}csapp.\+h\char`\"{}}\newline
+Include dependency graph for serve\+\_\+dynamic.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serve__dynamic_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}{serve\+\_\+dynamic}} (int fd, char $\ast$filename, char $\ast$cgiargs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}\label{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}} 
+\index{serve\_dynamic.c@{serve\_dynamic.c}!serve\_dynamic@{serve\_dynamic}}
+\index{serve\_dynamic@{serve\_dynamic}!serve\_dynamic.c@{serve\_dynamic.c}}
+\doxysubsubsection{\texorpdfstring{serve\_dynamic()}{serve\_dynamic()}}
+{\footnotesize\ttfamily void serve\+\_\+dynamic (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{filename,  }\item[{char $\ast$}]{cgiargs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{serve__dynamic_8c_source_l00006}{6}} of file \mbox{\hyperlink{serve__dynamic_8c_source}{serve\+\_\+dynamic.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00007 \{}
+\DoxyCodeLine{00008     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], *emptylist[] = \{ NULL \};}
+\DoxyCodeLine{00009 }
+\DoxyCodeLine{00010     \textcolor{comment}{/* Return first part of HTTP response */}}
+\DoxyCodeLine{00011     \textcolor{comment}{// 클라이언트에 성공을 알려주는 응답 라인을 보내는 것으로 시작}}
+\DoxyCodeLine{00012     sprintf(buf, \textcolor{stringliteral}{"{}HTTP/1.0 200 OK\(\backslash\)r\(\backslash\)n"{}}); }
+\DoxyCodeLine{00013     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{00014     sprintf(buf, \textcolor{stringliteral}{"{}Server: Tiny Web Server\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00015     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{00016   }
+\DoxyCodeLine{00017     \textcolor{comment}{// 새로운 자식의 프로세스를 fork함}}
+\DoxyCodeLine{00018     \textcolor{keywordflow}{if} (\mbox{\hyperlink{csapp_8c_a00057fe93008a3ee1793005e659fa82f}{Fork}}() == 0) \{ \textcolor{comment}{/* Child */}}
+\DoxyCodeLine{00019         \textcolor{comment}{/* Real server would set all CGI vars here */}}
+\DoxyCodeLine{00020         \textcolor{comment}{// 이때 부모 프로세스는 자식의 PID(process id)를, 자식 프로세스는 0을 반환받음}}
+\DoxyCodeLine{00021         \textcolor{comment}{// QUERY\_STRING 환경변수를 요청 -\/ URI의 CGI 인자들을 넣겠다는 뜻}}
+\DoxyCodeLine{00022         \textcolor{comment}{// 세번째 인자는 기존 환경변수의 유무와 상관없이 값을 변경하겠다면 1, 아니라면 0}}
+\DoxyCodeLine{00023         setenv(\textcolor{stringliteral}{"{}QUERY\_STRING"{}}, cgiargs, 1);}
+\DoxyCodeLine{00024         \textcolor{comment}{/* Redirect stdout to client */}}
+\DoxyCodeLine{00025         \textcolor{comment}{// dup2 함수를 통해 표준 출력을 클라이언트와 연계된 연결 식별자로 재지정}}
+\DoxyCodeLine{00026         \textcolor{comment}{// -\/> CGI 프로그램이 표준 출력으로 쓰는 모든 것은 클라이언트로 바로 감(부모프로세스의 간섭 없이)}}
+\DoxyCodeLine{00027         \mbox{\hyperlink{csapp_8c_ab0380f32f746c6557e0223260c6d70d2}{Dup2}}(fd, STDOUT\_FILENO);}
+\DoxyCodeLine{00028         \textcolor{comment}{/* Run CGI program */}}
+\DoxyCodeLine{00029         \textcolor{comment}{// CGI 프로그램을 실행 -\/ adder을 실행}}
+\DoxyCodeLine{00030         \mbox{\hyperlink{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899}{Execve}}(filename, emptylist, \mbox{\hyperlink{csapp_8h_aa006daaf11f1e2e45a6ababaf463212b}{environ}});}
+\DoxyCodeLine{00031     \}}
+\DoxyCodeLine{00032     }
+\DoxyCodeLine{00033     \textcolor{comment}{/* Parent waits for and reaps child */}}
+\DoxyCodeLine{00034     \textcolor{comment}{// 자식이 아니면}}
+\DoxyCodeLine{00035     \textcolor{comment}{// 즉, 부모는 자식이 종료되어 정리되는 것을 기다리기 위해 wait함수에서 블록됨}}
+\DoxyCodeLine{00036     \mbox{\hyperlink{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0}{Wait}}(NULL);}
+\DoxyCodeLine{00037 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6_icgraph}
+\end{center}
+\end{figure}

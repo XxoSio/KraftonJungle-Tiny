@@ -1,0 +1,43 @@
+\hypertarget{serve__dynamic_8c_source}{}\doxysection{serve\+\_\+dynamic.\+c}
+\label{serve__dynamic_8c_source}\index{code/serve\_dynamic.c@{code/serve\_dynamic.c}}
+\mbox{\hyperlink{serve__dynamic_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00001}00001 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00002}00002 \textcolor{comment}{ * serve\_dynamic -\/ run a CGI program on behalf of the client}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00003}00003 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{csapp_8h}{csapp.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00006}\mbox{\hyperlink{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}{00006}} \textcolor{keywordtype}{void} \mbox{\hyperlink{serve__dynamic_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}{serve\_dynamic}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{char} *filename, \textcolor{keywordtype}{char} *cgiargs) }
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00007}00007 \{}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00008}00008     \textcolor{keywordtype}{char} buf[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], *emptylist[] = \{ NULL \};}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00010}00010     \textcolor{comment}{/* Return first part of HTTP response */}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00011}00011     \textcolor{comment}{// 클라이언트에 성공을 알려주는 응답 라인을 보내는 것으로 시작}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00012}00012     sprintf(buf, \textcolor{stringliteral}{"{}HTTP/1.0 200 OK\(\backslash\)r\(\backslash\)n"{}}); }
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00013}00013     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00014}00014     sprintf(buf, \textcolor{stringliteral}{"{}Server: Tiny Web Server\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00015}00015     \mbox{\hyperlink{csapp_8c_ade1f0ac256103699aa3a599f120331ac}{Rio\_writen}}(fd, buf, strlen(buf));}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00016}00016   }
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00017}00017     \textcolor{comment}{// 새로운 자식의 프로세스를 fork함}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00018}00018     \textcolor{keywordflow}{if} (\mbox{\hyperlink{csapp_8c_a00057fe93008a3ee1793005e659fa82f}{Fork}}() == 0) \{ \textcolor{comment}{/* Child */}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00019}00019         \textcolor{comment}{/* Real server would set all CGI vars here */}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00020}00020         \textcolor{comment}{// 이때 부모 프로세스는 자식의 PID(process id)를, 자식 프로세스는 0을 반환받음}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00021}00021         \textcolor{comment}{// QUERY\_STRING 환경변수를 요청 -\/ URI의 CGI 인자들을 넣겠다는 뜻}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00022}00022         \textcolor{comment}{// 세번째 인자는 기존 환경변수의 유무와 상관없이 값을 변경하겠다면 1, 아니라면 0}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00023}00023         setenv(\textcolor{stringliteral}{"{}QUERY\_STRING"{}}, cgiargs, 1);}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00024}00024         \textcolor{comment}{/* Redirect stdout to client */}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00025}00025         \textcolor{comment}{// dup2 함수를 통해 표준 출력을 클라이언트와 연계된 연결 식별자로 재지정}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00026}00026         \textcolor{comment}{// -\/> CGI 프로그램이 표준 출력으로 쓰는 모든 것은 클라이언트로 바로 감(부모프로세스의 간섭 없이)}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00027}00027         \mbox{\hyperlink{csapp_8c_ab0380f32f746c6557e0223260c6d70d2}{Dup2}}(fd, STDOUT\_FILENO);}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00028}00028         \textcolor{comment}{/* Run CGI program */}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00029}00029         \textcolor{comment}{// CGI 프로그램을 실행 -\/ adder을 실행}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00030}00030         \mbox{\hyperlink{csapp_8c_a7df56f0bb69a6f96f2e4507e13f17899}{Execve}}(filename, emptylist, \mbox{\hyperlink{csapp_8h_aa006daaf11f1e2e45a6ababaf463212b}{environ}});}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00031}00031     \}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00032}00032     }
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00033}00033     \textcolor{comment}{/* Parent waits for and reaps child */}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00034}00034     \textcolor{comment}{// 자식이 아니면}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00035}00035     \textcolor{comment}{// 즉, 부모는 자식이 종료되어 정리되는 것을 기다리기 위해 wait함수에서 블록됨}}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00036}00036     \mbox{\hyperlink{csapp_8c_a55b58e04e02ebc93ab3ae12e1149c3e0}{Wait}}(NULL);}
+\DoxyCodeLine{\Hypertarget{serve__dynamic_8c_source_l00037}00037 \}}
+
+\end{DoxyCode}

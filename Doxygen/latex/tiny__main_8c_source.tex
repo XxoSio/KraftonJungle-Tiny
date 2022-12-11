@@ -1,0 +1,75 @@
+\hypertarget{tiny__main_8c_source}{}\doxysection{tiny\+\_\+main.\+c}
+\label{tiny__main_8c_source}\index{code/tiny\_main.c@{code/tiny\_main.c}}
+\mbox{\hyperlink{tiny__main_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00001}00001 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00002}00002 \textcolor{comment}{* tiny.c -\/ A simple, iterative HTTP/1.0 Web server that uses the}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00003}00003 \textcolor{comment}{*          GET method to serve static and dynamic content}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00004}00004 \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00005}00005 \textcolor{comment}{* tiny.c -\/ GET 메서드를 사용하여 정적 및 동적 콘텐츠를 제공하는 단순 반복 HTTP/1.0 웹 서버}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00006}00006 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{csapp_8h}{csapp.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00009}00009 \textcolor{keywordtype}{void} \mbox{\hyperlink{tiny__main_8c_af6fadf4f00ede1251c7cae226549b474}{doit}}(\textcolor{keywordtype}{int} fd);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00010}00010 \textcolor{keywordtype}{void} \mbox{\hyperlink{tiny__main_8c_a9ecea2c5ba8b75cf357d9141e3bebc22}{read\_requesthdrs}}(\mbox{\hyperlink{structrio__t}{rio\_t}} *rp);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00011}00011 \textcolor{keywordtype}{int} \mbox{\hyperlink{tiny__main_8c_aff908518ae341555df4dc671f145f992}{parse\_uri}}(\textcolor{keywordtype}{char} *uri, \textcolor{keywordtype}{char} *filename, \textcolor{keywordtype}{char} *cgiargs);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00012}00012 \textcolor{keywordtype}{void} \mbox{\hyperlink{tiny__main_8c_a0d660c3747c171f05c61acd48a3d4f26}{serve\_static}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{char} *filename, \textcolor{keywordtype}{int} filesize);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00013}00013 \textcolor{keywordtype}{void} \mbox{\hyperlink{tiny__main_8c_a40728f3c6a63a4c85a79fb0530526608}{get\_filetype}}(\textcolor{keywordtype}{char} *filename, \textcolor{keywordtype}{char} *filetype);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00014}00014 \textcolor{keywordtype}{void} \mbox{\hyperlink{tiny__main_8c_aac51d8b4cf64d6b3033224f90cd1a3e6}{serve\_dynamic}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{char} *filename, \textcolor{keywordtype}{char} *cgiargs);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00015}00015 \textcolor{keywordtype}{void} \mbox{\hyperlink{tiny__main_8c_aba0530ede6e28aff77c037f57996da05}{clienterror}}(\textcolor{keywordtype}{int} fd, \textcolor{keywordtype}{char} *cause, \textcolor{keywordtype}{char} *errnum,}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00016}00016 \textcolor{keywordtype}{char} *shortmsg, \textcolor{keywordtype}{char} *longmsg);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00018}00018 \textcolor{comment}{// 서버의 main function, 클라이언트는 브라우저}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00019}00019 \textcolor{comment}{// argc: 인자 개수, argv: 인자 배열}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00020}\mbox{\hyperlink{tiny__main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{00020}} \textcolor{keywordtype}{int} \mbox{\hyperlink{adder_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv) }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00021}00021 \{}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00022}00022     \textcolor{comment}{// listen \& connected에 필요한 file descriptor}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00023}00023     \textcolor{keywordtype}{int} listenfd, connfd;}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00024}00024     \textcolor{comment}{// client host name, port를 저장할 배열 선언}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00025}00025     \textcolor{keywordtype}{char} hostname[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}], port[\mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}];}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00026}00026     \textcolor{comment}{// unsigned int}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00027}00027     socklen\_t clientlen;}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00028}00028     \textcolor{keyword}{struct }sockaddr\_storage clientaddr;}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00030}00030     \textcolor{comment}{/* Check command line args */}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00031}00031     \textcolor{comment}{// 입력 인자가 2개가 아닌 경우}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00032}00032     \textcolor{keywordflow}{if} (argc != 2) \{}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00033}00033         fprintf(stderr, \textcolor{stringliteral}{"{}usage: \%s <port>\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00034}00034         exit(1);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00035}00035     \}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00037}00037     \textcolor{comment}{// 듣기 소켓 오픈}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00038}00038     \textcolor{comment}{// argv은 main 함수가 받는 각각의 인자들}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00039}00039     \textcolor{comment}{// argv[1]: 우리가 부여하는 포트}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00040}00040     \textcolor{comment}{// 해당 포트에 연결 요청을 받을 준비가 된 듣기 식별자 리턴}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00041}00041     \textcolor{comment}{// 즉, 입력ㅂ다은 port로 local에서 passive socket 생성}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00042}00042     listenfd = \mbox{\hyperlink{csapp_8c_ad4fd6435adcb0c952e630dc38695d2b5}{Open\_listenfd}}(argv[1]);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00044}00044     \textcolor{keywordflow}{while} (1) \{}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00045}00045         clientlen = \textcolor{keyword}{sizeof}(clientaddr);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00047}00047         \textcolor{comment}{// 서버는 accept 함수를 호출해서 클라이언트로부터의 연결 요청을 기다림}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00048}00048         \textcolor{comment}{// client 소켓은 server 소켓의 주소를 알고 있으니까}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00049}00049         \textcolor{comment}{// client에서 서버로 넘어올때 addr정보를 가지고 올 것이라고 가정}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00050}00050         \textcolor{comment}{// accept 함수는 연결되면 식별자를 리턴함}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00051}00051         \textcolor{comment}{// 듣기 식별자, 소켓 주소 구조체의 주소, 주소(소켓 구조체)}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00052}00052         connfd = \mbox{\hyperlink{csapp_8c_a32177da4167a0fbe0b9a0b8ad45c6fc1}{Accept}}(listenfd, (\mbox{\hyperlink{csapp_8h_a1d992e140e70ec004f7faee5d0015bfc}{SA}} *)\&clientaddr, \&clientlen);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00054}00054         \textcolor{comment}{// connfd 확인용}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00055}00055         \textcolor{comment}{// 책에는 없는 코드}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00056}00056         printf(\textcolor{stringliteral}{"{}connfd:\%d\(\backslash\)n"{}}, connfd);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00057}00057         }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00058}00058         \textcolor{comment}{// clientaddr의 구조체에 대응되는 hostname, port를 확인}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00059}00059         \mbox{\hyperlink{csapp_8c_ab23b03a07bb2c992b3bba4ac77a8803c}{Getnameinfo}}((\mbox{\hyperlink{csapp_8h_a1d992e140e70ec004f7faee5d0015bfc}{SA}} *) \&clientaddr, clientlen, hostname, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}, port, \mbox{\hyperlink{csapp_8h_a3e937c42922f7601edb17b747602c471}{MAXLINE}}, 0);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00061}00061         \textcolor{comment}{// 어떤 client가 들어왔는지 알려줌}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00062}00062         printf(\textcolor{stringliteral}{"{}Accepted connection from (\%s, \%s)\(\backslash\)n"{}}, hostname, port);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00064}00064         \textcolor{comment}{// connfd로 트랜잭션 수행}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00065}00065         \mbox{\hyperlink{tiny__main_8c_af6fadf4f00ede1251c7cae226549b474}{doit}}(connfd); }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00066}00066         \textcolor{comment}{// connfd로 자신쪽의 연결 끝 닫기}}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00067}00067         \mbox{\hyperlink{csapp_8c_ade6d4842f21ea284e126636e424e6614}{Close}}(connfd);}
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00068}00068     \}   }
+\DoxyCodeLine{\Hypertarget{tiny__main_8c_source_l00069}00069 \}}
+
+\end{DoxyCode}
