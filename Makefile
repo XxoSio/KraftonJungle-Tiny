@@ -7,11 +7,18 @@ LIB = -lpthread
 
 all: tiny cgi
 
-tiny: tiny.c csapp.o
-	$(CC) $(CFLAGS) -o tiny tiny.c csapp.o $(LIB)
+tiny: csapp.o tiny_main.o clienterror.o doit.o parse_uri.o read_requesthdrs.o serve_dynamic.o serve_static.o
+	$(CC) $(CFLAGS) -o tiny tiny_main.o clienterror.o doit.o parse_uri.o read_requesthdrs.o serve_dynamic.o serve_static.o csapp.o $(LIB)
+	rm *.o
 
 csapp.o: csapp.c
-	$(CC) $(CFLAGS) -c csapp.c
+tiny_main.o: tiny_main.c
+clienterror.o: clienterror.c
+doit.o: doit.c
+parse_uri.o: parse_uri.c
+read_requesthdrs.o: read_requesthdrs.c
+serve_dynamic.o: serve_dynamic.c
+serve_static.o: serve_static.c
 
 cgi:
 	(cd cgi-bin; make)
